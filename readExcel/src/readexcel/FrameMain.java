@@ -6,6 +6,8 @@
 package readexcel;
 
 import clases.Excel;
+import cu.cenpis.gps.inv.data.service.UsuarioService;
+import cu.cenpis.gps.inv.read.ContextSingleton;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.context.ApplicationContext;
 
 /**
  *
@@ -184,13 +187,13 @@ public class FrameMain extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(jLabel4)
                         .addComponent(jLabel5)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -199,11 +202,11 @@ public class FrameMain extends javax.swing.JFrame {
                         .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -218,6 +221,9 @@ public class FrameMain extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        //ApplicationContext context = ContextSingleton.getInstance();
+        //UsuarioService usuarioService = (UsuarioService) ContextSingleton.getInstance().getBean("usuarioServiceImpl");
+
         objExcel = new Excel();
         JFileChooser fileChooser = new JFileChooser(".");
         int status = fileChooser.showOpenDialog(null);
@@ -241,7 +247,7 @@ public class FrameMain extends javax.swing.JFrame {
             for (int i = 0; i < objExcel.getListaInfo().size(); i++) {
                 Object[] newRow = new Object[objExcel.getListaInfo().get(i).length];
                 System.arraycopy(objExcel.getListaInfo().get(i), 0, newRow, 0, objExcel.getListaInfo().get(i).length);
-                
+
                 modelo.addRow(newRow);
             }
 
@@ -256,19 +262,19 @@ public class FrameMain extends javax.swing.JFrame {
             SpinnerNumberModel nmFF = new SpinnerNumberModel();
             SpinnerNumberModel nmCI = new SpinnerNumberModel();
             SpinnerNumberModel nmCF = new SpinnerNumberModel();
-            
+
             nmFI.setMinimum(1);
             nmFI.setMaximum(objExcel.getListaInfo().size());
             nmFI.setStepSize(1);
             nmFI.setValue(1);
             jSpinner1.setModel(nmFI);
-            
+
             nmFF.setMinimum(1);
             nmFF.setMaximum(objExcel.getListaInfo().size());
             nmFF.setStepSize(1);
             nmFF.setValue(objExcel.getListaInfo().size());
             jSpinner2.setModel(nmFF);
-            
+
             nmCI.setMinimum(1);
             nmCI.setMaximum(objExcel.getCantidadC() - 1);
             nmCI.setStepSize(1);
@@ -283,8 +289,8 @@ public class FrameMain extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
-    private void llenarTabla(List<String[]> listaInfo){
+
+    private void llenarTabla(List<String[]> listaInfo) {
         jTable1.removeAll();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("");
