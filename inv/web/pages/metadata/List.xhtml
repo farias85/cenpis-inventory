@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMetadataTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MetadataListForm">
+                <p:panel header="#{bundle.ListMetadataTitle}">
+                    <p:dataTable id="datalist" value="#{metadataController.items}" var="item"
+                                 selectionMode="single" selection="#{metadataController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idMetadata}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_idMetadata}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMetadata}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_totalActivos}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totalActivos}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_valorTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_valorTotalMc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorTotalMc}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_depAcuTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.depAcuTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_depAcuTotalMc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.depAcuTotalMc}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_elaborado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.elaborado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_responsable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_revisado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.revisado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMetadataTitle_idRevision}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRevision}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{metadataController.prepareCreate}" update=":MetadataCreateForm" oncomplete="PF('MetadataCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MetadataViewForm" oncomplete="PF('MetadataViewDialog').show()" disabled="#{empty metadataController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MetadataEditForm" oncomplete="PF('MetadataEditDialog').show()" disabled="#{empty metadataController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{metadataController.destroy}" update=":growl,datalist" disabled="#{empty metadataController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

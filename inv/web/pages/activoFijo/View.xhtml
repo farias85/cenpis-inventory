@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActivoFijoViewDlg" widgetVar="ActivoFijoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewActivoFijoTitle}">
+            <h:form id="ActivoFijoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{activoFijoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idActivoFijo}"/>
+                        <h:outputText value="#{activoFijoController.selected.idActivoFijo}" title="#{bundle.ViewActivoFijoTitle_idActivoFijo}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_rotulo}"/>
+                        <h:outputText value="#{activoFijoController.selected.rotulo}" title="#{bundle.ViewActivoFijoTitle_rotulo}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_descripcion}"/>
+                        <h:outputText value="#{activoFijoController.selected.descripcion}" title="#{bundle.ViewActivoFijoTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_valorCuc}"/>
+                        <h:outputText value="#{activoFijoController.selected.valorCuc}" title="#{bundle.ViewActivoFijoTitle_valorCuc}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_valorMn}"/>
+                        <h:outputText value="#{activoFijoController.selected.valorMn}" title="#{bundle.ViewActivoFijoTitle_valorMn}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_tasa}"/>
+                        <h:outputText value="#{activoFijoController.selected.tasa}" title="#{bundle.ViewActivoFijoTitle_tasa}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_depAcuCuc}"/>
+                        <h:outputText value="#{activoFijoController.selected.depAcuCuc}" title="#{bundle.ViewActivoFijoTitle_depAcuCuc}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_depAcuMn}"/>
+                        <h:outputText value="#{activoFijoController.selected.depAcuMn}" title="#{bundle.ViewActivoFijoTitle_depAcuMn}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_valorActualCuc}"/>
+                        <h:outputText value="#{activoFijoController.selected.valorActualCuc}" title="#{bundle.ViewActivoFijoTitle_valorActualCuc}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_valorActualMn}"/>
+                        <h:outputText value="#{activoFijoController.selected.valorActualMn}" title="#{bundle.ViewActivoFijoTitle_valorActualMn}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_responsableText}"/>
+                        <h:outputText value="#{activoFijoController.selected.responsableText}" title="#{bundle.ViewActivoFijoTitle_responsableText}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_estadoText}"/>
+                        <h:outputText value="#{activoFijoController.selected.estadoText}" title="#{bundle.ViewActivoFijoTitle_estadoText}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idEstado}"/>
+                        <h:outputText value="#{activoFijoController.selected.idEstado}" title="#{bundle.ViewActivoFijoTitle_idEstado}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idLocal}"/>
+                        <h:outputText value="#{activoFijoController.selected.idLocal}" title="#{bundle.ViewActivoFijoTitle_idLocal}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idResponsable}"/>
+                        <h:outputText value="#{activoFijoController.selected.idResponsable}" title="#{bundle.ViewActivoFijoTitle_idResponsable}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idRevision}"/>
+                        <h:outputText value="#{activoFijoController.selected.idRevision}" title="#{bundle.ViewActivoFijoTitle_idRevision}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ActivoFijoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

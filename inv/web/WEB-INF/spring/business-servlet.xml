@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="activoFijoService" class="cu.cenpis.gps.inv.data.service.impl.ActivoFijoServiceImpl" />
+
+    <bean id="activoFijoController" class="cu.cenpis.gps.inv.controller.ActivoFijoController" scope="session">
+        <property name="activoFijoService">
+            <ref bean="activoFijoService" />
+        </property>
+    </bean>
+
+
+    <bean id="auditoriaService" class="cu.cenpis.gps.inv.data.service.impl.AuditoriaServiceImpl" />
+
+    <bean id="auditoriaController" class="cu.cenpis.gps.inv.controller.AuditoriaController" scope="session">
+        <property name="auditoriaService">
+            <ref bean="auditoriaService" />
+        </property>
+    </bean>
+
+
+    <bean id="estadoService" class="cu.cenpis.gps.inv.data.service.impl.EstadoServiceImpl" />
+
+    <bean id="estadoController" class="cu.cenpis.gps.inv.controller.EstadoController" scope="session">
+        <property name="estadoService">
+            <ref bean="estadoService" />
+        </property>
+    </bean>
+
+
+    <bean id="localService" class="cu.cenpis.gps.inv.data.service.impl.LocalServiceImpl" />
+
+    <bean id="localController" class="cu.cenpis.gps.inv.controller.LocalController" scope="session">
+        <property name="localService">
+            <ref bean="localService" />
+        </property>
+    </bean>
+
+
+    <bean id="metadataService" class="cu.cenpis.gps.inv.data.service.impl.MetadataServiceImpl" />
+
+    <bean id="metadataController" class="cu.cenpis.gps.inv.controller.MetadataController" scope="session">
+        <property name="metadataService">
+            <ref bean="metadataService" />
+        </property>
+    </bean>
+
+
+    <bean id="responsableService" class="cu.cenpis.gps.inv.data.service.impl.ResponsableServiceImpl" />
+
+    <bean id="responsableController" class="cu.cenpis.gps.inv.controller.ResponsableController" scope="session">
+        <property name="responsableService">
+            <ref bean="responsableService" />
+        </property>
+    </bean>
+
+
+    <bean id="revisionService" class="cu.cenpis.gps.inv.data.service.impl.RevisionServiceImpl" />
+
+    <bean id="revisionController" class="cu.cenpis.gps.inv.controller.RevisionController" scope="session">
+        <property name="revisionService">
+            <ref bean="revisionService" />
+        </property>
+    </bean>
+
+
+    <bean id="rolService" class="cu.cenpis.gps.inv.data.service.impl.RolServiceImpl" />
+
+    <bean id="rolController" class="cu.cenpis.gps.inv.controller.RolController" scope="session">
+        <property name="rolService">
+            <ref bean="rolService" />
+        </property>
+    </bean>
+
+
+    <bean id="usuarioService" class="cu.cenpis.gps.inv.data.service.impl.UsuarioServiceImpl" />
+
+    <bean id="usuarioController" class="cu.cenpis.gps.inv.controller.UsuarioController" scope="session">
+        <property name="usuarioService">
+            <ref bean="usuarioService" />
+        </property>
+    </bean>
+
+</beans>

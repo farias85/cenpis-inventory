@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MetadataViewDlg" widgetVar="MetadataViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMetadataTitle}">
+            <h:form id="MetadataViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{metadataController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMetadataLabel_idMetadata}"/>
+                        <h:outputText value="#{metadataController.selected.idMetadata}" title="#{bundle.ViewMetadataTitle_idMetadata}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_totalActivos}"/>
+                        <h:outputText value="#{metadataController.selected.totalActivos}" title="#{bundle.ViewMetadataTitle_totalActivos}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_valorTotal}"/>
+                        <h:outputText value="#{metadataController.selected.valorTotal}" title="#{bundle.ViewMetadataTitle_valorTotal}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_valorTotalMc}"/>
+                        <h:outputText value="#{metadataController.selected.valorTotalMc}" title="#{bundle.ViewMetadataTitle_valorTotalMc}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_depAcuTotal}"/>
+                        <h:outputText value="#{metadataController.selected.depAcuTotal}" title="#{bundle.ViewMetadataTitle_depAcuTotal}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_depAcuTotalMc}"/>
+                        <h:outputText value="#{metadataController.selected.depAcuTotalMc}" title="#{bundle.ViewMetadataTitle_depAcuTotalMc}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_elaborado}"/>
+                        <h:outputText value="#{metadataController.selected.elaborado}" title="#{bundle.ViewMetadataTitle_elaborado}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_responsable}"/>
+                        <h:outputText value="#{metadataController.selected.responsable}" title="#{bundle.ViewMetadataTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_revisado}"/>
+                        <h:outputText value="#{metadataController.selected.revisado}" title="#{bundle.ViewMetadataTitle_revisado}"/>
+                        <h:outputText value="#{bundle.ViewMetadataLabel_idRevision}"/>
+                        <h:outputText value="#{metadataController.selected.idRevision}" title="#{bundle.ViewMetadataTitle_idRevision}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MetadataViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

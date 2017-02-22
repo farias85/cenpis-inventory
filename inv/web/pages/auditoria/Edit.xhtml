@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuditoriaEditDlg" widgetVar="AuditoriaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAuditoriaTitle}">
+            <h:form id="AuditoriaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{auditoriaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_idAuditoria}" for="idAuditoria" />
+                        <p:inputText id="idAuditoria" value="#{auditoriaController.selected.idAuditoria}" title="#{bundle.EditAuditoriaTitle_idAuditoria}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_idAuditoria}"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{auditoriaController.selected.fecha}" title="#{bundle.EditAuditoriaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_hora}" for="hora" />
+                        <p:calendar id="hora" pattern="MM/dd/yyyy HH:mm:ss" value="#{auditoriaController.selected.hora}" title="#{bundle.EditAuditoriaTitle_hora}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_hora}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{auditoriaController.selected.rotulo}" title="#{bundle.EditAuditoriaTitle_rotulo}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_rotulo}"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_activoAntes}" for="activoAntes" />
+                        <p:inputTextarea rows="4" cols="30" id="activoAntes" value="#{auditoriaController.selected.activoAntes}" title="#{bundle.EditAuditoriaTitle_activoAntes}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_activoAntes}"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_activoDespues}" for="activoDespues" />
+                        <p:inputTextarea rows="4" cols="30" id="activoDespues" value="#{auditoriaController.selected.activoDespues}" title="#{bundle.EditAuditoriaTitle_activoDespues}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_activoDespues}"/>
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{auditoriaController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{auditoriaController.update}" value="#{bundle.Save}" update="display,:AuditoriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AuditoriaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AuditoriaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

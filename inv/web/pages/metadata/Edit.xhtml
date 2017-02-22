@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MetadataEditDlg" widgetVar="MetadataEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMetadataTitle}">
+            <h:form id="MetadataEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{metadataController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_idMetadata}" for="idMetadata" />
+                        <p:inputText id="idMetadata" value="#{metadataController.selected.idMetadata}" title="#{bundle.EditMetadataTitle_idMetadata}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_idMetadata}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_totalActivos}" for="totalActivos" />
+                        <p:inputText id="totalActivos" value="#{metadataController.selected.totalActivos}" title="#{bundle.EditMetadataTitle_totalActivos}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_totalActivos}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_valorTotal}" for="valorTotal" />
+                        <p:inputText id="valorTotal" value="#{metadataController.selected.valorTotal}" title="#{bundle.EditMetadataTitle_valorTotal}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_valorTotal}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_valorTotalMc}" for="valorTotalMc" />
+                        <p:inputText id="valorTotalMc" value="#{metadataController.selected.valorTotalMc}" title="#{bundle.EditMetadataTitle_valorTotalMc}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_valorTotalMc}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_depAcuTotal}" for="depAcuTotal" />
+                        <p:inputText id="depAcuTotal" value="#{metadataController.selected.depAcuTotal}" title="#{bundle.EditMetadataTitle_depAcuTotal}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_depAcuTotal}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_depAcuTotalMc}" for="depAcuTotalMc" />
+                        <p:inputText id="depAcuTotalMc" value="#{metadataController.selected.depAcuTotalMc}" title="#{bundle.EditMetadataTitle_depAcuTotalMc}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_depAcuTotalMc}"/>
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_elaborado}" for="elaborado" />
+                        <p:inputText id="elaborado" value="#{metadataController.selected.elaborado}" title="#{bundle.EditMetadataTitle_elaborado}" />
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_responsable}" for="responsable" />
+                        <p:inputText id="responsable" value="#{metadataController.selected.responsable}" title="#{bundle.EditMetadataTitle_responsable}" />
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_revisado}" for="revisado" />
+                        <p:inputText id="revisado" value="#{metadataController.selected.revisado}" title="#{bundle.EditMetadataTitle_revisado}" />
+                        <p:outputLabel value="#{bundle.EditMetadataLabel_idRevision}" for="idRevision" />
+                        <p:selectOneMenu id="idRevision" value="#{metadataController.selected.idRevision}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_idRevision}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{revisionController.itemsAvailableSelectOne}"
+                                           var="idRevisionItem"
+                                           itemValue="#{idRevisionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{metadataController.update}" value="#{bundle.Save}" update="display,:MetadataListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MetadataEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MetadataEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RevisionViewDlg" widgetVar="RevisionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRevisionTitle}">
+            <h:form id="RevisionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{revisionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRevisionLabel_idRevision}"/>
+                        <h:outputText value="#{revisionController.selected.idRevision}" title="#{bundle.ViewRevisionTitle_idRevision}"/>
+                        <h:outputText value="#{bundle.ViewRevisionLabel_latest}"/>
+                        <h:outputText value="#{revisionController.selected.latest}" title="#{bundle.ViewRevisionTitle_latest}"/>
+                        <h:outputText value="#{bundle.ViewRevisionLabel_fecha}"/>
+                        <h:outputText value="#{revisionController.selected.fecha}" title="#{bundle.ViewRevisionTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRevisionLabel_excel}"/>
+                        <h:outputText value="#{revisionController.selected.excel}" title="#{bundle.ViewRevisionTitle_excel}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RevisionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

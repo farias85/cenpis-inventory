@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Security - Login"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
+                <div class="ui-g-12 ui-md-6 ui-lg-4">
+
+                    <sec:authorize access="isAnonymous()">
+                        <h:form id="loginFormId" prependId="false">
+
+                            <ui:fragment rendered="${!empty param['error']}">
+                                <div class="alert alert-warning alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <strong>Advertencia!</strong> Conexión rechazada: email y/o contraseña incorrectos.
+                                </div>
+                            </ui:fragment>
+
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+
+                            <h:panelGroup id="display">
+                                <p:panelGrid columns="1">
+
+                                    <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="username" />
+                                    <p:inputText id="username" size="100" placeholder="#{bundle.EditUsuarioLabel_email}" title="#{bundle.EditUsuarioLabel_email}" required="true" 
+                                                 requiredMessage="#{bundle.EditUsuarioRequiredMessage_email}"/>
+
+                                    <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasenna}" for="password" />
+                                    <p:password id="password" size="100" title="#{bundle.CreateUsuarioTitle_contrasenna}" required="true" feedback="false"
+                                                requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenna}"/>
+
+                                    <p:commandButton id="btnLoginId" value="Entrar" type="submit" ajax="false"
+                                                     action="#{loginManager.doLogin()}" />
+
+                                </p:panelGrid>
+                            </h:panelGroup>
+                        </h:form>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">                        
+                        <div class="container">
+                            <h1>Usted tiene una sesión abierta.</h1>
+                        </div>
+
+                        <div class="alert alert-danger">
+                            <h:form prependId="false">
+                                <h:commandLink action="#{loginManager.doLogout()}" value="Cerrar sesión"></h:commandLink>
+                            </h:form>  
+                        </div>
+
+                    </sec:authorize>
+                </div>
+                <div class="ui-g-12 ui-lg-4"></div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

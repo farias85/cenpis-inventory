@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- Enable security annotations usage -->
+
+    <bean id="myAuthenticationDetailsSource"
+          class="cu.cenpis.gps.inv.security.MyAuthenticationDetailsSource">
+    </bean>
+
+    <bean id="myAuthenticationProvider" class="cu.cenpis.gps.inv.security.MyAuthenticationProvider">
+        <property name="usuarioService">
+            <ref bean="usuarioService" />
+        </property>
+    </bean>
+
+    <security:authentication-manager>
+        <!-- create a custom AuthenticationProvider class to tune the login process -->
+        <security:authentication-provider
+            ref="myAuthenticationProvider"/>
+    </security:authentication-manager>
+
+    <security:http use-expressions="true">
+        <!-- refers to http://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html -->
+        
+        <security:intercept-url pattern="/static/logout-success.jsf" access="anonymous" />                 
+        <security:intercept-url pattern="/css/**" access="anonymous"/> 
+
+        <security:access-denied-handler error-page="/static/error403.jsf"/>
+
+        <security:form-login login-page="/static/login.jsf"
+                             authentication-failure-url="/static/login.jsf?error=1"
+                             default-target-url="/index.jsf"
+                             authentication-details-source-ref="myAuthenticationDetailsSource"
+                             username-parameter="username" password-parameter="password"/>
+                             
+        <security:logout logout-success-url="/static/logout-success.jsf" />
+        
+    </security:http>
+
+</beans>
