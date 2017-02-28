@@ -5,6 +5,7 @@
  */
 package cu.cenpis.gps.inv.read;
 
+import cu.cenpis.gps.inv.data.service.UsuarioService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,20 +13,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author vladimir
  */
-public class ContextSingleton {
+public class Context {
 
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
-    private ContextSingleton() {
+    private Context() {
         context = new ClassPathXmlApplicationContext("cu/cenpis/gps/inv/config/mvc-dispatcher-servlet.xml");
     }
 
-    private static ContextSingleton mContext;
+    private static Context mContext;
 
-    public static ApplicationContext getInstance() {
+    public static Object getBean(String bean) {
         if (mContext == null) {
-            mContext = new ContextSingleton();        
+            mContext = new Context();
         }
-        return mContext.context;
+        return mContext.context.getBean(bean);
     }
+
+//    public static void main(String[] args) {
+//        UsuarioService usuarioService = (UsuarioService) Context.getBean("usuarioServiceImpl");
+//    }
 }
