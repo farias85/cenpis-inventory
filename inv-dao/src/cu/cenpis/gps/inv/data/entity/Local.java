@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Local implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_local")
     private Long idLocal;
@@ -49,18 +49,13 @@ public class Local implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLocal")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "local")
     private List<ActivoFijo> activoFijoList;
 
     public Local() {
     }
 
-    public Local(Long idLocal) {
-        this.idLocal = idLocal;
-    }
-
-    public Local(Long idLocal, String nombre) {
-        this.idLocal = idLocal;
+    public Local(String nombre) {     
         this.nombre = nombre;
     }
 

@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Metadata implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_metadata")
     private Long idMetadata;
@@ -72,24 +72,20 @@ public class Metadata implements Serializable {
     private String responsable;
     @Size(max = 200)
     private String revisado;
-    @JoinColumn(name = "id_revision", referencedColumnName = "id_revision")
+    @JoinColumn(name = "revision", referencedColumnName = "id_revision")
     @ManyToOne(optional = false)
-    private Revision idRevision;
+    private Revision revision;
 
     public Metadata() {
     }
 
-    public Metadata(Long idMetadata) {
-        this.idMetadata = idMetadata;
-    }
-
-    public Metadata(Long idMetadata, int totalActivos, float valorTotal, float valorTotalMc, float depAcuTotal, float depAcuTotalMc) {
-        this.idMetadata = idMetadata;
+    public Metadata(int totalActivos, float valorTotal, float valorTotalMc, float depAcuTotal, float depAcuTotalMc, Revision revision) {        
         this.totalActivos = totalActivos;
         this.valorTotal = valorTotal;
         this.valorTotalMc = valorTotalMc;
         this.depAcuTotal = depAcuTotal;
         this.depAcuTotalMc = depAcuTotalMc;
+        this.revision = revision;
     }
 
     public Long getIdMetadata() {
@@ -164,12 +160,12 @@ public class Metadata implements Serializable {
         this.revisado = revisado;
     }
 
-    public Revision getIdRevision() {
-        return idRevision;
+    public Revision getRevision() {
+        return revision;
     }
 
-    public void setIdRevision(Revision idRevision) {
-        this.idRevision = idRevision;
+    public void setRevision(Revision revision) {
+        this.revision = revision;
     }
 
     @Override

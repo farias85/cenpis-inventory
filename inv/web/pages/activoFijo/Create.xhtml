@@ -36,29 +36,33 @@
                         <p:inputText id="responsableText" value="#{activoFijoController.selected.responsableText}" title="#{bundle.CreateActivoFijoTitle_responsableText}" required="true" requiredMessage="#{bundle.CreateActivoFijoRequiredMessage_responsableText}"/>
                         <p:outputLabel value="#{bundle.CreateActivoFijoLabel_estadoText}" for="estadoText" />
                         <p:inputText id="estadoText" value="#{activoFijoController.selected.estadoText}" title="#{bundle.CreateActivoFijoTitle_estadoText}" required="true" requiredMessage="#{bundle.CreateActivoFijoRequiredMessage_estadoText}"/>
-                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_idEstado}" for="idEstado" />
-                        <p:selectOneMenu id="idEstado" value="#{activoFijoController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_idEstado}">
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_fechaAlta}" for="fechaAlta" />
+                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{activoFijoController.selected.fechaAlta}" title="#{bundle.EditActivoFijoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_fechaAlta}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_fechaEstadoActual}" for="fechaEstadoActual" />
+                        <p:calendar id="fechaEstadoActual" pattern="MM/dd/yyyy" value="#{activoFijoController.selected.fechaEstadoActual}" title="#{bundle.EditActivoFijoTitle_fechaEstadoActual}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_fechaEstadoActual}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{activoFijoController.selected.estado}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_estado}">
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
-                                           var="idEstadoItem"
-                                           itemValue="#{idEstadoItem}"/>
+                                           var="estadoItem"
+                                           itemValue="#{estadoItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_idLocal}" for="idLocal" />
-                        <p:selectOneMenu id="idLocal" value="#{activoFijoController.selected.idLocal}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_idLocal}">
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_local}" for="local" />
+                        <p:selectOneMenu id="local" value="#{activoFijoController.selected.local}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_local}">
                             <f:selectItems value="#{localController.itemsAvailableSelectOne}"
-                                           var="idLocalItem"
-                                           itemValue="#{idLocalItem}"/>
+                                           var="localItem"
+                                           itemValue="#{localItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_idResponsable}" for="idResponsable" />
-                        <p:selectOneMenu id="idResponsable" value="#{activoFijoController.selected.idResponsable}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_idResponsable}">
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{activoFijoController.selected.responsable}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_responsable}">
                             <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
-                                           var="idResponsableItem"
-                                           itemValue="#{idResponsableItem}"/>
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_idRevision}" for="idRevision" />
-                        <p:selectOneMenu id="idRevision" value="#{activoFijoController.selected.idRevision}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_idRevision}">
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_revision}" for="revision" />
+                        <p:selectOneMenu id="revision" value="#{activoFijoController.selected.revision}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_revision}">
                             <f:selectItems value="#{revisionController.itemsAvailableSelectOne}"
-                                           var="idRevisionItem"
-                                           itemValue="#{idRevisionItem}"/>
+                                           var="revisionItem"
+                                           itemValue="#{revisionItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{activoFijoController.create}" value="#{bundle.Save}" update="display,:ActivoFijoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActivoFijoCreateDialog');"/>

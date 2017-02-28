@@ -36,14 +36,22 @@
                         <h:outputText value="#{activoFijoController.selected.responsableText}" title="#{bundle.ViewActivoFijoTitle_responsableText}"/>
                         <h:outputText value="#{bundle.ViewActivoFijoLabel_estadoText}"/>
                         <h:outputText value="#{activoFijoController.selected.estadoText}" title="#{bundle.ViewActivoFijoTitle_estadoText}"/>
-                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idEstado}"/>
-                        <h:outputText value="#{activoFijoController.selected.idEstado}" title="#{bundle.ViewActivoFijoTitle_idEstado}"/>
-                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idLocal}"/>
-                        <h:outputText value="#{activoFijoController.selected.idLocal}" title="#{bundle.ViewActivoFijoTitle_idLocal}"/>
-                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idResponsable}"/>
-                        <h:outputText value="#{activoFijoController.selected.idResponsable}" title="#{bundle.ViewActivoFijoTitle_idResponsable}"/>
-                        <h:outputText value="#{bundle.ViewActivoFijoLabel_idRevision}"/>
-                        <h:outputText value="#{activoFijoController.selected.idRevision}" title="#{bundle.ViewActivoFijoTitle_idRevision}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_fechaAlta}"/>
+                        <h:outputText value="#{activoFijoController.selected.fechaAlta}" title="#{bundle.ViewActivoFijoTitle_fechaAlta}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_fechaEstadoActual}"/>
+                        <h:outputText value="#{activoFijoController.selected.fechaEstadoActual}" title="#{bundle.ViewActivoFijoTitle_fechaEstadoActual}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_estado}"/>
+                        <h:outputText value="#{activoFijoController.selected.estado}" title="#{bundle.ViewActivoFijoTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_local}"/>
+                        <h:outputText value="#{activoFijoController.selected.local}" title="#{bundle.ViewActivoFijoTitle_local}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_responsable}"/>
+                        <h:outputText value="#{activoFijoController.selected.responsable}" title="#{bundle.ViewActivoFijoTitle_responsable}"/>
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_revision}"/>
+                        <h:outputText value="#{activoFijoController.selected.revision}" title="#{bundle.ViewActivoFijoTitle_revision}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ActivoFijoViewDialog.hide()"/>
                 </h:panelGroup>

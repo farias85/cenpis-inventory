@@ -35,23 +35,31 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRevisionTitle_latest}"/>
+                                <h:outputText value="#{bundle.ListRevisionTitle_activo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.latest}"/>
+                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRevisionTitle_fecha}"/>
+                                <h:outputText value="#{bundle.ListRevisionTitle_fechaEnSistema}"/>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}">
+                            <h:outputText value="#{item.fechaEnSistema}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRevisionTitle_excel}"/>
+                                <h:outputText value="#{bundle.ListRevisionTitle_fechaExcel}"/>
                             </f:facet>
-                            <h:outputText value="#{item.excel}"/>
+                            <h:outputText value="#{item.fechaExcel}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRevisionTitle_excelUrl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.excelUrl}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{revisionController.prepareCreate}" update=":RevisionCreateForm" oncomplete="PF('RevisionCreateDialog').show()"/>

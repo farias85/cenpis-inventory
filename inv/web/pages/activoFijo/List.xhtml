@@ -101,27 +101,43 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_idEstado}"/>
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_fechaAlta}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idEstado}"/>
+                            <h:outputText value="#{item.fechaAlta}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_idLocal}"/>
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_fechaEstadoActual}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idLocal}"/>
+                            <h:outputText value="#{item.fechaEstadoActual}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_idResponsable}"/>
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_estado}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idResponsable}"/>
+                            <h:outputText value="#{item.estado}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_idRevision}"/>
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_local}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idRevision}"/>
+                            <h:outputText value="#{item.local}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_responsable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_revision}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.revision}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{activoFijoController.prepareCreate}" update=":ActivoFijoCreateForm" oncomplete="PF('ActivoFijoCreateDialog').show()"/>
