@@ -49,23 +49,23 @@ public class Metadata implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "total_activos")
-    private int totalActivos;
+    private Integer totalActivos;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_total")
-    private float valorTotal;
+    private Float valorTotal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_total_mc")
-    private float valorTotalMc;
+    private Float valorTotalMc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dep_acu_total")
-    private float depAcuTotal;
+    private Float depAcuTotal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dep_acu_total_mc")
-    private float depAcuTotalMc;
+    private Float depAcuTotalMc;
     @Size(max = 200)
     private String elaborado;
     @Size(max = 200)
@@ -79,7 +79,7 @@ public class Metadata implements Serializable {
     public Metadata() {
     }
 
-    public Metadata(int totalActivos, float valorTotal, float valorTotalMc, float depAcuTotal, float depAcuTotalMc, Revision revision) {        
+    public Metadata(int totalActivos, Float valorTotal, Float valorTotalMc, Float depAcuTotal, Float depAcuTotalMc, Revision revision) {        
         this.totalActivos = totalActivos;
         this.valorTotal = valorTotal;
         this.valorTotalMc = valorTotalMc;
@@ -104,35 +104,35 @@ public class Metadata implements Serializable {
         this.totalActivos = totalActivos;
     }
 
-    public float getValorTotal() {
+    public Float getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(float valorTotal) {
+    public void setValorTotal(Float valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public float getValorTotalMc() {
+    public Float getValorTotalMc() {
         return valorTotalMc;
     }
 
-    public void setValorTotalMc(float valorTotalMc) {
+    public void setValorTotalMc(Float valorTotalMc) {
         this.valorTotalMc = valorTotalMc;
     }
 
-    public float getDepAcuTotal() {
+    public Float getDepAcuTotal() {
         return depAcuTotal;
     }
 
-    public void setDepAcuTotal(float depAcuTotal) {
+    public void setDepAcuTotal(Float depAcuTotal) {
         this.depAcuTotal = depAcuTotal;
     }
 
-    public float getDepAcuTotalMc() {
+    public Float getDepAcuTotalMc() {
         return depAcuTotalMc;
     }
 
-    public void setDepAcuTotalMc(float depAcuTotalMc) {
+    public void setDepAcuTotalMc(Float depAcuTotalMc) {
         this.depAcuTotalMc = depAcuTotalMc;
     }
 
