@@ -3,6 +3,7 @@
  */
 package cu.cenpis.gps.inv.data.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,6 +36,8 @@ public abstract interface BaseService<T, I> {
     public abstract List<T> findNamedQuery(String namedQuery);
 
     public abstract List<T> findNamedQuery(String namedQuery, String paramName, Object value);
+    
+    public abstract List<T> findNamedQuery(String namedQuery, HashMap<String, Object> params);
 
     public abstract List<T> findByExample(final T exampleEntity);
 }

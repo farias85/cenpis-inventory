@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -56,9 +57,8 @@ public class ControllerExcel {
     private String elaborado;
     private String revisado;
     private String responsableText;
-    
+
     //private String excelFilePath;
-   
     public ControllerExcel() {
         this.listaInfo = new ArrayList<>();
         this.listaInfoRe = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ControllerExcel {
         elaborado = "";
         revisado = "";
         responsableText = "";
-       // excelFilePath = "";
+        // excelFilePath = "";
     }
 
     public int getTotalActivos() {
@@ -110,10 +110,9 @@ public class ControllerExcel {
         return responsableText;
     }
 
-   /* public String getExcelFilePath() {
-        return excelFilePath;
-    }*/
-
+    /* public String getExcelFilePath() {
+     return excelFilePath;
+     }*/
     public List<String[]> getListaInfoRe() {
         return listaInfoRe;
     }
@@ -127,7 +126,6 @@ public class ControllerExcel {
     public List<String[]> getListaInfo() {
         return listaInfo;
     }
-    
 
     public void readExcel(String dir) throws IOException {
 
@@ -152,7 +150,7 @@ public class ControllerExcel {
 
             while (cellIterator.hasNext()) {
                 Cell nextCell = cellIterator.next();
-                fila.add((String) getValueCell(nextCell));
+                fila.add(getValueCell(nextCell).toString().trim());
             }
 
             fila.add(0, Integer.toString(i));
@@ -231,30 +229,29 @@ public class ControllerExcel {
             String[] listaInfoRe1 = listaInfoRe.get(j);
             for (int i = 0; i < listaInfoRe1.length; i++) {
                 //if (j > 10) {
-                    if (listaInfoRe1[i].contains("Total de Activos")) {
-                        totalActivos = (int) Float.parseFloat(listaInfoRe1[i + 1]);
+                if (listaInfoRe1[i].contains("Total de Activos")) {
+                    totalActivos = (int) Float.parseFloat(listaInfoRe1[i + 1]);
+                } else {
+                    if (listaInfoRe1[i].contains("Valor Total") && !listaInfoRe1[i].contains("M.C")) {
+                        valorTotal = Float.parseFloat(listaInfoRe1[i + 1]);
                     } else {
-                        if (listaInfoRe1[i].contains("Valor Total") && !listaInfoRe1[i].contains("M.C")) {
-                            valorTotal = Float.parseFloat(listaInfoRe1[i + 1]);
+                        if (listaInfoRe1[i].contains("Valor Total M.C")) {
+                            valorTotalMC = Float.parseFloat(listaInfoRe1[i + 1]);
                         } else {
-                            if (listaInfoRe1[i].contains("Valor Total M.C")) {
-                                valorTotalMC = Float.parseFloat(listaInfoRe1[i + 1]);
+                            if (listaInfoRe1[i].contains("Depreciación Acumulada Total") && !listaInfoRe1[i].contains("M.C")) {
+                                depTotalAcu = Float.parseFloat(listaInfoRe1[i + 1]);
                             } else {
-                                if (listaInfoRe1[i].contains("Depreciación Acumulada Total") && !listaInfoRe1[i].contains("M.C")) {
-                                    depTotalAcu = Float.parseFloat(listaInfoRe1[i + 1]);
+                                if (listaInfoRe1[i].contains("Depreciación Acumulada Total M.C")) {
+                                    depTotalAcuMC = Float.parseFloat(listaInfoRe1[i + 1]);
                                 } else {
-                                    if (listaInfoRe1[i].contains("Depreciación Acumulada Total M.C")) {
-                                        depTotalAcuMC = Float.parseFloat(listaInfoRe1[i + 1]);
+                                    if (listaInfoRe1[i].contains("Elaborado") && !listaInfoRe1[i + 1].contains("Responsable")) {
+                                        elaborado = listaInfoRe1[i + 1].trim();
                                     } else {
-                                        if (listaInfoRe1[i].contains("Elaborado") && !listaInfoRe1[i + 1].contains("Responsable")) {
-                                            elaborado = listaInfoRe1[i + 1];
+                                        if (listaInfoRe1[i].contains("Responsable") && !listaInfoRe1[i + 1].contains("Revisado")) {
+                                            responsableText = listaInfoRe1[i + 1].trim();
                                         } else {
-                                            if (listaInfoRe1[i].contains("Responsable") && !listaInfoRe1[i + 1].contains("Revisado")) {
-                                                responsableText = listaInfoRe1[i + 1];
-                                            } else {
-                                                if (listaInfoRe1[i].contains("Revisado") && listaInfoRe1.length > i + 1) {
-                                                    revisado = listaInfoRe1[i + 1];
-                                                }
+                                            if (listaInfoRe1[i].contains("Revisado") && listaInfoRe1.length > i + 1) {
+                                                revisado = listaInfoRe1[i + 1].trim();
                                             }
                                         }
                                     }
@@ -262,6 +259,7 @@ public class ControllerExcel {
                             }
                         }
                     }
+                }
                 //}
 
             }
@@ -278,67 +276,94 @@ public class ControllerExcel {
 
     public void crearRevision() {
         if (!listaInfoRe.isEmpty()) {
+
             RevisionService revisionService = (RevisionService) Context.getBean("revisionServiceImpl");
-            
+
             Revision revision = new Revision();
             revision.setActivo(true);
-            revision = revisionService.findByExample(revision).get(0);
-            revision.setActivo(false);
-            revisionService.edit(revision);
+            List<Revision> revisiones = revisionService.findByExample(revision);
+            Long idURev = null;//Última revisión activa
             
-            revision = new Revision(true, new Date(), fecha, "Todavia");            
+            if (revisiones.size() > 0) {
+                revision = revisionService.findByExample(revision).get(0);
+                idURev = revisiones.get(0).getIdRevision();
+                revision.setActivo(false);
+                revisionService.edit(revision);
+            }
+
+            revision = new Revision(true, new Date(), fecha, "Todavia");
             revisionService.create(revision);
 
             MetadataService metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
-            Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);           
-            metadata.setElaborado(elaborado);            
+            Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);
+            metadata.setElaborado(elaborado);
             metadata.setResponsable(responsableText);
-            metadata.setRevisado(revisado);            
+            metadata.setRevisado(revisado);
             metadataService.create(metadata);
 
             LocalService localService = (LocalService) Context.getBean("localServiceImpl");
-            Local local = localService.find(0L);
+            Local SinLocal = localService.find(0L);
 
             EstadoService estadoService = (EstadoService) Context.getBean("estadoServiceImpl");
-            Estado estado = estadoService.find(0L);
+            Estado SinEstado = estadoService.find(0L);
 
             ResponsableService responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
-            Responsable responsable = responsableService.find(0L);
+            Responsable SinResponsable = responsableService.find(0L);
 
             ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
-            
-              Date fechaA = null;
-              Date fechaEA = null;
+
+            Date fechaA = null;
+            Date fechaEA = null;
 
             for (int i = 0; i < listaInfoRe.size(); i += 2) {
-               
+
                 try {
                     DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     fechaA = formatter.parse(listaInfoRe.get(i)[9]);
                     fechaEA = formatter.parse(listaInfoRe.get(i)[10]);
-                    } catch (ParseException ex) {
+                } catch (ParseException ex) {
                     Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                 ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
+
+                Local local = null;
+                Estado estado = null;
+                Responsable responsable = null;
+
+                HashMap<String, Object> params = new HashMap<>();
+                params.put("mRotulo", listaInfoRe.get(i)[1]);
+                params.put("idRevision", idURev);
+                List<ActivoFijo> activosFijos = activoFijoService.findNamedQuery("ActivoFijo.findRevision", params);
+
+                if (activosFijos.size() > 0) {
+                    
+                    local = activosFijos.get(0).getLocal();
+                    estado = activosFijos.get(0).getEstado();
+                    responsable = activosFijos.get(0).getResponsable();
+
+                    
+                } else {
+                    local = SinLocal;
+                    estado = SinEstado;
+                    responsable = SinResponsable;
+                }
+
+                ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
                         Float.parseFloat(listaInfoRe.get(i)[4]), Float.parseFloat(listaInfoRe.get(i + 1)[3]), Float.parseFloat(listaInfoRe.get(i + 1)[3]),
                         Float.parseFloat(listaInfoRe.get(i)[5]), Float.parseFloat(listaInfoRe.get(i + 1)[4]), Float.parseFloat(listaInfoRe.get(i)[6]),
                         listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision);
-                                    
-                    //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
-                    // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
-                    //activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
-                    //activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
-                    //activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
-                    //activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
-                    //activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
-                    //activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
-                    
-                    //activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
-                    //activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
-                    //activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
 
-                    activoFijoService.create(activoFijo);
-                
+                //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
+                // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
+                //activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
+                //activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
+                //activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
+                //activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
+                //activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
+                //activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
+                //activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
+                //activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
+                //activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
+                activoFijoService.create(activoFijo);
             }
 
         }

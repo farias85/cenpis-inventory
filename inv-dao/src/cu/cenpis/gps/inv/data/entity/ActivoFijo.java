@@ -46,7 +46,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivoFijo.findByResponsableText", query = "SELECT a FROM ActivoFijo a WHERE a.responsableText = :responsableText"),
     @NamedQuery(name = "ActivoFijo.findByEstadoText", query = "SELECT a FROM ActivoFijo a WHERE a.estadoText = :estadoText"),
     @NamedQuery(name = "ActivoFijo.findByFechaAlta", query = "SELECT a FROM ActivoFijo a WHERE a.fechaAlta = :fechaAlta"),
-    @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual")})
+    @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual"),
+    @NamedQuery(name = "ActivoFijo.findRevision", query = "SELECT a FROM ActivoFijo a WHERE a.rotulo = :mRotulo AND a.revision.idRevision = :idRevision")
+})
 public class ActivoFijo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -127,9 +129,9 @@ public class ActivoFijo implements Serializable {
     public ActivoFijo() {
     }
 
-    public ActivoFijo(String rotulo, String descripcion, Float valorCuc, Float valorMn, 
-            Float tasa, Float depAcuCuc, Float depAcuMn, Float valorActualCuc, 
-            Float valorActualMn, String responsableText, String estadoText, 
+    public ActivoFijo(String rotulo, String descripcion, Float valorCuc, Float valorMn,
+            Float tasa, Float depAcuCuc, Float depAcuMn, Float valorActualCuc,
+            Float valorActualMn, String responsableText, String estadoText,
             Date fechaAlta, Date fechaEstadoActual, Estado estado, Local local,
             Responsable responsable, Revision revision) {
         this.rotulo = rotulo;
