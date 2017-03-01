@@ -46,5 +46,9 @@ public class Main1 {
         ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2, 2, 2, 2, 2,
                 "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
         activoFijoService.create(activoFijo);
+        
+        Revision rev = new Revision();
+        rev.setActivo(Boolean.TRUE);
+        revisionService.findByExample(rev);
     }
 }

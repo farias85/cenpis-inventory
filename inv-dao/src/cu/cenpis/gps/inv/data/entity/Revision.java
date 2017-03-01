@@ -49,7 +49,7 @@ public class Revision implements Serializable {
     private Long idRevision;
     @Basic(optional = false)
     @NotNull
-    private boolean activo;
+    private Boolean activo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_en_sistema")
@@ -73,7 +73,7 @@ public class Revision implements Serializable {
     public Revision() {
     }
 
-    public Revision(boolean activo, Date fechaEnSistema, Date fechaExcel, String excelUrl) {
+    public Revision(Boolean activo, Date fechaEnSistema, Date fechaExcel, String excelUrl) {
         this.activo = activo;
         this.fechaEnSistema = fechaEnSistema;
         this.fechaExcel = fechaExcel;
@@ -88,11 +88,11 @@ public class Revision implements Serializable {
         this.idRevision = idRevision;
     }
 
-    public boolean getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
 
