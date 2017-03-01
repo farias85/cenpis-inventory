@@ -30,11 +30,11 @@
                         <p:inputText id="responsable" value="#{metadataController.selected.responsable}" title="#{bundle.CreateMetadataTitle_responsable}" />
                         <p:outputLabel value="#{bundle.CreateMetadataLabel_revisado}" for="revisado" />
                         <p:inputText id="revisado" value="#{metadataController.selected.revisado}" title="#{bundle.CreateMetadataTitle_revisado}" />
-                        <p:outputLabel value="#{bundle.CreateMetadataLabel_idRevision}" for="idRevision" />
-                        <p:selectOneMenu id="idRevision" value="#{metadataController.selected.idRevision}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_idRevision}">
+                        <p:outputLabel value="#{bundle.CreateMetadataLabel_revision}" for="revision" />
+                        <p:selectOneMenu id="revision" value="#{metadataController.selected.revision}" required="true" requiredMessage="#{bundle.EditMetadataRequiredMessage_revision}">
                             <f:selectItems value="#{revisionController.itemsAvailableSelectOne}"
-                                           var="idRevisionItem"
-                                           itemValue="#{idRevisionItem}"/>
+                                           var="revisionItem"
+                                           itemValue="#{revisionItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{metadataController.create}" value="#{bundle.Save}" update="display,:MetadataListForm:datalist,:growl" oncomplete="handleSubmit(args,'MetadataCreateDialog');"/>

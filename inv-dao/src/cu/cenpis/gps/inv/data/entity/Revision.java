@@ -36,9 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Revision.findAll", query = "SELECT r FROM Revision r"),
     @NamedQuery(name = "Revision.findByIdRevision", query = "SELECT r FROM Revision r WHERE r.idRevision = :idRevision"),
-    @NamedQuery(name = "Revision.findByLatest", query = "SELECT r FROM Revision r WHERE r.latest = :latest"),
-    @NamedQuery(name = "Revision.findByFecha", query = "SELECT r FROM Revision r WHERE r.fecha = :fecha"),
-    @NamedQuery(name = "Revision.findByExcel", query = "SELECT r FROM Revision r WHERE r.excel = :excel")})
+    @NamedQuery(name = "Revision.findByActivo", query = "SELECT r FROM Revision r WHERE r.activo = :activo"),
+    @NamedQuery(name = "Revision.findByFechaEnSistema", query = "SELECT r FROM Revision r WHERE r.fechaEnSistema = :fechaEnSistema"),
+    @NamedQuery(name = "Revision.findByFechaExcel", query = "SELECT r FROM Revision r WHERE r.fechaExcel = :fechaExcel"),
+    @NamedQuery(name = "Revision.findByExcelUrl", query = "SELECT r FROM Revision r WHERE r.excelUrl = :excelUrl")})
 public class Revision implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,18 +49,25 @@ public class Revision implements Serializable {
     private Long idRevision;
     @Basic(optional = false)
     @NotNull
-    private short latest;
+    private boolean activo;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "fecha_en_sistema")
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fechaEnSistema;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_excel")
+    @Temporal(TemporalType.DATE)
+    private Date fechaExcel;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 500)
-    private String excel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRevision")
+    @Column(name = "excel_url")
+    private String excelUrl;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revision")
     private List<Metadata> metadataList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRevision")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revision")
     private List<ActivoFijo> activoFijoList;
 
     public Revision() {
@@ -69,11 +77,12 @@ public class Revision implements Serializable {
         this.idRevision = idRevision;
     }
 
-    public Revision(Long idRevision, short latest, Date fecha, String excel) {
+    public Revision(Long idRevision, boolean activo, Date fechaEnSistema, Date fechaExcel, String excelUrl) {
         this.idRevision = idRevision;
-        this.latest = latest;
-        this.fecha = fecha;
-        this.excel = excel;
+        this.activo = activo;
+        this.fechaEnSistema = fechaEnSistema;
+        this.fechaExcel = fechaExcel;
+        this.excelUrl = excelUrl;
     }
 
     public Long getIdRevision() {
@@ -84,28 +93,36 @@ public class Revision implements Serializable {
         this.idRevision = idRevision;
     }
 
-    public short getLatest() {
-        return latest;
+    public boolean getActivo() {
+        return activo;
     }
 
-    public void setLatest(short latest) {
-        this.latest = latest;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaEnSistema() {
+        return fechaEnSistema;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaEnSistema(Date fechaEnSistema) {
+        this.fechaEnSistema = fechaEnSistema;
     }
 
-    public String getExcel() {
-        return excel;
+    public Date getFechaExcel() {
+        return fechaExcel;
     }
 
-    public void setExcel(String excel) {
-        this.excel = excel;
+    public void setFechaExcel(Date fechaExcel) {
+        this.fechaExcel = fechaExcel;
+    }
+
+    public String getExcelUrl() {
+        return excelUrl;
+    }
+
+    public void setExcelUrl(String excelUrl) {
+        this.excelUrl = excelUrl;
     }
 
     @XmlTransient

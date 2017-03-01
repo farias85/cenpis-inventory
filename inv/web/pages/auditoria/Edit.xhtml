@@ -24,12 +24,12 @@
                         <p:inputTextarea rows="4" cols="30" id="activoAntes" value="#{auditoriaController.selected.activoAntes}" title="#{bundle.EditAuditoriaTitle_activoAntes}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_activoAntes}"/>
                         <p:outputLabel value="#{bundle.EditAuditoriaLabel_activoDespues}" for="activoDespues" />
                         <p:inputTextarea rows="4" cols="30" id="activoDespues" value="#{auditoriaController.selected.activoDespues}" title="#{bundle.EditAuditoriaTitle_activoDespues}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_activoDespues}"/>
-                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{auditoriaController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_idUsuario}">
+                        <p:outputLabel value="#{bundle.EditAuditoriaLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{auditoriaController.selected.usuario}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_usuario}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="idUsuarioItem"
-                                           itemValue="#{idUsuarioItem}"/>
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{auditoriaController.update}" value="#{bundle.Save}" update="display,:AuditoriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AuditoriaEditDialog');"/>

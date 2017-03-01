@@ -72,9 +72,9 @@ public class Metadata implements Serializable {
     private String responsable;
     @Size(max = 200)
     private String revisado;
-    @JoinColumn(name = "id_revision", referencedColumnName = "id_revision")
+    @JoinColumn(name = "revision", referencedColumnName = "id_revision")
     @ManyToOne(optional = false)
-    private Revision idRevision;
+    private Revision revision;
 
     public Metadata() {
     }
@@ -164,12 +164,12 @@ public class Metadata implements Serializable {
         this.revisado = revisado;
     }
 
-    public Revision getIdRevision() {
-        return idRevision;
+    public Revision getRevision() {
+        return revision;
     }
 
-    public void setIdRevision(Revision idRevision) {
-        this.idRevision = idRevision;
+    public void setRevision(Revision revision) {
+        this.revision = revision;
     }
 
     @Override

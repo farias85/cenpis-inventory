@@ -83,9 +83,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMetadataTitle_idRevision}"/>
+                                <h:outputText value="#{bundle.ListMetadataTitle_revision}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idRevision}"/>
+                            <h:outputText value="#{item.revision}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{metadataController.prepareCreate}" update=":MetadataCreateForm" oncomplete="PF('MetadataCreateDialog').show()"/>

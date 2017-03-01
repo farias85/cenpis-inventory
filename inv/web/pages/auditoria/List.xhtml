@@ -69,9 +69,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAuditoriaTitle_idUsuario}"/>
+                                <h:outputText value="#{bundle.ListAuditoriaTitle_usuario}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUsuario}"/>
+                            <h:outputText value="#{item.usuario}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{auditoriaController.prepareCreate}" update=":AuditoriaCreateForm" oncomplete="PF('AuditoriaCreateDialog').show()"/>

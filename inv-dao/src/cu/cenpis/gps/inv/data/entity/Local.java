@@ -49,7 +49,7 @@ public class Local implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLocal")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "local")
     private List<ActivoFijo> activoFijoList;
 
     public Local() {

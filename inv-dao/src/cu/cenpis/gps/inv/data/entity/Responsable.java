@@ -55,7 +55,7 @@ public class Responsable implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idResponsable")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "responsable")
     private List<ActivoFijo> activoFijoList;
 
     public Responsable() {

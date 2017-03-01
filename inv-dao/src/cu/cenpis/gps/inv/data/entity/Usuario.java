@@ -64,7 +64,7 @@ public class Usuario implements Serializable {
     private String contrasenna;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Rol> rolList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Auditoria> auditoriaList;
 
     public Usuario() {

@@ -55,7 +55,8 @@ public class Auditoria implements Serializable {
     private Date hora;
     @Basic(optional = false)
     @NotNull
-    private long rotulo;
+    @Size(min = 1, max = 18)
+    private String rotulo;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -68,9 +69,9 @@ public class Auditoria implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "activo_despues")
     private String activoDespues;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
-    private Usuario idUsuario;
+    private Usuario usuario;
 
     public Auditoria() {
     }
@@ -79,7 +80,7 @@ public class Auditoria implements Serializable {
         this.idAuditoria = idAuditoria;
     }
 
-    public Auditoria(Long idAuditoria, Date fecha, Date hora, long rotulo, String activoAntes, String activoDespues) {
+    public Auditoria(Long idAuditoria, Date fecha, Date hora, String rotulo, String activoAntes, String activoDespues) {
         this.idAuditoria = idAuditoria;
         this.fecha = fecha;
         this.hora = hora;
@@ -112,11 +113,11 @@ public class Auditoria implements Serializable {
         this.hora = hora;
     }
 
-    public long getRotulo() {
+    public String getRotulo() {
         return rotulo;
     }
 
-    public void setRotulo(long rotulo) {
+    public void setRotulo(String rotulo) {
         this.rotulo = rotulo;
     }
 
@@ -136,12 +137,12 @@ public class Auditoria implements Serializable {
         this.activoDespues = activoDespues;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

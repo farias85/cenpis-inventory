@@ -6,6 +6,7 @@
 package cu.cenpis.gps.inv.data.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,7 +44,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivoFijo.findByValorActualCuc", query = "SELECT a FROM ActivoFijo a WHERE a.valorActualCuc = :valorActualCuc"),
     @NamedQuery(name = "ActivoFijo.findByValorActualMn", query = "SELECT a FROM ActivoFijo a WHERE a.valorActualMn = :valorActualMn"),
     @NamedQuery(name = "ActivoFijo.findByResponsableText", query = "SELECT a FROM ActivoFijo a WHERE a.responsableText = :responsableText"),
-    @NamedQuery(name = "ActivoFijo.findByEstadoText", query = "SELECT a FROM ActivoFijo a WHERE a.estadoText = :estadoText")})
+    @NamedQuery(name = "ActivoFijo.findByEstadoText", query = "SELECT a FROM ActivoFijo a WHERE a.estadoText = :estadoText"),
+    @NamedQuery(name = "ActivoFijo.findByFechaAlta", query = "SELECT a FROM ActivoFijo a WHERE a.fechaAlta = :fechaAlta"),
+    @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual")})
 public class ActivoFijo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,7 +56,8 @@ public class ActivoFijo implements Serializable {
     private Long idActivoFijo;
     @Basic(optional = false)
     @NotNull
-    private long rotulo;
+    @Size(min = 1, max = 18)
+    private String rotulo;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -94,18 +100,28 @@ public class ActivoFijo implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "estado_text")
     private String estadoText;
-    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_alta")
+    @Temporal(TemporalType.DATE)
+    private Date fechaAlta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_estado_actual")
+    @Temporal(TemporalType.DATE)
+    private Date fechaEstadoActual;
+    @JoinColumn(name = "estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
-    private Estado idEstado;
-    @JoinColumn(name = "id_local", referencedColumnName = "id_local")
+    private Estado estado;
+    @JoinColumn(name = "local", referencedColumnName = "id_local")
     @ManyToOne(optional = false)
-    private Local idLocal;
-    @JoinColumn(name = "id_responsable", referencedColumnName = "id_responsable")
+    private Local local;
+    @JoinColumn(name = "responsable", referencedColumnName = "id_responsable")
     @ManyToOne(optional = false)
-    private Responsable idResponsable;
-    @JoinColumn(name = "id_revision", referencedColumnName = "id_revision")
+    private Responsable responsable;
+    @JoinColumn(name = "revision", referencedColumnName = "id_revision")
     @ManyToOne(optional = false)
-    private Revision idRevision;
+    private Revision revision;
 
     public ActivoFijo() {
     }
@@ -114,7 +130,7 @@ public class ActivoFijo implements Serializable {
         this.idActivoFijo = idActivoFijo;
     }
 
-    public ActivoFijo(Long idActivoFijo, long rotulo, String descripcion, float valorCuc, float valorMn, float tasa, float depAcuCuc, float depAcuMn, float valorActualCuc, float valorActualMn, String responsableText, String estadoText) {
+    public ActivoFijo(Long idActivoFijo, String rotulo, String descripcion, float valorCuc, float valorMn, float tasa, float depAcuCuc, float depAcuMn, float valorActualCuc, float valorActualMn, String responsableText, String estadoText, Date fechaAlta, Date fechaEstadoActual) {
         this.idActivoFijo = idActivoFijo;
         this.rotulo = rotulo;
         this.descripcion = descripcion;
@@ -127,6 +143,8 @@ public class ActivoFijo implements Serializable {
         this.valorActualMn = valorActualMn;
         this.responsableText = responsableText;
         this.estadoText = estadoText;
+        this.fechaAlta = fechaAlta;
+        this.fechaEstadoActual = fechaEstadoActual;
     }
 
     public Long getIdActivoFijo() {
@@ -137,11 +155,11 @@ public class ActivoFijo implements Serializable {
         this.idActivoFijo = idActivoFijo;
     }
 
-    public long getRotulo() {
+    public String getRotulo() {
         return rotulo;
     }
 
-    public void setRotulo(long rotulo) {
+    public void setRotulo(String rotulo) {
         this.rotulo = rotulo;
     }
 
@@ -225,36 +243,52 @@ public class ActivoFijo implements Serializable {
         this.estadoText = estadoText;
     }
 
-    public Estado getIdEstado() {
-        return idEstado;
+    public Date getFechaAlta() {
+        return fechaAlta;
     }
 
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
     }
 
-    public Local getIdLocal() {
-        return idLocal;
+    public Date getFechaEstadoActual() {
+        return fechaEstadoActual;
     }
 
-    public void setIdLocal(Local idLocal) {
-        this.idLocal = idLocal;
+    public void setFechaEstadoActual(Date fechaEstadoActual) {
+        this.fechaEstadoActual = fechaEstadoActual;
     }
 
-    public Responsable getIdResponsable() {
-        return idResponsable;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIdResponsable(Responsable idResponsable) {
-        this.idResponsable = idResponsable;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
-    public Revision getIdRevision() {
-        return idRevision;
+    public Local getLocal() {
+        return local;
     }
 
-    public void setIdRevision(Revision idRevision) {
-        this.idRevision = idRevision;
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public Responsable getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Responsable responsable) {
+        this.responsable = responsable;
+    }
+
+    public Revision getRevision() {
+        return revision;
+    }
+
+    public void setRevision(Revision revision) {
+        this.revision = revision;
     }
 
     @Override
