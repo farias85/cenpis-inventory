@@ -16,10 +16,8 @@
 
         <ui:define name="body">
 
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
+            <div class="ui-g, login-box2">
                 <div class="ui-g-12 ui-md-6 ui-lg-4">
-
                     <sec:authorize access="isAnonymous()">
                         <h:form id="loginFormId" prependId="false">
 
@@ -32,8 +30,8 @@
 
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 
-                            <h:panelGroup id="display">
-                                <p:panelGrid columns="1">
+                            <h:panelGroup id="display" styleClass="login-box2">
+                                <p:panelGrid columns="2">
 
                                     <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="username" />
                                     <p:inputText id="username" size="100" placeholder="#{bundle.EditUsuarioLabel_email}" title="#{bundle.EditUsuarioLabel_email}" required="true" 
@@ -48,6 +46,7 @@
 
                                 </p:panelGrid>
                             </h:panelGroup>
+                            
                         </h:form>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">                        
@@ -62,7 +61,9 @@
                         </div>
 
                     </sec:authorize>
+                
                 </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
                 <div class="ui-g-12 ui-lg-4"></div>
             </div>
 

@@ -1,50 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
-    </h:head>
+    <ui:composition template="/template_base.xhtml">
 
-    <h:body>
+        <ui:define name="carousel">
+            
+        </ui:define>
+        
+<!--        <ui:define name="service">
+            
+        </ui:define>-->
+        
+        <ui:define name="body">
+            Hello from Facelets XXX
+            <br />
+            <p:link outcome="/pages/activoFijo/List" value="Show All ActivoFijo Items"/>
+            <br />
+            <h:link outcome="/pages/auditoria/List" value="Show All Auditoria Items"/>
+            <br />
+            <h:link outcome="/pages/estado/List" value="Show All Estado Items"/>
+            <br />
+            <h:link outcome="/pages/local/List" value="Show All Local Items"/>
+            <br />
+            <h:link outcome="/pages/metadata/List" value="Show All Metadata Items"/>
+            <br />
+            <h:link outcome="/pages/responsable/List" value="Show All Responsable Items"/>
+            <br />
+            <h:link outcome="/pages/revision/List" value="Show All Revision Items"/>
+            <br />
+            <h:link outcome="/pages/rol/List" value="Show All Rol Items"/>
+            <br />
+            <h:link outcome="/pages/usuario/List" value="Show All Usuario Items"/>        
+        </ui:define>
 
-        <p:growl id="growl" life="3000" />
-
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="ActivoFijo" outcome="/pages/activoFijo/List.xhtml" />
-                            <p:menuitem value="Auditoria" outcome="/pages/auditoria/List.xhtml" />
-                            <p:menuitem value="Estado" outcome="/pages/estado/List.xhtml" />
-                            <p:menuitem value="Local" outcome="/pages/local/List.xhtml" />
-                            <p:menuitem value="Metadata" outcome="/pages/metadata/List.xhtml" />
-                            <p:menuitem value="Responsable" outcome="/pages/responsable/List.xhtml" />
-                            <p:menuitem value="Revision" outcome="/pages/revision/List.xhtml" />
-                            <p:menuitem value="Rol" outcome="/pages/rol/List.xhtml" />
-                            <p:menuitem value="Usuario" outcome="/pages/usuario/List.xhtml" />
-                        </p:submenu>
-                    </p:menubar>
-                </h:form>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-            </p:layoutUnit>
-
-        </p:layout>
-
-    </h:body>
+    </ui:composition>
 
 </html>
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<head>
+<title>Simple page</title>
+</head>
+
+<body>
+	Protected 3!!
+
+	<!-- <h:panelGroup id="header" layout="block">
+    <h1>Header</h1>
+</h:panelGroup>
+<h:panelGroup id="menu" layout="block">
+    <h:form>
+        <f:ajax render="content">
+            <ul>
+                <li>
+                    <h:commandLink value="include1" action="#{bean.setPage('include1')}"/>
+                </li>
+                <li>
+                    <h:commandLink value="include2" action="#{bean.setPage('include2')}"/>
+                </li>
+                <li>
+                    <h:commandLink value="include3" action="#{bean.setPage('include3')}"/>
+                </li>
+            </ul>
+        </f:ajax>
+    </h:form>
+</h:panelGroup> -->
+
+	<!-- <h:panelGroup id="content" layout="block">
+    <ui:include src="/WEB-INF/includes/#{bean.page}.xhtml"/>
+</h:panelGroup> -->
+
+	<!-- <h:panelGroup id="content" layout="block">
+    <ui:fragment rendered="#{bean.page eq 'include1'}">
+        <ui:include src="/WEB-INF/includes/include1.xhtml" />
+    </ui:fragment>
+    <ui:fragment rendered="#{bean.page eq 'include2'}">
+        <ui:include src="/WEB-INF/includes/include2.xhtml" />
+    </ui:fragment>
+    <ui:fragment rendered="#{bean.page eq 'include3'}">
+        <ui:include src="/WEB-INF/includes/include3.xhtml" />
+    </ui:fragment>
+</h:panelGroup> -->
+
+	<div>
+		<sec:authorize ifAnyGranted="ROLE_ADMIN">
+			<h4>
+				Eres un admin
+			</h4>
+		</sec:authorize>
+            
+            <sec:authorize ifAnyGranted="ROLE_USER">
+			<h4>
+				Eres un usuario
+			</h4>
+		</sec:authorize>
+	</div>
+
+	<div>
+		<a href="protected1.jsf">>> Admin Page</a>
+	</div>
+
+	<div>
+		<h:form prependId="false">
+			<h:commandLink action="#{loginManager.doLogout()}" value="Logoutt"></h:commandLink>
+		</h:form>
+	</div>
+
+	
+
+</body>
+
+
+</html>

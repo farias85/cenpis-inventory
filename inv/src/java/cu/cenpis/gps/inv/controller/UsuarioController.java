@@ -16,6 +16,16 @@ public class UsuarioController extends BaseController<Usuario, java.lang.Long> {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
+    
+    private Usuario activeUser;
+
+    public Usuario getActiveUser() {
+        return activeUser;
+    }
+
+    public void setActiveUser(Usuario activeUser) {
+        this.activeUser = activeUser;
+    }
 
     public UsuarioController() {
         super(Usuario.class);
