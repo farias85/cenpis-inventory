@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_usuario")
     private Long idUsuario;
@@ -70,12 +70,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public Usuario(Long idUsuario, String nombre, String apellidos, String email, String contrasenna) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombre, String apellidos, String email, String contrasenna) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -164,5 +159,4 @@ public class Usuario implements Serializable {
     public String toString() {
         return "cu.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
 }

@@ -48,9 +48,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivoFijo.findByFechaAlta", query = "SELECT a FROM ActivoFijo a WHERE a.fechaAlta = :fechaAlta"),
     @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual")})
 public class ActivoFijo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_activo_fijo")
     private Long idActivoFijo;
@@ -126,12 +127,11 @@ public class ActivoFijo implements Serializable {
     public ActivoFijo() {
     }
 
-    public ActivoFijo(Long idActivoFijo) {
-        this.idActivoFijo = idActivoFijo;
-    }
-
-    public ActivoFijo(Long idActivoFijo, String rotulo, String descripcion, float valorCuc, float valorMn, float tasa, float depAcuCuc, float depAcuMn, float valorActualCuc, float valorActualMn, String responsableText, String estadoText, Date fechaAlta, Date fechaEstadoActual) {
-        this.idActivoFijo = idActivoFijo;
+    public ActivoFijo(String rotulo, String descripcion, float valorCuc, float valorMn, 
+            float tasa, float depAcuCuc, float depAcuMn, float valorActualCuc, 
+            float valorActualMn, String responsableText, String estadoText, 
+            Date fechaAlta, Date fechaEstadoActual, Estado estado, Local local,
+            Responsable responsable, Revision revision) {
         this.rotulo = rotulo;
         this.descripcion = descripcion;
         this.valorCuc = valorCuc;
@@ -145,6 +145,10 @@ public class ActivoFijo implements Serializable {
         this.estadoText = estadoText;
         this.fechaAlta = fechaAlta;
         this.fechaEstadoActual = fechaEstadoActual;
+        this.estado = estado;
+        this.local = local;
+        this.responsable = responsable;
+        this.revision = revision;
     }
 
     public Long getIdActivoFijo() {
@@ -315,5 +319,5 @@ public class ActivoFijo implements Serializable {
     public String toString() {
         return "cu.ActivoFijo[ idActivoFijo=" + idActivoFijo + " ]";
     }
-    
+
 }

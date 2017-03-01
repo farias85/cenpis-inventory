@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_rol")
     private Long idRol;
@@ -59,12 +59,7 @@ public class Rol implements Serializable {
     public Rol() {
     }
 
-    public Rol(Long idRol) {
-        this.idRol = idRol;
-    }
-
-    public Rol(Long idRol, String nombre) {
-        this.idRol = idRol;
+    public Rol(String nombre) {
         this.nombre = nombre;
     }
 

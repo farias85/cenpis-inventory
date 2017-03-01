@@ -36,9 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
     @NamedQuery(name = "Estado.findByNombre", query = "SELECT e FROM Estado e WHERE e.nombre = :nombre")})
 public class Estado implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_estado")
     private Long idEstado;
@@ -55,12 +56,7 @@ public class Estado implements Serializable {
     public Estado() {
     }
 
-    public Estado(Long idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public Estado(Long idEstado, String nombre) {
-        this.idEstado = idEstado;
+    public Estado(String nombre) {
         this.nombre = nombre;
     }
 
@@ -121,5 +117,5 @@ public class Estado implements Serializable {
     public String toString() {
         return "cu.Estado[ idEstado=" + idEstado + " ]";
     }
-    
+
 }

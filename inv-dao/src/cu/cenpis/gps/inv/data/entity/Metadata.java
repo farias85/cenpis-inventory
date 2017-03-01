@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Metadata implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_metadata")
     private Long idMetadata;
@@ -79,17 +79,13 @@ public class Metadata implements Serializable {
     public Metadata() {
     }
 
-    public Metadata(Long idMetadata) {
-        this.idMetadata = idMetadata;
-    }
-
-    public Metadata(Long idMetadata, int totalActivos, float valorTotal, float valorTotalMc, float depAcuTotal, float depAcuTotalMc) {
-        this.idMetadata = idMetadata;
+    public Metadata(int totalActivos, float valorTotal, float valorTotalMc, float depAcuTotal, float depAcuTotalMc, Revision revision) {        
         this.totalActivos = totalActivos;
         this.valorTotal = valorTotal;
         this.valorTotalMc = valorTotalMc;
         this.depAcuTotal = depAcuTotal;
         this.depAcuTotalMc = depAcuTotalMc;
+        this.revision = revision;
     }
 
     public Long getIdMetadata() {

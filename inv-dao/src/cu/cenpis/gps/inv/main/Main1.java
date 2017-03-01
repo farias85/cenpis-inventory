@@ -31,23 +31,20 @@ public class Main1 {
         // TODO code application logic here
 
         ApplicationContext context = new ClassPathXmlApplicationContext("cu/cenpis/gps/inv/config/mvc-dispatcher-servlet.xml");
-        UsuarioService usuarioService = (UsuarioService)context.getBean("usuarioServiceImpl");
-        ActivoFijoService activoFijoService = (ActivoFijoService)context.getBean("activoFijoServiceImpl");
-        EstadoService estadoService = (EstadoService)context.getBean("estadoServiceImpl");
-        LocalService localService = (LocalService)context.getBean("localServiceImpl");
-        ResponsableService responsableService = (ResponsableService)context.getBean("responsableServiceImpl");
-        RevisionService revisionService = (RevisionService)context.getBean("revisionServiceImpl");
-        
+        UsuarioService usuarioService = (UsuarioService) context.getBean("usuarioServiceImpl");
+        ActivoFijoService activoFijoService = (ActivoFijoService) context.getBean("activoFijoServiceImpl");
+        EstadoService estadoService = (EstadoService) context.getBean("estadoServiceImpl");
+        LocalService localService = (LocalService) context.getBean("localServiceImpl");
+        ResponsableService responsableService = (ResponsableService) context.getBean("responsableServiceImpl");
+        RevisionService revisionService = (RevisionService) context.getBean("revisionServiceImpl");
+
         Estado estado = estadoService.find(0L);
         Local local = localService.find(0L);
         Responsable responsable = responsableService.find(0L);
         Revision revision = revisionService.find(0L);
-        
-        ActivoFijo activoFijo = new ActivoFijo(Long.MAX_VALUE, "inv-rotulo", "des", 1.5f, 1.0f, 2, 2, 2, 2, 2, "resp", "estado", new Date(), new Date());
-        activoFijo.setEstado(estado);
-        activoFijo.setLocal(local);
-        activoFijo.setResponsable(responsable);
-        activoFijo.setRevision(revision);
+
+        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2, 2, 2, 2, 2,
+                "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
         activoFijoService.create(activoFijo);
     }
 }

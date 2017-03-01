@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Revision implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_revision")
     private Long idRevision;
@@ -73,12 +73,7 @@ public class Revision implements Serializable {
     public Revision() {
     }
 
-    public Revision(Long idRevision) {
-        this.idRevision = idRevision;
-    }
-
-    public Revision(Long idRevision, boolean activo, Date fechaEnSistema, Date fechaExcel, String excelUrl) {
-        this.idRevision = idRevision;
+    public Revision(boolean activo, Date fechaEnSistema, Date fechaExcel, String excelUrl) {
         this.activo = activo;
         this.fechaEnSistema = fechaEnSistema;
         this.fechaExcel = fechaExcel;

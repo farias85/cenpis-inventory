@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Responsable implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_responsable")
     private Long idResponsable;
@@ -60,13 +60,8 @@ public class Responsable implements Serializable {
 
     public Responsable() {
     }
-
-    public Responsable(Long idResponsable) {
-        this.idResponsable = idResponsable;
-    }
-
-    public Responsable(Long idResponsable, String nombre, String email) {
-        this.idResponsable = idResponsable;
+    
+    public Responsable(String nombre, String email) {
         this.nombre = nombre;
         this.email = email;
     }

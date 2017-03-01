@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Auditoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_auditoria")
     private Long idAuditoria;
@@ -76,17 +76,13 @@ public class Auditoria implements Serializable {
     public Auditoria() {
     }
 
-    public Auditoria(Long idAuditoria) {
-        this.idAuditoria = idAuditoria;
-    }
-
-    public Auditoria(Long idAuditoria, Date fecha, Date hora, String rotulo, String activoAntes, String activoDespues) {
-        this.idAuditoria = idAuditoria;
+    public Auditoria(Date fecha, Date hora, String rotulo, String activoAntes, String activoDespues, Usuario usuario) {
         this.fecha = fecha;
         this.hora = hora;
         this.rotulo = rotulo;
         this.activoAntes = activoAntes;
         this.activoDespues = activoDespues;
+        this.usuario = usuario;
     }
 
     public Long getIdAuditoria() {
