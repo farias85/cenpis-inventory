@@ -30,7 +30,7 @@ public class Main1 {
     public static void main(String[] args) {
         // TODO code application logic here
 
-       /* ApplicationContext context = new ClassPathXmlApplicationContext("cu/cenpis/gps/inv/config/mvc-dispatcher-servlet.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("cu/cenpis/gps/inv/config/mvc-dispatcher-servlet.xml");
         UsuarioService usuarioService = (UsuarioService) context.getBean("usuarioServiceImpl");
         ActivoFijoService activoFijoService = (ActivoFijoService) context.getBean("activoFijoServiceImpl");
         EstadoService estadoService = (EstadoService) context.getBean("estadoServiceImpl");
@@ -43,11 +43,11 @@ public class Main1 {
         Responsable responsable = responsableService.find(0L);
         Revision revision = revisionService.find(0L);
 
-        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5, 1.0, 2, 2, 2, 2, 2, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
+        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
         activoFijoService.create(activoFijo);
         
         Revision rev = new Revision();
         rev.setActivo(Boolean.TRUE);
-        revisionService.findByExample(rev);*/
+        revisionService.findByExample(rev);
     }
 }
