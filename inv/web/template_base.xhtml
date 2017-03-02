@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Inventario-CENPIS</ui:insert></title>
+        <!-- Template CSS -->
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="templatemo_style.css"/>
+        <h:outputStylesheet library="js" name="colorbox/colorbox.css"/>
+
+        <!-- Template JS -->
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <!--<h:outputScript library="js" name="jquery.min.js"/>-->
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="stickUp.min.js"/>
+        <h:outputScript library="js" name="colorbox/jquery.colorbox-min.js"/>
+        <h:outputScript library="js" name="templatemo_script.js"/>
+
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+
+                <div class="templatemo-top-bar" id="templatemo-top">
+                    <div class="container">
+                        <div class="subheader">
+                            <div id="phone" class="pull-left">
+                                <h:graphicImage library="images" name="phone.png" id="mphone" />
+                                <!--<img src="images/phone.png" alt="phone"/>-->
+                                22-60-8081
+                            </div>
+                            <div id="email" class="pull-right">
+                                <h:graphicImage library="images" name="email.png" id="memail" />
+                                <!--<img src="images/email.png" alt="email"/>-->
+                                directorcenpis@uo.edu.cu
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="templatemo-top-menu">
+                    <div class="container">
+                        <!-- Static navbar -->
+                        <div class="navbar navbar-default" role="navigation">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a href="#" class="navbar-brand">
+                                        <h:graphicImage library="images" name="templatemo_logo2.png" id="mtemplatemo_logo" />
+                                        <!--<img src="images/templatemo_logo.png" alt="Urbanic Template" title="Urbanic Template" />-->
+                                    </a>
+                                </div>
+                                <div class="navbar-collapse collapse" id="templatemo-nav-bar">
+                                    <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
+                                        <li>
+                                            <h:link value="PRINCIPAL" outcome="/index.xhtml" class="external-link"/>
+                                        </li>
+                                        <li><p:link outcome="/pages/activoFijo/List" value="ACTIVOS FIJOS" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/auditoria/List" value="AUDITORIA" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/estado/List" value="ESTADO" class="external-link"/></li>  
+                                        <li><p:link outcome="/pages/local/List" value="LOCAL" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/metadata/List" value="METADATA" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/responsable/List" value="RESPONSABLE" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/revision/List" value="REVISIÓN" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/rol/List" value="ROL" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/usuario/List" value="USUARIO" class="external-link"/></li>
+                                    </ul>
+                                </div><!--/.nav-collapse -->
+                            </div><!--/.container-fluid -->
+                        </div><!--/.navbar -->
+                    </div> <!-- /container -->
+                </div>
+
+                <ui:insert name="carousel">
+                    <div>
+                        <!-- Carousel -->
+                        <div id="templatemo-carousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#templatemo-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#templatemo-carousel" data-slide-to="1"></li>
+                                <li data-target="#templatemo-carousel" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="container">
+                                        <div class="carousel-caption">
+                                            <h1>WELCOME TO URBANIC</h1>
+                                            <p>CHOOSE THE ONE SUITABLE FOR YOU</p>
+                                            <p><a class="btn btn-lg btn-green" href="#" role="button" style="margin: 20px;">View Demo</a> 
+                                                <a class="btn btn-lg btn-orange" href="#" role="button">Free Download</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="container">
+                                        <div class="carousel-caption">
+                                            <div class="col-sm-6 col-md-6">
+                                                <h1>FLUID</h1>
+                                                <p>Suspendisse pellentesque, odio vel ultricies interdum, mauris nulla ullamcorper magna, non aliquet odio velit aliquam augue.</p>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <h1>ENERGY</h1>
+                                                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam mattis fringilla urna.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="container">
+                                        <div class="carousel-caption">
+                                            <h1>RESPONSIVE LAYOUT</h1>
+                                            <p>This website theme is free to download and use for everyone. This layout is based on Bootstrap framework.</p>
+                                            <p><a class="btn btn-lg btn-orange" href="#" role="button">Read More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                            <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div><!-- /#templatemo-carousel -->
+                    </div>
+                </ui:insert>
+
+                <div class="templatemo-welcome" id="templatemo-welcome">
+                    <div class="container">
+                        <div class="templatemo-slogan text-center">                            
+                            <p class="txt_slogan">
+                                <ui:insert name="body"/>
+                            </p>
+                        </div>	
+                    </div>
+                </div>
+
+                <ui:insert name="service">
+                    <div class="templatemo-service">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <h:graphicImage library="images" name="leaf.png" id="mleaf"/>
+                                            <!--<img src="images/leaf.png" alt="icon" />-->
+                                            <span class="templatemo-service-item-header">AWESOME ICONS</span>
+                                        </div>
+                                        <p>Nam porta adipiscing tortor, eget rutrum turpis bibendum ut. Donec eu lacus in diam euismod imperdiet eu ut turpis. Morbi felis orci, tincidunt pretium laoreet id, euismod et lacus. Praesent aliquet magna vitae mi elementum pharetra.</p>
+                                        <div class="text-center">
+                                            <a href="#" 
+                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
+                                        </div>
+                                        <br class="clearfix"/>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <h:graphicImage library="images" name="mobile.png" id="mmobile"/>
+                                            <!--<img src="images/mobile.png" alt="icon"/>-->
+                                            <span class="templatemo-service-item-header">FULLY RESPONSIVE</span>
+                                        </div>
+                                        <p>Urbanic is a Bootstrap template from templatemo that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
+                                        <div class="text-center">
+                                            <a href="#" 
+                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
+                                        </div>
+                                        <br class="clearfix"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <h:graphicImage library="images" name="battery.png" id="mbattery"/>
+                                            <!--<img src="images/battery.png" alt="icon"/>-->
+                                            <span class="templatemo-service-item-header">HIGH EFFICIENCY</span>
+                                        </div>
+                                        <p>Morbi imperdiet ipsum sit amet dui pharetra, vulputate porta neque tristique. Quisque id turpis tristique, venenatis erat sit amet, venenatis turpis. Ut tellus ipsum, posuere bibendum consectetur vel, egestas sit amet erat. Morbi rhoncus leo fermentum viverra.</p>
+                                        <div class="text-center">
+                                            <a href="#" 
+                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
+                                        </div>
+                                        <br class="clearfix"/>
+                                    </div>
+                                    <br class="clearfix"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ui:insert>
+
+                <div id="templatemo-contact">
+                    <div class="container">
+                        <div class="row">
+                            <div class="templatemo-line-header head_contact">
+                                <div class="text-center">
+                                    <hr class="team_hr team_hr_left hr_gray"/><span class="txt_darkgrey">CONTACT US</span>
+                                    <hr class="team_hr team_hr_right hr_gray"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">                        
+                                <div class="clearfix"></div>
+                                <i>You can find us on 80 Dagon Studio, Yankin Street, <span class="txt_orange">Digital Estate</span> in Yangon.</i>
+                            </div>                    
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </div>
+
+                <div class="templatemo-footer" >
+                    <div class="container">
+                        <div class="row">
+                            <div class="text-center">
+                                <div class="footer_bottom_content">
+                                    <span id="footer-line">Copyright © 2017 <a href="#">Centro de Estudios del Zapote</a></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>
