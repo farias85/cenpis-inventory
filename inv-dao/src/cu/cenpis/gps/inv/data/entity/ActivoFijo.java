@@ -67,30 +67,30 @@ public class ActivoFijo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_cuc")
-    private float valorCuc;
+    private Float valorCuc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_mn")
-    private float valorMn;
+    private Float valorMn;
     @Basic(optional = false)
     @NotNull
-    private float tasa;
+    private Float tasa;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dep_acu_cuc")
-    private float depAcuCuc;
+    private Float depAcuCuc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dep_acu_mn")
-    private float depAcuMn;
+    private Float depAcuMn;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_actual_cuc")
-    private float valorActualCuc;
+    private Float valorActualCuc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor_actual_mn")
-    private float valorActualMn;
+    private Float valorActualMn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -127,9 +127,9 @@ public class ActivoFijo implements Serializable {
     public ActivoFijo() {
     }
 
-    public ActivoFijo(String rotulo, String descripcion, float valorCuc, float valorMn, 
-            float tasa, float depAcuCuc, float depAcuMn, float valorActualCuc, 
-            float valorActualMn, String responsableText, String estadoText, 
+    public ActivoFijo(String rotulo, String descripcion, Float valorCuc, Float valorMn, 
+            Float tasa, Float depAcuCuc, Float depAcuMn, Float valorActualCuc, 
+            Float valorActualMn, String responsableText, String estadoText, 
             Date fechaAlta, Date fechaEstadoActual, Estado estado, Local local,
             Responsable responsable, Revision revision) {
         this.rotulo = rotulo;
@@ -175,59 +175,59 @@ public class ActivoFijo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public float getValorCuc() {
+    public Float getValorCuc() {
         return valorCuc;
     }
 
-    public void setValorCuc(float valorCuc) {
+    public void setValorCuc(Float valorCuc) {
         this.valorCuc = valorCuc;
     }
 
-    public float getValorMn() {
+    public Float getValorMn() {
         return valorMn;
     }
 
-    public void setValorMn(float valorMn) {
+    public void setValorMn(Float valorMn) {
         this.valorMn = valorMn;
     }
 
-    public float getTasa() {
+    public Float getTasa() {
         return tasa;
     }
 
-    public void setTasa(float tasa) {
+    public void setTasa(Float tasa) {
         this.tasa = tasa;
     }
 
-    public float getDepAcuCuc() {
+    public Float getDepAcuCuc() {
         return depAcuCuc;
     }
 
-    public void setDepAcuCuc(float depAcuCuc) {
+    public void setDepAcuCuc(Float depAcuCuc) {
         this.depAcuCuc = depAcuCuc;
     }
 
-    public float getDepAcuMn() {
+    public Float getDepAcuMn() {
         return depAcuMn;
     }
 
-    public void setDepAcuMn(float depAcuMn) {
+    public void setDepAcuMn(Float depAcuMn) {
         this.depAcuMn = depAcuMn;
     }
 
-    public float getValorActualCuc() {
+    public Float getValorActualCuc() {
         return valorActualCuc;
     }
 
-    public void setValorActualCuc(float valorActualCuc) {
+    public void setValorActualCuc(Float valorActualCuc) {
         this.valorActualCuc = valorActualCuc;
     }
 
-    public float getValorActualMn() {
+    public Float getValorActualMn() {
         return valorActualMn;
     }
 
-    public void setValorActualMn(float valorActualMn) {
+    public void setValorActualMn(Float valorActualMn) {
         this.valorActualMn = valorActualMn;
     }
 

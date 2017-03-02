@@ -43,8 +43,7 @@ public class Main1 {
         Responsable responsable = responsableService.find(0L);
         Revision revision = revisionService.find(0L);
 
-        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2, 2, 2, 2, 2,
-                "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
+        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
         activoFijoService.create(activoFijo);
         
         Revision rev = new Revision();

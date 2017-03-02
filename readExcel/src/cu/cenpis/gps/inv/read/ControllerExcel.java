@@ -47,47 +47,50 @@ public class ControllerExcel {
     private List<String[]> listaInfoRe;
 
     private int totalActivos;
-    private float valorTotal;
-    private float valorTotalMC;
-    private float depTotalAcu;
-    private float depTotalAcuMC;
+    private Float valorTotal;
+    private Float valorTotalMC;
+    private Float depTotalAcu;
+    private Float depTotalAcuMC;
     private Date fecha;
 
     private String elaborado;
     private String revisado;
-    private String responsable;
-
+    private String responsableText;
+    
+    //private String excelFilePath;
+   
     public ControllerExcel() {
         this.listaInfo = new ArrayList<>();
         this.listaInfoRe = new ArrayList<>();
         cantidadC = 0;
         totalActivos = 0;
-        valorTotal = 0;
-        valorTotalMC = 0;
-        depTotalAcu = 0;
-        depTotalAcuMC = 0;
+        valorTotal = 0f;
+        valorTotalMC = 0f;
+        depTotalAcu = 0f;
+        depTotalAcuMC = 0f;
         elaborado = "";
         revisado = "";
-        responsable = "";
+        responsableText = "";
+       // excelFilePath = "";
     }
 
     public int getTotalActivos() {
         return totalActivos;
     }
 
-    public float getValorTotal() {
+    public Float getValorTotal() {
         return valorTotal;
     }
 
-    public float getValorTotalMC() {
+    public Float getValorTotalMC() {
         return valorTotalMC;
     }
 
-    public float getDepTotalAcu() {
+    public Float getDepTotalAcu() {
         return depTotalAcu;
     }
 
-    public float getDepTotalAcuMC() {
+    public Float getDepTotalAcuMC() {
         return depTotalAcuMC;
     }
 
@@ -103,9 +106,13 @@ public class ControllerExcel {
         return revisado;
     }
 
-    public String getResponsable() {
-        return responsable;
+    public String getResponsableText() {
+        return responsableText;
     }
+
+   /* public String getExcelFilePath() {
+        return excelFilePath;
+    }*/
 
     public List<String[]> getListaInfoRe() {
         return listaInfoRe;
@@ -120,9 +127,11 @@ public class ControllerExcel {
     public List<String[]> getListaInfo() {
         return listaInfo;
     }
+    
 
     public void readExcel(String dir) throws IOException {
 
+        //excelFilePath = dir;
         FileInputStream inputStream = null;
         inputStream = new FileInputStream(new File(dir));
         Workbook workbook = null;
@@ -218,9 +227,10 @@ public class ControllerExcel {
             Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (String[] listaInfoRe1 : listaInfoRe) {
+        for (int j = 10; j < listaInfoRe.size(); j++) {
+            String[] listaInfoRe1 = listaInfoRe.get(j);
             for (int i = 0; i < listaInfoRe1.length; i++) {
-                if (i > 10) {
+                //if (j > 10) {
                     if (listaInfoRe1[i].contains("Total de Activos")) {
                         totalActivos = (int) Float.parseFloat(listaInfoRe1[i + 1]);
                     } else {
@@ -240,7 +250,7 @@ public class ControllerExcel {
                                             elaborado = listaInfoRe1[i + 1];
                                         } else {
                                             if (listaInfoRe1[i].contains("Responsable") && !listaInfoRe1[i + 1].contains("Revisado")) {
-                                                responsable = listaInfoRe1[i + 1];
+                                                responsableText = listaInfoRe1[i + 1];
                                             } else {
                                                 if (listaInfoRe1[i].contains("Revisado") && listaInfoRe1.length > i + 1) {
                                                     revisado = listaInfoRe1[i + 1];
@@ -252,13 +262,13 @@ public class ControllerExcel {
                             }
                         }
                     }
-                }
+                //}
 
             }
         }
     }
 
-    public void ModificarData(int tA, float vT, float vTMC, float dT, float dTMC) {
+    public void ModificarData(int tA, Float vT, Float vTMC, Float dT, Float dTMC) {
         totalActivos = tA;
         valorTotal = vT;
         valorTotalMC = vTMC;
@@ -271,22 +281,19 @@ public class ControllerExcel {
             RevisionService revisionService = (RevisionService) Context.getBean("revisionServiceImpl");
             
             Revision revision = new Revision();
-            revision.setLatest((short) 1);
-            revision.setExcel("Todavia");
-            revision.setFecha(fecha);
+            revision.setActivo(true);
+            revision = revisionService.findByExample(revision).get(0);
+            revision.setActivo(false);
+            revisionService.edit(revision);
+            
+            revision = new Revision(true, new Date(), fecha, "Todavia");            
             revisionService.create(revision);
 
             MetadataService metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
-            Metadata metadata = new Metadata();
-            metadata.setDepAcuTotal(depTotalAcu);
-            metadata.setDepAcuTotalMc(depTotalAcuMC);
-            metadata.setElaborado(elaborado);
-            metadata.setIdRevision(revision);
-            metadata.setResponsable(responsable);
-            metadata.setRevisado(revisado);
-            metadata.setTotalActivos(totalActivos);
-            metadata.setValorTotal(valorTotal);
-            metadata.setValorTotalMc(valorTotalMC);
+            Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);           
+            metadata.setElaborado(elaborado);            
+            metadata.setResponsable(responsableText);
+            metadata.setRevisado(revisado);            
             metadataService.create(metadata);
 
             LocalService localService = (LocalService) Context.getBean("localServiceImpl");
@@ -299,28 +306,39 @@ public class ControllerExcel {
             Responsable responsable = responsableService.find(0L);
 
             ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
+            
+              Date fechaA = null;
+              Date fechaEA = null;
 
             for (int i = 0; i < listaInfoRe.size(); i += 2) {
-                ActivoFijo activoFijo = new ActivoFijo();
-                activoFijo.setIdRevision(revision);
-                activoFijo.setIdEstado(estado);
-                activoFijo.setIdLocal(local);
-                activoFijo.setIdResponsable(responsable);
+               
+                try {
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    fechaA = formatter.parse(listaInfoRe.get(i)[9]);
+                    fechaEA = formatter.parse(listaInfoRe.get(i)[10]);
+                    } catch (ParseException ex) {
+                    Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
+                        Float.parseFloat(listaInfoRe.get(i)[4]), Float.parseFloat(listaInfoRe.get(i + 1)[3]), Float.parseFloat(listaInfoRe.get(i + 1)[3]),
+                        Float.parseFloat(listaInfoRe.get(i)[5]), Float.parseFloat(listaInfoRe.get(i + 1)[4]), Float.parseFloat(listaInfoRe.get(i)[6]),
+                        listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision);
+                                    
+                    //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
+                    // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
+                    //activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
+                    //activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
+                    //activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
+                    //activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
+                    //activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
+                    //activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
+                    
+                    //activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
+                    //activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
+                    //activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
 
-                activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
-                activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
-                activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
-                activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
-                activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
-                activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
-                activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
-                activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
-
-                activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
-                activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
-                activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
+                    activoFijoService.create(activoFijo);
                 
-                activoFijoService.create(activoFijo);
             }
 
         }

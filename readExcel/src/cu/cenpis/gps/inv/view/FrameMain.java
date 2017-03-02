@@ -458,10 +458,10 @@ public class FrameMain extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int tA = Integer.parseInt(jTextField1.getText());
-        float vT = Float.parseFloat(jTextField2.getText());
-        float vTMC = Float.parseFloat(jTextField3.getText());
-        float dT = Float.parseFloat(jTextField4.getText());
-        float dTMC = Float.parseFloat(jTextField5.getText());
+        Float vT = Float.parseFloat(jTextField2.getText());
+        Float vTMC = Float.parseFloat(jTextField3.getText());
+        Float dT = Float.parseFloat(jTextField4.getText());
+        Float dTMC = Float.parseFloat(jTextField5.getText());
         objExcel.ModificarData(tA, vT, vTMC, dT, dTMC);
     }//GEN-LAST:event_jButton1ActionPerformed
 
