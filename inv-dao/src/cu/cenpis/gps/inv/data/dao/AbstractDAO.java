@@ -3,6 +3,7 @@
  */
 package cu.cenpis.gps.inv.data.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,6 +36,8 @@ public abstract interface AbstractDAO<T, I> {
     public abstract List<T> findNamedQuery(String namedQuery);
 
     public abstract List<T> findNamedQuery(String namedQuery, String paramName, Object value);
+    
+    public abstract List<T> findNamedQuery(String namedQuery, HashMap<String, Object> params);
 
     public abstract List<T> findByExample(final T exampleEntity);
 }

@@ -8,6 +8,7 @@ package cu.cenpis.gps.inv.data.service.impl;
 import cu.cenpis.gps.inv.data.dao.AbstractDAO;
 import cu.cenpis.gps.inv.data.service.BaseService;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,11 @@ public class BaseServiceImpl<T extends Object, I extends Serializable, TDAO exte
     @Override
     public List<T> findNamedQuery(String namedQuery, String paramName, Object value) {
         return dao.findNamedQuery(namedQuery, paramName, value);
+    }
+    
+    @Override
+    public List<T> findNamedQuery(String namedQuery, HashMap<String, Object> params) {
+        return dao.findNamedQuery(namedQuery, params);
     }
 
     @Override

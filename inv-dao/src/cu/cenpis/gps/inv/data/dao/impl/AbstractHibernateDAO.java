@@ -8,9 +8,12 @@ package cu.cenpis.gps.inv.data.dao.impl;
 import cu.cenpis.gps.inv.data.dao.AbstractDAO;
 import cu.cenpis.gps.inv.data.util.HibernateUtil;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.procedure.ProcedureCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -86,7 +89,18 @@ public class AbstractHibernateDAO<T extends Object, I extends Serializable> impl
     public List<T> findNamedQuery(String namedQuery, String paramName, Object value) {
         return hibernateUtil.getSession().getNamedQuery(namedQuery).setParameter(paramName, value).list();
     }
-
+       
+    @Override
+    public List<T> findNamedQuery(String namedQuery, HashMap<String, Object> params) {
+        
+        Query query = hibernateUtil.getSession().getNamedQuery(namedQuery);
+        Object[] keys = params.keySet().toArray();
+        for (int i = 0; i < params.size(); i++) {
+            query.setParameter(keys[i].toString(), params.get(keys[i].toString()));
+        }        
+        return query.list();
+    }
+    
     @Override
     public List<T> findByExample(T exampleEntity) {
         final Example example = Example.create(exampleEntity).
