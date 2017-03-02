@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
 
     <ui:composition template="/template.xhtml">
 
@@ -14,7 +15,17 @@
         </ui:define>
 
         <ui:define name="body">
+
+            <utils:menu-crud id="MenuCrud" controller="#{estadoController}" 
+                             disabledValue="#{estadoController.selected.idEstado}"
+                             datalist=":EstadoListForm:datalist"/>
+
             <h:form id="EstadoListForm">
+
+                <utils:context-menu-crud id="ContextMenu" controller="#{estadoController}" 
+                                         disabledValue="#{estadoController.selected.idEstado}"
+                                         datalist=":EstadoListForm:datalist"/>
+
                 <p:panel header="#{bundle.ListEstadoTitle}">
                     <p:dataTable id="datalist" value="#{estadoController.items}" var="item"
                                  selectionMode="single" selection="#{estadoController.selected}"
@@ -24,15 +35,9 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :EstadoListForm:ContextMenu:context-menu"/>
+                        <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :EstadoListForm:ContextMenu:context-menu"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_idEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idEstado}"/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_nombre}"/>
@@ -45,19 +50,11 @@
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
-                        </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+
         </ui:define>
     </ui:composition>
 

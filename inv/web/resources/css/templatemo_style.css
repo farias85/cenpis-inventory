@@ -122,7 +122,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 /* ------ Welcome & Slogna ------ */
 .templatemo-welcome {
     border-bottom: 1px solid #cccccc;
-    min-height: 230px;
+    /*min-height: 230px;*/
 }
 
 .templatemo-slogan {
@@ -134,8 +134,8 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .templatemo-service {
-    margin-bottom: 100px;
-    margin-top: 100px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .templatemo-service-item {
@@ -412,7 +412,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 #templatemo-contact {
-	margin-top:100px; 
+	/*margin-top:100px;*/ 
 	border-top: 1px solid #cccccc; 
 	font-size:14px;
 }
@@ -457,7 +457,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 
 .templatemo-footer {
 	border-top: 2px solid #cccccc; 
-	margin-top: 100px;
+	margin-top: 20px;
 }
 
 .footer_container {
