@@ -22,7 +22,7 @@ CREATE TABLE `estado` (
   `nombre` varchar(200) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id_estado`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `local` table : 
@@ -33,7 +33,7 @@ CREATE TABLE `local` (
   `nombre` varchar(200) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id_local`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `responsable` table : 
@@ -45,7 +45,7 @@ CREATE TABLE `responsable` (
   `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id_responsable`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `revision` table : 
@@ -58,7 +58,7 @@ CREATE TABLE `revision` (
   `fecha_excel` date NOT NULL,
   `excel_url` varchar(500) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id_revision`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `activo_fijo` table : 
@@ -105,7 +105,7 @@ CREATE TABLE `usuario` (
   `email` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `contrasenna` varchar(200) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `auditoria` table : 
@@ -122,7 +122,7 @@ CREATE TABLE `auditoria` (
   PRIMARY KEY (`id_auditoria`),
   KEY `Refusuario16` (`usuario`),
   CONSTRAINT `Refusuario16` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `metadata` table : 
@@ -153,7 +153,7 @@ CREATE TABLE `rol` (
   `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id_rol`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `usuario_rol` table : 
@@ -196,20 +196,44 @@ UPDATE `responsable` SET `id_responsable`=0 WHERE `id_responsable`=LAST_INSERT_I
 COMMIT;
 
 #
-# Data for the `revision` table  (LIMIT 0,500)
+# Data for the `usuario` table  (LIMIT 0,500)
 #
 
-INSERT INTO `revision` (`id_revision`, `activo`, `fecha_en_sistema`, `fecha_excel`, `excel_url`) VALUES 
-  (0,1,'2017-03-01','2017-03-01','EN_REVISION');
-UPDATE `revision` SET `id_revision`=0 WHERE `id_revision`=LAST_INSERT_ID();
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `email`, `contrasenna`) VALUES 
+  (1,'user','apellido','user@user.com','1000:5b42403130376634393830:016a2770480bc0cdd3cfece16142ef1c92df8228686531b9cd863ba73c7bdcebf36abeb79d4ea8d5619a683ab7c9a0051a94e11d979c8dff236dca3c27fe356f'),
+  (2,'editor','apellido','editor@editor.com','1000:5b42403165343365333233:aae66d71923b595c7abba9cb334b7ee2a26f845fbc3196dd068fef64631199edf528d346c08a3ec0abb137f3b44998bfcb61fe7973c67c1403f163a5c5c81aa5'),
+  (3,'admin','apellido','admin@admin.com','1000:5b42403665643136363537:d17d4d779945e396a0c8ec7fac32d2ec20009ef22c36c97ce816c22022520c6e287bc4f4ddf590905e239cb24764e4fe077ad8c27743224c09b1980d92b173ea');
+
 COMMIT;
 
 #
-# Data for the `activo_fijo` table  (LIMIT 0,500)
+# Data for the `auditoria` table  (LIMIT 0,500)
 #
 
-INSERT INTO `activo_fijo` (`id_activo_fijo`, `rotulo`, `descripcion`, `valor_cuc`, `valor_mn`, `tasa`, `dep_acu_cuc`, `dep_acu_mn`, `valor_actual_cuc`, `valor_actual_mn`, `responsable_text`, `estado_text`, `fecha_alta`, `fecha_estado_actual`, `revision`, `estado`, `responsable`, `local`) VALUES 
-  (1,'inv-rotulo','des',1.5,1,2,2,2,2,2,'resp','estado','2017-03-01','2017-03-01',0,0,0,0);
+INSERT INTO `auditoria` (`id_auditoria`, `fecha`, `hora`, `rotulo`, `activo_antes`, `activo_despues`, `usuario`) VALUES 
+  (1,'2017-03-01','2017-03-01','12121','1212','1212',1);
+
+COMMIT;
+
+#
+# Data for the `rol` table  (LIMIT 0,500)
+#
+
+INSERT INTO `rol` (`id_rol`, `nombre`, `descripcion`) VALUES 
+  (1,'ROLE_USER','ROLE_USER'),
+  (2,'ROLE_EDITOR','ROLE_EDITOR'),
+  (3,'ROLE_ADMIN','ROLE_ADMIN');
+
+COMMIT;
+
+#
+# Data for the `usuario_rol` table  (LIMIT 0,500)
+#
+
+INSERT INTO `usuario_rol` (`id_usuario`, `id_rol`) VALUES 
+  (1,1),
+  (2,2),
+  (3,3);
 
 COMMIT;
 
