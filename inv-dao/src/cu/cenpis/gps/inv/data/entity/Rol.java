@@ -7,7 +7,9 @@ package cu.cenpis.gps.inv.data.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
     @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol"),
-    @NamedQuery(name = "Rol.findByNombre", query = "SELECT r FROM Rol r WHERE r.nombre = :nombre")})
+    @NamedQuery(name = "Rol.findByNombre", query = "SELECT r FROM Rol r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "Rol.findByIdUsuario", query = "SELECT DISTINCT r FROM Rol r join r.usuarioList u WHERE u.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Rol.findByIdUsuarioNotIn", query = "SELECT r FROM Rol r WHERE r.idRol NOT IN("
+            + "SELECT r2 FROM Rol r2 join r2.usuarioList u2 WHERE u2.idUsuario = :idUsuario)"),
+})
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,11 +56,12 @@ public class Rol implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
+    
     @JoinTable(name = "usuario_rol", joinColumns = {
         @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")}, inverseJoinColumns = {
         @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")})
-    @ManyToMany
-    private List<Usuario> usuarioList;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private Set<Usuario> usuarioList;
 
     public Rol() {
     }
@@ -88,11 +95,11 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuario> getUsuarioList() {
+    public Set<Usuario> getUsuarioList() {
         return usuarioList;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
+    public void setUsuarioList(Set<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
     }
 

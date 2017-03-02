@@ -29,6 +29,8 @@
         
         <security:intercept-url pattern="/static/logout-success.jsf" access="anonymous" />                 
         <security:intercept-url pattern="/css/**" access="anonymous"/> 
+        
+        <security:intercept-url pattern="/protected3.jsf" access="hasRole('ROLE_ADMIN')"/>
 
         <security:access-denied-handler error-page="/static/error403.jsf"/>
 

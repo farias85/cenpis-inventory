@@ -10,14 +10,21 @@ import cu.cenpis.gps.inv.data.entity.Estado;
 import cu.cenpis.gps.inv.data.entity.Local;
 import cu.cenpis.gps.inv.data.entity.Responsable;
 import cu.cenpis.gps.inv.data.entity.Revision;
+import cu.cenpis.gps.inv.data.entity.Usuario;
 import cu.cenpis.gps.inv.data.service.ActivoFijoService;
 import cu.cenpis.gps.inv.data.service.EstadoService;
 import cu.cenpis.gps.inv.data.service.LocalService;
 import cu.cenpis.gps.inv.data.service.ResponsableService;
 import cu.cenpis.gps.inv.data.service.RevisionService;
 import cu.cenpis.gps.inv.data.service.UsuarioService;
+import cu.cenpis.gps.inv.security.SecuredPassword;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -43,11 +50,17 @@ public class Main1 {
         Responsable responsable = responsableService.find(0L);
         Revision revision = revisionService.find(0L);
 
-        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
-        activoFijoService.create(activoFijo);
+//        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
+//        activoFijoService.create(activoFijo);
         
-        Revision rev = new Revision();
-        rev.setActivo(Boolean.TRUE);
-        revisionService.findByExample(rev);
+//        List<Usuario> lu = usuarioService.findAll();
+//        for (Usuario var : lu) {
+//            try {
+//                var.setContrasenna(SecuredPassword.generateStorngPasswordHash(var.getEmail()));
+//            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+//                Logger.getLogger(Main1.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            usuarioService.edit(var);
+//        }
     }
 }

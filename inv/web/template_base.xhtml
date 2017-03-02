@@ -12,7 +12,7 @@
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="templatemo_style.css"/>
         <h:outputStylesheet library="js" name="colorbox/colorbox.css"/>
-        <h:outputStylesheet library="css" name="mycss.css"/>
+        <h:outputStylesheet library="css" name="mycss.css"/>        
 
         <!-- Template JS -->
         <h:outputScript library="js" name="jsfcrud.js"/>
@@ -158,12 +158,7 @@
                                             <h:graphicImage library="images" name="leaf.png" id="mleaf"/>
                                             <!--<img src="images/leaf.png" alt="icon" />-->
                                             <span class="templatemo-service-item-header">AWESOME ICONS</span>
-                                        </div>
-                                        <p>Nam porta adipiscing tortor, eget rutrum turpis bibendum ut. Donec eu lacus in diam euismod imperdiet eu ut turpis. Morbi felis orci, tincidunt pretium laoreet id, euismod et lacus. Praesent aliquet magna vitae mi elementum pharetra.</p>
-                                        <div class="text-center">
-                                            <a href="#" 
-                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
-                                        </div>
+                                        </div>                                        
                                         <br class="clearfix"/>
                                     </div>
                                     <div class="clearfix"></div>
@@ -172,15 +167,13 @@
                                 <div class="col-md-4">
                                     <div class="templatemo-service-item">
                                         <div>
-                                            <h:graphicImage library="images" name="mobile.png" id="mmobile"/>
+                                            <p:link outcome="/protected3.jsf" class="external-link">
+                                                <h:graphicImage library="images" name="mobile.png" id="mmobile"/>
+                                            </p:link>
+                                            
                                             <!--<img src="images/mobile.png" alt="icon"/>-->
-                                            <span class="templatemo-service-item-header">FULLY RESPONSIVE</span>
-                                        </div>
-                                        <p>Urbanic is a Bootstrap template from templatemo that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
-                                        <div class="text-center">
-                                            <a href="#" 
-                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
-                                        </div>
+                                            <span class="templatemo-service-item-header">TO PRETECTED3.JSF</span>
+                                        </div>                                        
                                         <br class="clearfix"/>
                                     </div>
 
@@ -189,15 +182,13 @@
                                 <div class="col-md-4">
                                     <div class="templatemo-service-item">
                                         <div>
-                                            <h:graphicImage library="images" name="battery.png" id="mbattery"/>
-                                            <!--<img src="images/battery.png" alt="icon"/>-->
-                                            <span class="templatemo-service-item-header">HIGH EFFICIENCY</span>
-                                        </div>
-                                        <p>Morbi imperdiet ipsum sit amet dui pharetra, vulputate porta neque tristique. Quisque id turpis tristique, venenatis erat sit amet, venenatis turpis. Ut tellus ipsum, posuere bibendum consectetur vel, egestas sit amet erat. Morbi rhoncus leo fermentum viverra.</p>
-                                        <div class="text-center">
-                                            <a href="#" 
-                                               class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
-                                        </div>
+                                            <h:form prependId="false">
+                                                <h:commandLink action="#{loginManager.doLogout()}">
+                                                    <h:graphicImage library="images" name="battery.png" id="mbattery"></h:graphicImage>
+                                                </h:commandLink>                                         
+                                                <span class="templatemo-service-item-header">CERRAR SESIÓN</span>
+                                            </h:form>  
+                                        </div>                                        
                                         <br class="clearfix"/>
                                     </div>
                                     <br class="clearfix"/>
