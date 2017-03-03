@@ -45,10 +45,12 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Apunte implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_apunte")
     private Integer idApunte;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 100)
     private String rotulo;
     @Basic(optional = false)
@@ -73,15 +75,12 @@ public class Apunte implements Serializable {
     public Apunte() {
     }
 
-    public Apunte(Integer idApunte) {
-        this.idApunte = idApunte;
-    }
-
-    public Apunte(Integer idApunte, Date fecha, String asunto, String observacion) {
-        this.idApunte = idApunte;
+    public Apunte(String rotulo, Date fecha, String asunto, String observacion, Usuario usuario) {
+        this.rotulo = rotulo;
         this.fecha = fecha;
         this.asunto = asunto;
         this.observacion = observacion;
+        this.usuario = usuario;
     }
 
     public Integer getIdApunte() {

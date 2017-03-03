@@ -30,9 +30,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Chequeo.findAll", query = "SELECT c FROM Chequeo c"),
     @NamedQuery(name = "Chequeo.findByIdChequeo", query = "SELECT c FROM Chequeo c WHERE c.idChequeo = :idChequeo")})
 public class Chequeo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_chequeo")
     private Integer idChequeo;
@@ -49,8 +50,10 @@ public class Chequeo implements Serializable {
     public Chequeo() {
     }
 
-    public Chequeo(Integer idChequeo) {
-        this.idChequeo = idChequeo;
+    public Chequeo(Informe informe, Apunte apunte, TipoResultado tipoResultado) {
+        this.informe = informe;
+        this.apunte = apunte;
+        this.tipoResultado = tipoResultado;
     }
 
     public Integer getIdChequeo() {
@@ -109,5 +112,5 @@ public class Chequeo implements Serializable {
     public String toString() {
         return "cu.Chequeo[ idChequeo=" + idChequeo + " ]";
     }
-    
+
 }

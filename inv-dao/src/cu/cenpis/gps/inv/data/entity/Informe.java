@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Informe implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_informe")
     private Integer idInforme;
@@ -50,19 +50,14 @@ public class Informe implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @NotNull
-    private boolean completado;
+    private Boolean completado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "informe")
     private List<Chequeo> chequeoList;
 
     public Informe() {
     }
 
-    public Informe(Integer idInforme) {
-        this.idInforme = idInforme;
-    }
-
-    public Informe(Integer idInforme, Date fecha, boolean completado) {
-        this.idInforme = idInforme;
+    public Informe(Date fecha, Boolean completado) {
         this.fecha = fecha;
         this.completado = completado;
     }
@@ -83,11 +78,11 @@ public class Informe implements Serializable {
         this.fecha = fecha;
     }
 
-    public boolean getCompletado() {
+    public Boolean getCompletado() {
         return completado;
     }
 
-    public void setCompletado(boolean completado) {
+    public void setCompletado(Boolean completado) {
         this.completado = completado;
     }
 

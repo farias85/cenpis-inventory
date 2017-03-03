@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TipoResultado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id_tipo_resultado")
     private Integer idTipoResultado;
@@ -55,13 +55,9 @@ public class TipoResultado implements Serializable {
     public TipoResultado() {
     }
 
-    public TipoResultado(Integer idTipoResultado) {
-        this.idTipoResultado = idTipoResultado;
-    }
-
-    public TipoResultado(Integer idTipoResultado, String nombre) {
-        this.idTipoResultado = idTipoResultado;
+    public TipoResultado(String nombre, String descripcion) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public Integer getIdTipoResultado() {
