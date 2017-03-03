@@ -47,7 +47,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivoFijo.findByEstadoText", query = "SELECT a FROM ActivoFijo a WHERE a.estadoText = :estadoText"),
     @NamedQuery(name = "ActivoFijo.findByFechaAlta", query = "SELECT a FROM ActivoFijo a WHERE a.fechaAlta = :fechaAlta"),
     @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual"),
-    @NamedQuery(name = "ActivoFijo.findRevision", query = "SELECT a FROM ActivoFijo a WHERE a.rotulo = :mRotulo AND a.revision.idRevision = :idRevision")
+    @NamedQuery(name = "ActivoFijo.findRevision", query = "SELECT a FROM ActivoFijo a WHERE a.rotulo = :mRotulo AND a.revision.idRevision = :idRevision"),
+    @NamedQuery(name = "ActivoFijo.findByRevisionActiva", query = "SELECT a FROM ActivoFijo a WHERE a.revision.activo = 1")
 })
 public class ActivoFijo implements Serializable {
 

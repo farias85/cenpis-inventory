@@ -4,109 +4,68 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
 
     <ui:composition template="/template.xhtml">
-
 
         <ui:define name="title">
             <h:outputText value="#{bundle.ListActivoFijoTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
+
+            <utils:menu-view-edit id="MenuCrud" controller="#{activoFijoController}" 
+                                  disabledValue="#{activoFijoController.selected.idActivoFijo}"
+                                  datalist=":ActivoFijoListForm:datalist"/>
+
             <h:form id="ActivoFijoListForm">
+
+                <utils:menu-view-edit-context id="ContextMenu" controller="#{activoFijoController}" 
+                                              disabledValue="#{activoFijoController.selected.idActivoFijo}"
+                                              datalist=":ActivoFijoListForm:datalist"/>
+
                 <p:panel header="#{bundle.ListActivoFijoTitle}">
                     <p:dataTable id="datalist" value="#{activoFijoController.items}" var="item"
                                  selectionMode="single" selection="#{activoFijoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idActivoFijo}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 rows="25"
+                                 rowsPerPageTemplate="25,40,60"
+                                 reflow="true"
+                                 widgetVar="dtable"
+                                 emptyMessage="#{bundle.TableQueryNotFound}" 
+                                 filteredValue="#{activoFijoController.filtered}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage url="#{resource['images/export/pdf-icon.png']}" />                                
+                                <p:dataExporter type="pdf" target="datalist" fileName="aft" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <p:graphicImage url="#{resource['images/export/excel-icon.png']}" />                                
+                                <p:dataExporter type="xls" target="datalist" fileName="aft" />
+                            </h:commandLink>
+                        </f:facet>
+                        
+                        <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
+                        <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_idActivoFijo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idActivoFijo}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.rotulo}" sortBy="#{item.rotulo}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActivoFijoTitle_rotulo}"/>
                             </f:facet>
                             <h:outputText value="#{item.rotulo}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column filterBy="#{item.descripcion}" sortBy="#{item.descripcion}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActivoFijoTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_valorCuc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorCuc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_valorMn}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorMn}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_tasa}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tasa}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_depAcuCuc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.depAcuCuc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_depAcuMn}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.depAcuMn}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_valorActualCuc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorActualCuc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_valorActualMn}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.valorActualMn}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_responsableText}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsableText}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_estadoText}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.estadoText}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_fechaAlta}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaAlta}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                        </p:column>  
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActivoFijoTitle_fechaEstadoActual}"/>
@@ -114,50 +73,67 @@
                             <h:outputText value="#{item.fechaEstadoActual}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_estado}"/>
+                        </p:column>          
+
+                        <p:column filterBy="#{item.estado.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_estado}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                                   var="estadoItem"
+                                                   itemValue="#{estadoItem.nombre}"
+                                                   itemLabel="#{estadoItem.nombre}"/>
+                                </p:selectCheckboxMenu>
                             </f:facet>
-                            <h:outputText value="#{item.estado}"/>
+                            <h:outputText value="#{item.estado.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_local}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.local}"/>
+
+                        <p:column filterBy="#{item.local.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_local}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                                   var="localItem"
+                                                   itemValue="#{localItem.nombre}"
+                                                   itemLabel="#{localItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>                            
+                            <h:outputText value="#{item.local.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_responsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
+
+                        <p:column filterBy="#{item.responsable.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_responsable}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                                   var="responsableItem"
+                                                   itemValue="#{responsableItem.nombre}"
+                                                   itemLabel="#{responsableItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet> 
+                            <h:outputText value="#{item.responsable.nombre}"/>
                         </p:column>
+
+                        <p:column filterBy="#{item.tipoActivo.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_tipoActivo}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{tipoActivoController.itemsAvailableSelectOne}"
+                                                   var="tipoActivoItem"
+                                                   itemValue="#{tipoActivoItem.nombre}"
+                                                   itemLabel="#{tipoActivoItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>                             
+                            <h:outputText value="#{item.tipoActivo.nombre}"/>
+                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListActivoFijoTitle_revision}"/>
                             </f:facet>
-                            <h:outputText value="#{item.revision}"/>
+                            <h:outputText value="#{item.revision.idRevision}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListActivoFijoTitle_tipoActivo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipoActivo}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{activoFijoController.prepareCreate}" update=":ActivoFijoCreateForm" oncomplete="PF('ActivoFijoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActivoFijoViewForm" oncomplete="PF('ActivoFijoViewDialog').show()" disabled="#{empty activoFijoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ActivoFijoEditForm" oncomplete="PF('ActivoFijoEditDialog').show()" disabled="#{empty activoFijoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{activoFijoController.destroy}" update=":growl,datalist" disabled="#{empty activoFijoController.selected}"/>
-                        </f:facet>
+
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

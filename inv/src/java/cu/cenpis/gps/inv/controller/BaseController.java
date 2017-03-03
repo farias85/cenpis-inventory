@@ -49,7 +49,7 @@ public abstract class BaseController<T, I>
     /**
      * Lista de todos los elementos con que funciona el controlador.
      */
-    private List<T> items = null;
+    protected List<T> items = null;
 
     /**
      * Elementos de ayuda para facilitar el filtrado en cada uno de los

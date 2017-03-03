@@ -12,3 +12,8 @@ and open the template in the editor.
 {
     border-style: none !important
 }
+
+table
+{
+    text-align: left
+}

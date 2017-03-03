@@ -22,7 +22,7 @@
 
             <h:form id="EstadoListForm">
 
-                <utils:context-menu-crud id="ContextMenu" controller="#{estadoController}" 
+                <utils:menu-crud-context id="ContextMenu" controller="#{estadoController}" 
                                          disabledValue="#{estadoController.selected.idEstado}"
                                          datalist=":EstadoListForm:datalist"/>
 
@@ -44,12 +44,14 @@
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
+                        
                     </p:dataTable>
                 </p:panel>
             </h:form>
