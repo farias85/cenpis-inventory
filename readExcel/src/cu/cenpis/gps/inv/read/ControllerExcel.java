@@ -11,12 +11,14 @@ import cu.cenpis.gps.inv.data.entity.Local;
 import cu.cenpis.gps.inv.data.entity.Metadata;
 import cu.cenpis.gps.inv.data.entity.Responsable;
 import cu.cenpis.gps.inv.data.entity.Revision;
+import cu.cenpis.gps.inv.data.entity.TipoActivo;
 import cu.cenpis.gps.inv.data.service.ActivoFijoService;
 import cu.cenpis.gps.inv.data.service.EstadoService;
 import cu.cenpis.gps.inv.data.service.LocalService;
 import cu.cenpis.gps.inv.data.service.MetadataService;
 import cu.cenpis.gps.inv.data.service.ResponsableService;
 import cu.cenpis.gps.inv.data.service.RevisionService;
+import cu.cenpis.gps.inv.data.service.TipoActivoService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -283,7 +285,7 @@ public class ControllerExcel {
             revision.setActivo(true);
             List<Revision> revisiones = revisionService.findByExample(revision);
             Long idURev = null;//Última revisión activa
-            
+
             if (revisiones.size() > 0) {
                 revision = revisionService.findByExample(revision).get(0);
                 idURev = revisiones.get(0).getIdRevision();
@@ -310,6 +312,9 @@ public class ControllerExcel {
             ResponsableService responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
             Responsable SinResponsable = responsableService.find(0L);
 
+            TipoActivoService tipoActivoService = (TipoActivoService) Context.getBean("tipoActivoServiceImpl");
+            TipoActivo SinTipoActivo = tipoActivoService.find(0);
+
             ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
 
             Date fechaA = null;
@@ -325,9 +330,10 @@ public class ControllerExcel {
                     Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                Local local = null;
-                Estado estado = null;
-                Responsable responsable = null;
+                Local local;
+                Estado estado;
+                Responsable responsable;
+                TipoActivo tipoActivo;
 
                 HashMap<String, Object> params = new HashMap<>();
                 params.put("mRotulo", listaInfoRe.get(i)[1]);
@@ -335,22 +341,23 @@ public class ControllerExcel {
                 List<ActivoFijo> activosFijos = activoFijoService.findNamedQuery("ActivoFijo.findRevision", params);
 
                 if (activosFijos.size() > 0) {
-                    
+
                     local = activosFijos.get(0).getLocal();
                     estado = activosFijos.get(0).getEstado();
                     responsable = activosFijos.get(0).getResponsable();
+                    tipoActivo = activosFijos.get(0).getTipoActivo();
 
-                    
                 } else {
                     local = SinLocal;
                     estado = SinEstado;
                     responsable = SinResponsable;
+                    tipoActivo = SinTipoActivo;
                 }
 
                 ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
                         Float.parseFloat(listaInfoRe.get(i)[4]), Float.parseFloat(listaInfoRe.get(i + 1)[3]), Float.parseFloat(listaInfoRe.get(i + 1)[3]),
                         Float.parseFloat(listaInfoRe.get(i)[5]), Float.parseFloat(listaInfoRe.get(i + 1)[4]), Float.parseFloat(listaInfoRe.get(i)[6]),
-                        listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision);
+                        listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision, tipoActivo);
 
                 //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
                 // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);

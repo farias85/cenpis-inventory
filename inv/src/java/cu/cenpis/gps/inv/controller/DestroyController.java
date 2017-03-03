@@ -16,18 +16,25 @@ public class DestroyController implements Serializable {
 
     public void destroySession() {
         
-//        destroyVars(DiagnosticoController.class);
-//        destroyVars(EspecialidadController.class);
-//        destroyVars(EstudioController.class);
-//        destroyVars(MedicoController.class);
-//        destroyVars(PacienteController.class);
-//        destroyVars(ProcedenciaController.class);
-//        destroyVars(RolController.class);
-//        destroyVars(TipoEstudioController.class);
-//        destroyVars(UsuarioController.class);
-//        
-//        UsuarioController uc = JsfUtil.getController(UsuarioController.class);
-//        uc.setActiveUser(null);
+        destroyVars(ActivoFijoController.class);
+        destroyVars(ApunteController.class);
+        destroyVars(AuditoriaController.class);
+        destroyVars(ChequeoController.class);
+        destroyVars(EstadoController.class);
+        destroyVars(InformeController.class);
+        destroyVars(LocalController.class);
+        
+        destroyVars(MetadataController.class);
+        destroyVars(ResponsableController.class);
+        destroyVars(RevisionController.class);
+        destroyVars(TipoActivoController.class);
+        destroyVars(TipoResultadoController.class);
+        
+        destroyVars(RolController.class);        
+        destroyVars(UsuarioController.class);
+        
+        UsuarioController uc = JsfUtil.getController(UsuarioController.class);
+        uc.setActiveUser(null);
     }
 
     private void destroyVars(Class<? extends BaseController> type) {

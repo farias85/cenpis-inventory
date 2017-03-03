@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ChequeoEditDlg" widgetVar="ChequeoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditChequeoTitle}">
+            <h:form id="ChequeoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{chequeoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditChequeoLabel_idChequeo}" for="idChequeo" />
+                        <p:inputText id="idChequeo" value="#{chequeoController.selected.idChequeo}" title="#{bundle.EditChequeoTitle_idChequeo}" required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_idChequeo}"/>
+                        <p:outputLabel value="#{bundle.EditChequeoLabel_apunte}" for="apunte" />
+                        <p:selectOneMenu id="apunte" value="#{chequeoController.selected.apunte}" required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_apunte}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{apunteController.itemsAvailableSelectOne}"
+                                           var="apunteItem"
+                                           itemValue="#{apunteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditChequeoLabel_informe}" for="informe" />
+                        <p:selectOneMenu id="informe" value="#{chequeoController.selected.informe}" required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_informe}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{informeController.itemsAvailableSelectOne}"
+                                           var="informeItem"
+                                           itemValue="#{informeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditChequeoLabel_tipoResultado}" for="tipoResultado" />
+                        <p:selectOneMenu id="tipoResultado" value="#{chequeoController.selected.tipoResultado}" required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_tipoResultado}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoResultadoController.itemsAvailableSelectOne}"
+                                           var="tipoResultadoItem"
+                                           itemValue="#{tipoResultadoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{chequeoController.update}" value="#{bundle.Save}" update="display,:ChequeoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ChequeoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ChequeoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

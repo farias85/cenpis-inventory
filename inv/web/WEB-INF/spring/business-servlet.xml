@@ -13,6 +13,15 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     </bean>
 
 
+    <bean id="apunteService" class="cu.cenpis.gps.inv.data.service.impl.ApunteServiceImpl" />
+
+    <bean id="apunteController" class="cu.cenpis.gps.inv.controller.ApunteController" scope="session">
+        <property name="apunteService">
+            <ref bean="apunteService" />
+        </property>
+    </bean>
+
+
     <bean id="auditoriaService" class="cu.cenpis.gps.inv.data.service.impl.AuditoriaServiceImpl" />
 
     <bean id="auditoriaController" class="cu.cenpis.gps.inv.controller.AuditoriaController" scope="session">
@@ -22,11 +31,29 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     </bean>
 
 
+    <bean id="chequeoService" class="cu.cenpis.gps.inv.data.service.impl.ChequeoServiceImpl" />
+
+    <bean id="chequeoController" class="cu.cenpis.gps.inv.controller.ChequeoController" scope="session">
+        <property name="chequeoService">
+            <ref bean="chequeoService" />
+        </property>
+    </bean>
+
+
     <bean id="estadoService" class="cu.cenpis.gps.inv.data.service.impl.EstadoServiceImpl" />
 
     <bean id="estadoController" class="cu.cenpis.gps.inv.controller.EstadoController" scope="session">
         <property name="estadoService">
             <ref bean="estadoService" />
+        </property>
+    </bean>
+
+
+    <bean id="informeService" class="cu.cenpis.gps.inv.data.service.impl.InformeServiceImpl" />
+
+    <bean id="informeController" class="cu.cenpis.gps.inv.controller.InformeController" scope="session">
+        <property name="informeService">
+            <ref bean="informeService" />
         </property>
     </bean>
 
@@ -72,6 +99,23 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="rolController" class="cu.cenpis.gps.inv.controller.RolController" scope="session">
         <property name="rolService">
             <ref bean="rolService" />
+        </property>
+    </bean>
+
+    <bean id="tipoActivoService" class="cu.cenpis.gps.inv.data.service.impl.TipoActivoServiceImpl" />
+
+    <bean id="tipoActivoController" class="cu.cenpis.gps.inv.controller.TipoActivoController" scope="session">
+        <property name="tipoActivoService">
+            <ref bean="tipoActivoService" />
+        </property>
+    </bean>
+
+
+    <bean id="tipoResultadoService" class="cu.cenpis.gps.inv.data.service.impl.TipoResultadoServiceImpl" />
+
+    <bean id="tipoResultadoController" class="cu.cenpis.gps.inv.controller.TipoResultadoController" scope="session">
+        <property name="tipoResultadoService">
+            <ref bean="tipoResultadoService" />
         </property>
     </bean>
 

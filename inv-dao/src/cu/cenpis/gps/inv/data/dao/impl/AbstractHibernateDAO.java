@@ -43,8 +43,8 @@ public class AbstractHibernateDAO<T extends Object, I extends Serializable> impl
     }
 
     @Override
-    public Long create(T object) {
-        return (Long) hibernateUtil.create(object);
+    public Serializable create(T object) {
+        return hibernateUtil.create(object);
     }
 
     @Override

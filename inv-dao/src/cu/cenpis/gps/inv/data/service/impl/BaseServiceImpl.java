@@ -31,7 +31,7 @@ public class BaseServiceImpl<T extends Object, I extends Serializable, TDAO exte
     protected TDAO dao;
 
     @Override
-    public Long create(T object) {
+    public Serializable create(T object) {
         return dao.create(object);
     }
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ApunteCreateDlg" widgetVar="ApunteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateApunteTitle}">
+            <h:form id="ApunteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{apunteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_idApunte}" for="idApunte" />
+                        <p:inputText id="idApunte" value="#{apunteController.selected.idApunte}" title="#{bundle.CreateApunteTitle_idApunte}" required="true" requiredMessage="#{bundle.CreateApunteRequiredMessage_idApunte}"/>
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{apunteController.selected.rotulo}" title="#{bundle.CreateApunteTitle_rotulo}" />
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{apunteController.selected.fecha}" title="#{bundle.EditApunteTitle_fecha}" required="true" requiredMessage="#{bundle.EditApunteRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_asunto}" for="asunto" />
+                        <p:inputText id="asunto" value="#{apunteController.selected.asunto}" title="#{bundle.CreateApunteTitle_asunto}" required="true" requiredMessage="#{bundle.CreateApunteRequiredMessage_asunto}"/>
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_observacion}" for="observacion" />
+                        <p:inputTextarea rows="4" cols="30" id="observacion" value="#{apunteController.selected.observacion}" title="#{bundle.CreateApunteTitle_observacion}" required="true" requiredMessage="#{bundle.CreateApunteRequiredMessage_observacion}"/>
+                        <p:outputLabel value="#{bundle.CreateApunteLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{apunteController.selected.usuario}" required="true" requiredMessage="#{bundle.EditApunteRequiredMessage_usuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{apunteController.create}" value="#{bundle.Save}" update="display,:ApunteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ApunteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ApunteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

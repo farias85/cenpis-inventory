@@ -125,6 +125,9 @@ public class ActivoFijo implements Serializable {
     @JoinColumn(name = "revision", referencedColumnName = "id_revision")
     @ManyToOne(optional = false)
     private Revision revision;
+    @JoinColumn(name = "tipo_activo", referencedColumnName = "id_tipo_activo")
+    @ManyToOne
+    private TipoActivo tipoActivo;
 
     public ActivoFijo() {
     }
@@ -133,7 +136,7 @@ public class ActivoFijo implements Serializable {
             Float tasa, Float depAcuCuc, Float depAcuMn, Float valorActualCuc,
             Float valorActualMn, String responsableText, String estadoText,
             Date fechaAlta, Date fechaEstadoActual, Estado estado, Local local,
-            Responsable responsable, Revision revision) {
+            Responsable responsable, Revision revision, TipoActivo tipoActivo) {
         this.rotulo = rotulo;
         this.descripcion = descripcion;
         this.valorCuc = valorCuc;
@@ -151,6 +154,7 @@ public class ActivoFijo implements Serializable {
         this.local = local;
         this.responsable = responsable;
         this.revision = revision;
+        this.tipoActivo = tipoActivo;
     }
 
     public Long getIdActivoFijo() {
@@ -295,6 +299,14 @@ public class ActivoFijo implements Serializable {
 
     public void setRevision(Revision revision) {
         this.revision = revision;
+    }
+
+    public TipoActivo getTipoActivo() {
+        return tipoActivo;
+    }
+
+    public void setTipoActivo(TipoActivo tipoActivo) {
+        this.tipoActivo = tipoActivo;
     }
 
     @Override

@@ -3,6 +3,7 @@
  */
 package cu.cenpis.gps.inv.data.service;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public abstract interface BaseService<T, I> {
 
-    public abstract Long create(T object);
+    public abstract Serializable create(T object);
 
     public abstract T edit(T object);
 

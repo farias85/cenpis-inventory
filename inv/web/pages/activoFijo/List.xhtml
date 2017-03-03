@@ -139,6 +139,12 @@
                             </f:facet>
                             <h:outputText value="#{item.revision}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListActivoFijoTitle_tipoActivo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoActivo}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{activoFijoController.prepareCreate}" update=":ActivoFijoCreateForm" oncomplete="PF('ActivoFijoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ActivoFijoViewForm" oncomplete="PF('ActivoFijoViewDialog').show()" disabled="#{empty activoFijoController.selected}"/>

@@ -64,6 +64,12 @@
                                            var="revisionItem"
                                            itemValue="#{revisionItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateActivoFijoLabel_tipoActivo}" for="tipoActivo" />
+                        <p:selectOneMenu id="tipoActivo" value="#{activoFijoController.selected.tipoActivo}" >
+                            <f:selectItems value="#{tipoActivoController.itemsAvailableSelectOne}"
+                                           var="tipoActivoItem"
+                                           itemValue="#{tipoActivoItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{activoFijoController.create}" value="#{bundle.Save}" update="display,:ActivoFijoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActivoFijoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ActivoFijoCreateDialog.hide()"/>

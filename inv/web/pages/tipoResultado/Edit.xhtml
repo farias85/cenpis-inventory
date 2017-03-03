@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoResultadoEditDlg" widgetVar="TipoResultadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipoResultadoTitle}">
+            <h:form id="TipoResultadoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoResultadoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTipoResultadoLabel_idTipoResultado}" for="idTipoResultado" />
+                        <p:inputText id="idTipoResultado" value="#{tipoResultadoController.selected.idTipoResultado}" title="#{bundle.EditTipoResultadoTitle_idTipoResultado}" required="true" requiredMessage="#{bundle.EditTipoResultadoRequiredMessage_idTipoResultado}"/>
+                        <p:outputLabel value="#{bundle.EditTipoResultadoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tipoResultadoController.selected.nombre}" title="#{bundle.EditTipoResultadoTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipoResultadoRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditTipoResultadoLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{tipoResultadoController.selected.descripcion}" title="#{bundle.EditTipoResultadoTitle_descripcion}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoResultadoController.update}" value="#{bundle.Save}" update="display,:TipoResultadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoResultadoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoResultadoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

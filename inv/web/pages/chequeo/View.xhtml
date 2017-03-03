@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ChequeoViewDlg" widgetVar="ChequeoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewChequeoTitle}">
+            <h:form id="ChequeoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{chequeoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewChequeoLabel_idChequeo}"/>
+                        <h:outputText value="#{chequeoController.selected.idChequeo}" title="#{bundle.ViewChequeoTitle_idChequeo}"/>
+                        <h:outputText value="#{bundle.ViewChequeoLabel_apunte}"/>
+                        <h:outputText value="#{chequeoController.selected.apunte}" title="#{bundle.ViewChequeoTitle_apunte}"/>
+                        <h:outputText value="#{bundle.ViewChequeoLabel_informe}"/>
+                        <h:outputText value="#{chequeoController.selected.informe}" title="#{bundle.ViewChequeoTitle_informe}"/>
+                        <h:outputText value="#{bundle.ViewChequeoLabel_tipoResultado}"/>
+                        <h:outputText value="#{chequeoController.selected.tipoResultado}" title="#{bundle.ViewChequeoTitle_tipoResultado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ChequeoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
