@@ -15,18 +15,18 @@
 
         <ui:define name="body">
 
-            <utils:menu-view-edit id="MenuCrud" controller="#{activoFijoController}" 
+            <utils:menu-view-only id="MenuCrud" controller="#{activoFijoController}" 
                                   disabledValue="#{activoFijoController.selected.idActivoFijo}"
                                   datalist=":ActivoFijoListForm:datalist"/>
 
             <h:form id="ActivoFijoListForm">
 
-                <utils:menu-view-edit-context id="ContextMenu" controller="#{activoFijoController}" 
+                <utils:menu-view-only-context id="ContextMenu" controller="#{activoFijoController}" 
                                               disabledValue="#{activoFijoController.selected.idActivoFijo}"
                                               datalist=":ActivoFijoListForm:datalist"/>
 
                 <p:panel header="#{bundle.ListActivoFijoTitle}">
-                    <p:dataTable id="datalist" value="#{activoFijoController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{activoFijoController.activosYaNoEstan}" var="item"
                                  selectionMode="single" selection="#{activoFijoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idActivoFijo}"

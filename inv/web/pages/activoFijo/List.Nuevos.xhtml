@@ -26,7 +26,7 @@
                                               datalist=":ActivoFijoListForm:datalist"/>
 
                 <p:panel header="#{bundle.ListActivoFijoTitle}">
-                    <p:dataTable id="datalist" value="#{activoFijoController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{activoFijoController.activosNuevos}" var="item"
                                  selectionMode="single" selection="#{activoFijoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idActivoFijo}"

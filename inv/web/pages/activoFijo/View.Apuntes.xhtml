@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <h:form id="ApunteListForm">
+            <p:panel header="Apuntes del activo">
+                <p:dataTable id="datalist" value="#{activoFijoController.activoApuntes}" var="item"
+                             selectionMode="single" selection="#{apunteController.selected}"
+                             paginator="true"
+                             rowKey="#{item.idApunte}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+
+                    <p:column style="width:40px">
+                        <p:rowToggler />
+                    </p:column>                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListApunteTitle_fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListApunteTitle_asunto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.asunto}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListApunteTitle_usuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.usuario.email}"/>
+                    </p:column>
+
+                    <p:rowExpansion>
+                        <p:panelGrid  columns="2">                        
+                            <h:outputText value="#{bundle.ViewApunteLabel_observacion}"/>
+                            <h:outputText value="#{item.observacion}" title="#{bundle.ViewApunteTitle_observacion}"/>
+                        </p:panelGrid>
+                    </p:rowExpansion>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{apunteController.prepareCreate}" update=":ApunteCreateForm" oncomplete="PF('ApunteCreateDialog').show()"/>                        
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ApunteEditForm" oncomplete="PF('ApunteEditDialog').show()" disabled="#{empty apunteController.selected.idApunte}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{apunteController.destroy}" update=":growl,datalist" disabled="#{empty apunteController.selected.idApunte}"/>
+                    </f:facet>
+
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <ui:include src="../apunte/Create.xhtml"/>
+        <ui:include src="../apunte/Edit.xhtml"/>
+        <ui:include src="../apunte/View.xhtml"/>
+
+    </ui:composition>
+</html>
