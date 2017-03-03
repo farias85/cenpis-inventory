@@ -1,31 +1,31 @@
 # NetBeans specific #
 inv/nbproject/private/
 inv-dao/nbproject/private/
-readExcel/nbproject/private/
+inv-excel/nbproject/private/
 
 inv/build/
 inv-dao/build/
-readExcel/build/
+inv-excel/build/
 
 inv/nbbuild/
 inv-dao/nbbuild/
-readExcel/nbbuild/
+inv-excel/nbbuild/
 
 inv/dist/
 inv-dao/dist/
-readExcel/dist/
+inv-excel/dist/
 
 inv/nbdist/
 inv-dao/nbdist/
-readExcel/nbdist/
+inv-excel/nbdist/
 
 inv/nbactions.xml
 inv-dao/nbactions.xml
-readExcel/nbactions.xml
+inv-excel/nbactions.xml
 
 inv/nb-configuration.xml
 inv-dao/nb-configuration.xml
-readExcel/nb-configuration.xml
+inv-excel/nb-configuration.xml
 
 # Class Files #
 *.class
@@ -33,3 +33,4 @@ readExcel/nb-configuration.xml
 # Package Files #
 *.war
 *.ear
+/inv-excel/nbproject/private/
