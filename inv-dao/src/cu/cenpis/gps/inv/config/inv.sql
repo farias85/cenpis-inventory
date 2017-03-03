@@ -61,6 +61,17 @@ CREATE TABLE `revision` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
+# Structure for the `tipo_activo` table : 
+#
+
+CREATE TABLE `tipo_activo` (
+  `id_tipo_activo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `descripcion` text COLLATE latin1_spanish_ci,
+  PRIMARY KEY (`id_tipo_activo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+#
 # Structure for the `activo_fijo` table : 
 #
 
@@ -83,16 +94,19 @@ CREATE TABLE `activo_fijo` (
   `estado` bigint(20) NOT NULL,
   `responsable` bigint(20) NOT NULL,
   `local` bigint(20) NOT NULL,
+  `tipo_activo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_activo_fijo`),
   KEY `Refrevision2` (`revision`),
   KEY `Refestado12` (`estado`),
   KEY `Refresponsable14` (`responsable`),
   KEY `Reflocal15` (`local`),
+  KEY `tipo_activo` (`tipo_activo`),
   CONSTRAINT `Refestado12` FOREIGN KEY (`estado`) REFERENCES `estado` (`id_estado`),
   CONSTRAINT `Reflocal15` FOREIGN KEY (`local`) REFERENCES `local` (`id_local`),
   CONSTRAINT `Refresponsable14` FOREIGN KEY (`responsable`) REFERENCES `responsable` (`id_responsable`),
-  CONSTRAINT `Refrevision2` FOREIGN KEY (`revision`) REFERENCES `revision` (`id_revision`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+  CONSTRAINT `Refrevision2` FOREIGN KEY (`revision`) REFERENCES `revision` (`id_revision`),
+  CONSTRAINT `activo_fijo_fk` FOREIGN KEY (`tipo_activo`) REFERENCES `tipo_activo` (`id_tipo_activo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `usuario` table : 
@@ -106,6 +120,22 @@ CREATE TABLE `usuario` (
   `contrasenna` varchar(200) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+#
+# Structure for the `apunte` table : 
+#
+
+CREATE TABLE `apunte` (
+  `id_apunte` int(11) NOT NULL AUTO_INCREMENT,
+  `rotulo` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `asunto` char(100) COLLATE latin1_spanish_ci NOT NULL,
+  `observacion` text COLLATE latin1_spanish_ci NOT NULL,
+  `usuario` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_apunte`),
+  KEY `Refusuario27` (`usuario`),
+  CONSTRAINT `Refusuario27` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
 # Structure for the `auditoria` table : 
@@ -122,6 +152,46 @@ CREATE TABLE `auditoria` (
   PRIMARY KEY (`id_auditoria`),
   KEY `Refusuario16` (`usuario`),
   CONSTRAINT `Refusuario16` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+#
+# Structure for the `informe` table : 
+#
+
+CREATE TABLE `informe` (
+  `id_informe` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `completado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_informe`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+#
+# Structure for the `tipo_resultado` table : 
+#
+
+CREATE TABLE `tipo_resultado` (
+  `id_tipo_resultado` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `descripcion` text COLLATE latin1_spanish_ci,
+  PRIMARY KEY (`id_tipo_resultado`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+#
+# Structure for the `chequeo` table : 
+#
+
+CREATE TABLE `chequeo` (
+  `id_chequeo` int(11) NOT NULL AUTO_INCREMENT,
+  `apunte` int(11) NOT NULL,
+  `tipo_resultado` int(11) NOT NULL,
+  `informe` int(11) NOT NULL,
+  PRIMARY KEY (`id_chequeo`),
+  KEY `Refapunte24` (`apunte`),
+  KEY `Reftipo_resultado25` (`tipo_resultado`),
+  KEY `Refinforme26` (`informe`),
+  CONSTRAINT `Refapunte24` FOREIGN KEY (`apunte`) REFERENCES `apunte` (`id_apunte`),
+  CONSTRAINT `Refinforme26` FOREIGN KEY (`informe`) REFERENCES `informe` (`id_informe`),
+  CONSTRAINT `Reftipo_resultado25` FOREIGN KEY (`tipo_resultado`) REFERENCES `tipo_resultado` (`id_tipo_resultado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 #
@@ -196,6 +266,18 @@ UPDATE `responsable` SET `id_responsable`=0 WHERE `id_responsable`=LAST_INSERT_I
 COMMIT;
 
 #
+# Data for the `tipo_activo` table  (LIMIT 0,500)
+#
+
+INSERT INTO `tipo_activo` (`id_tipo_activo`, `nombre`, `descripcion`) VALUES 
+  (0,'EN_REVISION','EN_REVISION');
+UPDATE `tipo_activo` SET `id_tipo_activo`=0 WHERE `id_tipo_activo`=LAST_INSERT_ID();
+INSERT INTO `tipo_activo` (`id_tipo_activo`, `nombre`, `descripcion`) VALUES 
+  (2,'MONITOR','MONITOR');
+
+COMMIT;
+
+#
 # Data for the `usuario` table  (LIMIT 0,500)
 #
 
@@ -207,11 +289,52 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `email`, `contrasenn
 COMMIT;
 
 #
+# Data for the `apunte` table  (LIMIT 0,500)
+#
+
+INSERT INTO `apunte` (`id_apunte`, `rotulo`, `fecha`, `asunto`, `observacion`, `usuario`) VALUES 
+  (2,'324','2017-03-08','324','234',1);
+
+COMMIT;
+
+#
 # Data for the `auditoria` table  (LIMIT 0,500)
 #
 
 INSERT INTO `auditoria` (`id_auditoria`, `fecha`, `hora`, `rotulo`, `activo_antes`, `activo_despues`, `usuario`) VALUES 
   (1,'2017-03-01','2017-03-01','12121','1212','1212',1);
+
+COMMIT;
+
+#
+# Data for the `informe` table  (LIMIT 0,500)
+#
+
+INSERT INTO `informe` (`id_informe`, `fecha`, `completado`) VALUES 
+  (1,'2017-03-09',1);
+
+COMMIT;
+
+#
+# Data for the `tipo_resultado` table  (LIMIT 0,500)
+#
+
+INSERT INTO `tipo_resultado` (`id_tipo_resultado`, `nombre`, `descripcion`) VALUES 
+  (0,'EN_REVISION','EN_REVISION');
+UPDATE `tipo_resultado` SET `id_tipo_resultado`=0 WHERE `id_tipo_resultado`=LAST_INSERT_ID();
+INSERT INTO `tipo_resultado` (`id_tipo_resultado`, `nombre`, `descripcion`) VALUES 
+  (1,'OK','OK'),
+  (2,'FALTANTE','FALTANTE'),
+  (3,'SOBRANTE','SOBRANTE');
+
+COMMIT;
+
+#
+# Data for the `chequeo` table  (LIMIT 0,500)
+#
+
+INSERT INTO `chequeo` (`id_chequeo`, `apunte`, `tipo_resultado`, `informe`) VALUES 
+  (1,2,0,1);
 
 COMMIT;
 
