@@ -53,14 +53,14 @@ public class Main1 {
 //        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
 //        activoFijoService.create(activoFijo);
         
-//        List<Usuario> lu = usuarioService.findAll();
-//        for (Usuario var : lu) {
-//            try {
-//                var.setContrasenna(SecuredPassword.generateStorngPasswordHash(var.getEmail()));
-//            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-//                Logger.getLogger(Main1.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            usuarioService.edit(var);
-//        }
+        List<Usuario> lu = usuarioService.findAll();
+        for (Usuario var : lu) {
+            try {
+                var.setContrasenna(SecuredPassword.generateStorngPasswordHash(var.getEmail()));
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+                Logger.getLogger(Main1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            usuarioService.edit(var);
+        }
     }
 }
