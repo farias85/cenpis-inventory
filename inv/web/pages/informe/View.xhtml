@@ -12,14 +12,21 @@
             <h:form id="InformeViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{informeController.selected != null}">
+                        
                         <h:outputText value="#{bundle.ViewInformeLabel_idInforme}"/>
                         <h:outputText value="#{informeController.selected.idInforme}" title="#{bundle.ViewInformeTitle_idInforme}"/>
+                        
+                        <h:outputText value="#{bundle.ViewEstadoLabel_nombre}"/>
+                        <h:outputText value="#{informeController.selected.nombre}" title="#{bundle.ViewEstadoTitle_nombre}"/>
+                        
                         <h:outputText value="#{bundle.ViewInformeLabel_fecha}"/>
                         <h:outputText value="#{informeController.selected.fecha}" title="#{bundle.ViewInformeTitle_fecha}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        
                         <h:outputText value="#{bundle.ViewInformeLabel_completado}"/>
                         <p:selectBooleanCheckbox value="#{informeController.selected.completado}" disabled="true"/>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="InformeViewDialog.hide()"/>
                 </h:panelGroup>

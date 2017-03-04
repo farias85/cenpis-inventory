@@ -5,6 +5,8 @@ import cu.cenpis.gps.inv.data.entity.ActivoFijo;
 import cu.cenpis.gps.inv.data.entity.Apunte;
 import cu.cenpis.gps.inv.data.service.ApunteService;
 import cu.cenpis.gps.inv.util.Bundle;
+import cu.cenpis.gps.inv.util.JsfUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
@@ -78,5 +80,25 @@ public class ActivoFijoController extends BaseController<ActivoFijo, java.lang.L
 
     public List<ActivoFijo> getActivosYaNoEstan() {
         return activoFijoService.findYaNoEstan();
+    }
+
+    private List<ActivoFijo> selection = new ArrayList<>();
+
+    public List<ActivoFijo> getSelection() {
+        return selection;
+    }
+
+    public void setSelection(List<ActivoFijo> selection) {
+        this.selection = selection;
+    }
+
+    public int getSelectionSize() {
+        return selection.size();
+    }
+
+    public String actionInformePrepareCreate() {
+        InformeController informeController = JsfUtil.getController(InformeController.class);
+        informeController.prepareCreate();
+        return "navInformeCreate";
     }
 }

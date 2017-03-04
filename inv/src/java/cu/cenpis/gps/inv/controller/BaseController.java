@@ -214,7 +214,7 @@ public abstract class BaseController<T, I>
             newItem = itemClass.newInstance();
             this.selected = newItem;
             initializeEmbeddableKey();
-            return newItem;
+            return this.selected;
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
