@@ -19,9 +19,6 @@
             </h:commandLink>
         </f:facet>
 
-        <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
-        <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
-
         <p:column filterBy="#{item.rotulo}" sortBy="#{item.rotulo}"  filterMatchMode="contains">
             <f:facet name="header">
                 <h:outputText value="#{bundle.ListActivoFijoTitle_rotulo}"/>

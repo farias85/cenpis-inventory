@@ -72,10 +72,11 @@ public class ActivoFijoController extends BaseController<ActivoFijo, java.lang.L
     }
 
     public List<ActivoFijo> getActivosNuevos() {
-        return getFacade().findNamedQuery("ActivoFijo.findByRotulo", "rotulo", "011620");
+        return getItems();
+        //return activoFijoService.findNuevos();        
     }
-    
+
     public List<ActivoFijo> getActivosYaNoEstan() {
-        return getFacade().findNamedQuery("ActivoFijo.findByRotulo", "rotulo", "011620");
+        return activoFijoService.findYaNoEstan();
     }
 }
