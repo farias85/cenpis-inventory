@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <h:form>
+            <p:dataTable var="item" value="#{activoFijoController.otrosActivos}">
+                <f:facet name="header">
+                    Ciclo de vida del activo a través de las revisiones
+                </f:facet>
+                <p:column style="width:40px">
+                    <p:rowToggler />
+                </p:column>
+                <p:column style="width:40px">
+                    <f:facet name="header">
+                        <h:outputText value="Rev"/>
+                    </f:facet>
+                    <h:outputText value="#{item.revision}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_valorCuc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorCuc}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_valorMn}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorMn}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_tasa}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tasa}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_depAcuCuc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.depAcuCuc}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_depAcuMn}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.depAcuMn}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_valorActualCuc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorActualCuc}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_valorActualMn}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valorActualMn}"/>
+                </p:column>                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_fechaAlta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaAlta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActivoFijoTitle_fechaEstadoActual}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEstadoActual}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:rowExpansion>
+                    <p:panelGrid  columns="2">                        
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_estado}"/>
+                        <h:outputText value="#{item.estado.nombre}" title="#{bundle.ViewActivoFijoTitle_estado}"/>
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_local}"/>
+                        <h:outputText value="#{item.local.nombre}" title="#{bundle.ViewActivoFijoTitle_local}"/>
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_responsable}"/>
+                        <h:outputText value="#{item.responsable.nombre}" title="#{bundle.ViewActivoFijoTitle_responsable}"/>
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_tipoActivo}"/>
+                        <h:outputText value="#{item.tipoActivo.nombre}" title="#{bundle.ViewActivoFijoTitle_tipoActivo}"/>
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_responsableText}"/>
+                        <h:outputText value="#{item.responsableText}" title="#{bundle.ViewActivoFijoTitle_responsableText}"/>
+
+                        <h:outputText value="#{bundle.ViewActivoFijoLabel_estadoText}"/>
+                        <h:outputText value="#{item.estadoText}" title="#{bundle.ViewActivoFijoTitle_estadoText}"/>
+
+                    </p:panelGrid>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
+
+
+    </ui:composition>
+</html>

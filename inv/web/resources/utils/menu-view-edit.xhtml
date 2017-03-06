@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <head>
+        <title>(For validation only)</title>
+    </head>
+
+    <body>
+
+        <composite:interface>
+            <composite:attribute name="controller" required="true" type="cu.cenpis.gps.inv.controller.BaseController"/>
+            <composite:attribute name="disabledValue" required="true"/>
+            <composite:attribute name="datalist" required="true"/>
+        </composite:interface>
+
+        <composite:implementation>
+
+            <h:form id="MenuForm">
+                <p:menubar>                    
+                    <ui:include src="../partials/menu-view-edit-items.xhtml"/>
+                </p:menubar>
+            </h:form>
+
+        </composite:implementation>
+    </body>
+
+</html>

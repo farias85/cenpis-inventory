@@ -49,7 +49,7 @@ public abstract class BaseController<T, I>
     /**
      * Lista de todos los elementos con que funciona el controlador.
      */
-    private List<T> items = null;
+    protected List<T> items = null;
 
     /**
      * Elementos de ayuda para facilitar el filtrado en cada uno de los
@@ -214,7 +214,7 @@ public abstract class BaseController<T, I>
             newItem = itemClass.newInstance();
             this.selected = newItem;
             initializeEmbeddableKey();
-            return newItem;
+            return this.selected;
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }

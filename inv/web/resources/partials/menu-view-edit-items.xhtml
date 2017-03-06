@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:menuitem icon="ui-icon-search" value="#{bundle.View}" disabled="#{empty cc.attrs.disabledValue}" 
+                    action="#{cc.attrs.controller.actionView}" ajax="false"/>
+
+        <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" disabled="#{empty cc.attrs.disabledValue}"
+                    action="#{cc.attrs.controller.actionPrepareEdit}" ajax="false"/>
+
+    </ui:composition>
+</html>

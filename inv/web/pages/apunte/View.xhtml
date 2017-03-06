@@ -14,18 +14,24 @@
                     <p:panelGrid columns="2" rendered="#{apunteController.selected != null}">
                         <h:outputText value="#{bundle.ViewApunteLabel_idApunte}"/>
                         <h:outputText value="#{apunteController.selected.idApunte}" title="#{bundle.ViewApunteTitle_idApunte}"/>
+                        
                         <h:outputText value="#{bundle.ViewApunteLabel_rotulo}"/>
                         <h:outputText value="#{apunteController.selected.rotulo}" title="#{bundle.ViewApunteTitle_rotulo}"/>
+                        
                         <h:outputText value="#{bundle.ViewApunteLabel_fecha}"/>
                         <h:outputText value="#{apunteController.selected.fecha}" title="#{bundle.ViewApunteTitle_fecha}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        
                         <h:outputText value="#{bundle.ViewApunteLabel_asunto}"/>
                         <h:outputText value="#{apunteController.selected.asunto}" title="#{bundle.ViewApunteTitle_asunto}"/>
+                        
                         <h:outputText value="#{bundle.ViewApunteLabel_observacion}"/>
                         <h:outputText value="#{apunteController.selected.observacion}" title="#{bundle.ViewApunteTitle_observacion}"/>
+                        
                         <h:outputText value="#{bundle.ViewApunteLabel_usuario}"/>
                         <h:outputText value="#{apunteController.selected.usuario}" title="#{bundle.ViewApunteTitle_usuario}"/>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ApunteViewDialog.hide()"/>
                 </h:panelGroup>

@@ -10,6 +10,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="activoFijoService">
             <ref bean="activoFijoService" />
         </property>
+        <property name="apunteService">
+            <ref bean="apunteService" />
+        </property>
     </bean>
 
 
@@ -18,6 +21,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="apunteController" class="cu.cenpis.gps.inv.controller.ApunteController" scope="session">
         <property name="apunteService">
             <ref bean="apunteService" />
+        </property>
+        <property name="usuarioService">
+            <ref bean="usuarioService" />
         </property>
     </bean>
 

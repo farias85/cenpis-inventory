@@ -4,18 +4,28 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
 
     <ui:composition template="/template.xhtml">
 
-
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListInformeTitle}"></h:outputText>
+            <h:outputText value="Todos los Informes"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
+
+            <utils:menu-view-only id="MenuCrud" controller="#{informeController}" 
+                                  disabledValue="#{informeController.selected.idInforme}"
+                                  datalist=":InformeListForm:datalist"/>
+
             <h:form id="InformeListForm">
-                <p:panel header="#{bundle.ListInformeTitle}">
+
+                <utils:menu-view-only-context id="ContextMenu" controller="#{informeController}" 
+                                              disabledValue="#{informeController.selected.idInforme}"
+                                              datalist=":InformeListForm:datalist"/>
+
+                <p:panel header="Todos los Informes">
                     <p:dataTable id="datalist" value="#{informeController.items}" var="item"
                                  selectionMode="single" selection="#{informeController.selected}"
                                  paginator="true"
@@ -23,15 +33,21 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
+                        <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :InformeListForm:ContextMenu:context-menu"/>
+                        <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :InformeListForm:ContextMenu:context-menu"/>
 
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInformeTitle_idInforme}"/>
                             </f:facet>
                             <h:outputText value="#{item.idInforme}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstadoTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -46,20 +62,10 @@
                                 <h:outputText value="#{bundle.ListInformeTitle_completado}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.completado}" disabled="true"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{informeController.prepareCreate}" update=":InformeCreateForm" oncomplete="PF('InformeCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InformeViewForm" oncomplete="PF('InformeViewDialog').show()" disabled="#{empty informeController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InformeEditForm" oncomplete="PF('InformeEditDialog').show()" disabled="#{empty informeController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{informeController.destroy}" update=":growl,datalist" disabled="#{empty informeController.selected}"/>
-                        </f:facet>
+                        </p:column>                        
                     </p:dataTable>
                 </p:panel>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

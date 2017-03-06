@@ -2,9 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"      
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:utils="http://xmlns.jcp.org/jsf/composite/utils">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
 
@@ -16,18 +15,10 @@
 
             <ui:include src="List.MenuBar.xhtml"/>
 
-            <utils:menu-view-edit id="MenuCrud" controller="#{activoFijoController}" 
-                                  disabledValue="#{activoFijoController.selected.idActivoFijo}"
-                                  datalist=":ActivoFijoListForm:datalist"/>
-
             <h:form id="ActivoFijoListForm">
 
-                <utils:menu-view-edit-context id="ContextMenu" controller="#{activoFijoController}" 
-                                              disabledValue="#{activoFijoController.selected.idActivoFijo}"
-                                              datalist=":ActivoFijoListForm:datalist"/>
-
                 <p:panel header="#{bundle.ListActivoFijoTitle}">
-                    <p:dataTable id="datalist" value="#{activoFijoController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{activoFijoController.activosYaNoEstan}" var="item"
                                  selectionMode="single" selection="#{activoFijoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idActivoFijo}"
@@ -38,9 +29,6 @@
                                  emptyMessage="#{bundle.TableQueryNotFound}" 
                                  filteredValue="#{activoFijoController.filtered}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
-
-                        <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
-                        <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :ActivoFijoListForm:ContextMenu:context-menu"/>
 
                         <ui:include src="List.Content.xhtml"/>
 

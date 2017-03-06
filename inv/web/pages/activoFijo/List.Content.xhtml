@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <f:facet name="{Exporters}">
+            <h:commandLink>
+                <p:graphicImage url="#{resource['images/export/pdf-icon.png']}" />                                
+                <p:dataExporter type="pdf" target="datalist" fileName="aft" />
+            </h:commandLink>
+            <h:commandLink>
+                <p:graphicImage url="#{resource['images/export/excel-icon.png']}" />                                
+                <p:dataExporter type="xls" target="datalist" fileName="aft" />
+            </h:commandLink>
+        </f:facet>
+
+        <p:column filterBy="#{item.rotulo}" sortBy="#{item.rotulo}"  filterMatchMode="contains">
+            <f:facet name="header">
+                <h:outputText value="#{bundle.ListActivoFijoTitle_rotulo}"/>
+            </f:facet>
+            <h:outputText value="#{item.rotulo}"/>
+        </p:column>
+
+        <p:column filterBy="#{item.descripcion}" sortBy="#{item.descripcion}"  filterMatchMode="contains">
+            <f:facet name="header">
+                <h:outputText value="#{bundle.ListActivoFijoTitle_descripcion}"/>
+            </f:facet>
+            <h:outputText value="#{item.descripcion}"/>
+        </p:column>  
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{bundle.ListActivoFijoTitle_fechaEstadoActual}"/>
+            </f:facet>
+            <h:outputText value="#{item.fechaEstadoActual}">
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+        </p:column>          
+
+        <p:column filterBy="#{item.estado.nombre}"  filterMatchMode="in">
+            <f:facet name="filter">
+                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_estado}" onchange="PF('dtable').filter()">
+                    <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                   var="estadoItem"
+                                   itemValue="#{estadoItem.nombre}"
+                                   itemLabel="#{estadoItem.nombre}"/>
+                </p:selectCheckboxMenu>
+            </f:facet>
+            <h:outputText value="#{item.estado.nombre}"/>
+        </p:column>
+
+        <p:column filterBy="#{item.local.nombre}"  filterMatchMode="in">
+            <f:facet name="filter">
+                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_local}" onchange="PF('dtable').filter()">
+                    <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                   var="localItem"
+                                   itemValue="#{localItem.nombre}"
+                                   itemLabel="#{localItem.nombre}"/>
+                </p:selectCheckboxMenu>
+            </f:facet>                            
+            <h:outputText value="#{item.local.nombre}"/>
+        </p:column>
+
+        <p:column filterBy="#{item.responsable.nombre}"  filterMatchMode="in">
+            <f:facet name="filter">
+                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_responsable}" onchange="PF('dtable').filter()">
+                    <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                   var="responsableItem"
+                                   itemValue="#{responsableItem.nombre}"
+                                   itemLabel="#{responsableItem.nombre}"/>
+                </p:selectCheckboxMenu>
+            </f:facet> 
+            <h:outputText value="#{item.responsable.nombre}"/>
+        </p:column>
+
+        <p:column filterBy="#{item.tipoActivo.nombre}"  filterMatchMode="in">
+            <f:facet name="filter">
+                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_tipoActivo}" onchange="PF('dtable').filter()">
+                    <f:selectItems value="#{tipoActivoController.itemsAvailableSelectOne}"
+                                   var="tipoActivoItem"
+                                   itemValue="#{tipoActivoItem.nombre}"
+                                   itemLabel="#{tipoActivoItem.nombre}"/>
+                </p:selectCheckboxMenu>
+            </f:facet>                             
+            <h:outputText value="#{item.tipoActivo.nombre}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{bundle.ListActivoFijoTitle_revision}"/>
+            </f:facet>
+            <h:outputText value="#{item.revision.idRevision}"/>
+        </p:column>
+
+    </ui:composition>
+</html>

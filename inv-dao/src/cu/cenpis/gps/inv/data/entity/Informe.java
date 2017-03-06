@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -46,6 +47,10 @@ public class Informe implements Serializable {
     private Integer idInforme;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
@@ -57,7 +62,8 @@ public class Informe implements Serializable {
     public Informe() {
     }
 
-    public Informe(Date fecha, Boolean completado) {
+    public Informe(String nombre, Date fecha, Boolean completado) {
+        this.nombre = nombre;
         this.fecha = fecha;
         this.completado = completado;
     }
@@ -95,6 +101,14 @@ public class Informe implements Serializable {
         this.chequeoList = chequeoList;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }    
+    
     @Override
     public int hashCode() {
         int hash = 0;
