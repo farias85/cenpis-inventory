@@ -32,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -60,6 +61,14 @@ public class ControllerExcel {
     private String revisado;
     private String responsableText;
 
+    private RevisionService revisionService;
+    private MetadataService metadataService;
+    private LocalService localService;
+    private EstadoService estadoService;
+    private ResponsableService responsableService;
+    private TipoActivoService tipoActivoService;
+    private ActivoFijoService activoFijoService;
+
     //private String excelFilePath;
     public ControllerExcel() {
         this.listaInfo = new ArrayList<>();
@@ -74,6 +83,13 @@ public class ControllerExcel {
         revisado = "";
         responsableText = "";
         // excelFilePath = "";
+        revisionService = (RevisionService) Context.getBean("revisionServiceImpl");
+        metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
+        localService = (LocalService) Context.getBean("localServiceImpl");
+        estadoService = (EstadoService) Context.getBean("estadoServiceImpl");
+        responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
+        tipoActivoService = (TipoActivoService) Context.getBean("tipoActivoServiceImpl");
+        activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
     }
 
     public int getTotalActivos() {
@@ -277,102 +293,153 @@ public class ControllerExcel {
     }
 
     public void crearRevision() {
+
+        /*for (int i = 20; i < 28; i++) {            
+         revisionService.removeById(Long.parseLong(String.valueOf(i)));
+         }*/
         if (!listaInfoRe.isEmpty()) {
 
-            RevisionService revisionService = (RevisionService) Context.getBean("revisionServiceImpl");
+            if (listaInfoRe.size() % 2 == 0) {
+                //RevisionService revisionService = (RevisionService) Context.getBean("revisionServiceImpl");
 
-            Revision revision = new Revision();
-            revision.setActivo(true);
-            List<Revision> revisiones = revisionService.findByExample(revision);
-            Long idURev = null;//Última revisión activa
+                Revision revision = new Revision();
+                revision.setActivo(true);
+                List<Revision> revisiones = revisionService.findByExample(revision);
+                Long idURev = null;//Última revisión activa
 
-            if (revisiones.size() > 0) {
-                revision = revisionService.findByExample(revision).get(0);
-                idURev = revisiones.get(0).getIdRevision();
-                revision.setActivo(false);
-                revisionService.edit(revision);
-            }
+                if (revisiones.size() > 0) {
+                    revision = revisionService.findByExample(revision).get(0);
+                    idURev = revisiones.get(0).getIdRevision();
+                    revision.setActivo(false);
+                    revisionService.edit(revision);
+                }
 
-            revision = new Revision(true, new Date(), fecha, "Todavia");
-            revisionService.create(revision);
+                revision = new Revision(true, new Date(), fecha, "Todavia");
+                revisionService.create(revision);
 
-            MetadataService metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
-            Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);
-            metadata.setElaborado(elaborado);
-            metadata.setResponsable(responsableText);
-            metadata.setRevisado(revisado);
-            metadataService.create(metadata);
+                //MetadataService metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
+                Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);
+                metadata.setElaborado(elaborado);
+                metadata.setResponsable(responsableText);
+                metadata.setRevisado(revisado);
+                metadataService.create(metadata);
 
-            LocalService localService = (LocalService) Context.getBean("localServiceImpl");
-            Local SinLocal = localService.find(0L);
+                //LocalService localService = (LocalService) Context.getBean("localServiceImpl");
+                Local SinLocal = localService.find(0L);
 
-            EstadoService estadoService = (EstadoService) Context.getBean("estadoServiceImpl");
-            Estado SinEstado = estadoService.find(0L);
+                //EstadoService estadoService = (EstadoService) Context.getBean("estadoServiceImpl");
+                Estado SinEstado = estadoService.find(0L);
 
-            ResponsableService responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
-            Responsable SinResponsable = responsableService.find(0L);
+                //ResponsableService responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
+                Responsable SinResponsable = responsableService.find(0L);
 
-            TipoActivoService tipoActivoService = (TipoActivoService) Context.getBean("tipoActivoServiceImpl");
-            TipoActivo SinTipoActivo = tipoActivoService.find(0);
+                //TipoActivoService tipoActivoService = (TipoActivoService) Context.getBean("tipoActivoServiceImpl");
+                TipoActivo SinTipoActivo = tipoActivoService.find(0);
 
-            ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
+                //ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
+                Date fechaA = null;
+                Date fechaEA = null;
 
-            Date fechaA = null;
-            Date fechaEA = null;
-
-            for (int i = 0; i < listaInfoRe.size(); i += 2) {
+                int cantAG = 0;
 
                 try {
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    fechaA = formatter.parse(listaInfoRe.get(i)[9]);
-                    fechaEA = formatter.parse(listaInfoRe.get(i)[10]);
+
+                    for (int i = 0; i < listaInfoRe.size(); i += 2) {
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                        if (listaInfoRe.get(i).length == 11 && listaInfoRe.get(i + 1).length == 5) {
+                            fechaA = formatter.parse(listaInfoRe.get(i)[9]);
+                            fechaEA = formatter.parse(listaInfoRe.get(i)[10]);
+
+                            Local local;
+                            Estado estado;
+                            Responsable responsable;
+                            TipoActivo tipoActivo;
+
+                            HashMap<String, Object> params = new HashMap<>();
+                            params.put("mRotulo", listaInfoRe.get(i)[1]);
+                            params.put("idRevision", idURev);
+                            List<ActivoFijo> activosFijos = activoFijoService.findNamedQuery("ActivoFijo.findRevision", params);
+
+                            if (activosFijos.size() > 0) {
+
+                                local = activosFijos.get(0).getLocal();
+                                estado = activosFijos.get(0).getEstado();
+                                responsable = activosFijos.get(0).getResponsable();
+                                tipoActivo = activosFijos.get(0).getTipoActivo();
+
+                            } else {
+                                local = SinLocal;
+                                estado = SinEstado;
+                                responsable = SinResponsable;
+                                tipoActivo = SinTipoActivo;
+                            }
+
+                            ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
+                                    Float.parseFloat(listaInfoRe.get(i)[4]), Float.parseFloat(listaInfoRe.get(i + 1)[3]), Float.parseFloat(listaInfoRe.get(i + 1)[3]),
+                                    Float.parseFloat(listaInfoRe.get(i)[5]), Float.parseFloat(listaInfoRe.get(i + 1)[4]), Float.parseFloat(listaInfoRe.get(i)[6]),
+                                    listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision, tipoActivo);
+
+                            //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1]));
+                            // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
+                            //activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
+                            //activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
+                            //activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
+                            //activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
+                            //activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
+                            //activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
+                            //activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
+                            //activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
+                            //activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
+                            activoFijoService.create(activoFijo);
+
+                            cantAG++;
+
+                        }
+                        /*else{
+                         JOptionPane.showMessageDialog(null, "Error en el formato del documento." + "\n" +   cantAG + " Activos fijos insertados de" + totalActivos +  "\n"
+                         + "Debe eliminar la última revisión y el último metadata ", "Error", JOptionPane.ERROR_MESSAGE);
+                         break;
+                         }*/
+                    }
+                } catch (ArrayIndexOutOfBoundsException excepcion) {
+                    JOptionPane.showMessageDialog(null, "Error en el formato del documento." + "\n" + "Ulilice la opción del filtro" + "\n"
+                            + "Debe eliminar la última revisión y el último metadata ", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    /*revisionService.remove(revision);
+                     revision = revisionService.find(idURev);
+                     if (revision != null) {
+                     revision.setActivo(true);
+                     revisionService.edit(revision);
+                     }*/
                 } catch (ParseException ex) {
-                    Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Error en el formato de fecha." + "\n" + "Veifique las fechas del documento" + "\n"
+                            + 0 + "  Activos fijos insertados de  " + listaInfoRe.size() / 2, "Error", JOptionPane.ERROR_MESSAGE);
+
+                    /*revisionService.remove(revision);
+                     revision = revisionService.find(idURev);
+                     if (revision != null) {
+                     revision.setActivo(true);
+                     revisionService.edit(revision);
+                     }*/
                 }
 
-                Local local;
-                Estado estado;
-                Responsable responsable;
-                TipoActivo tipoActivo;
-
-                HashMap<String, Object> params = new HashMap<>();
-                params.put("mRotulo", listaInfoRe.get(i)[1]);
-                params.put("idRevision", idURev);
-                List<ActivoFijo> activosFijos = activoFijoService.findNamedQuery("ActivoFijo.findRevision", params);
-
-                if (activosFijos.size() > 0) {
-
-                    local = activosFijos.get(0).getLocal();
-                    estado = activosFijos.get(0).getEstado();
-                    responsable = activosFijos.get(0).getResponsable();
-                    tipoActivo = activosFijos.get(0).getTipoActivo();
-
+                if (cantAG != listaInfoRe.size() / 2) {
+                    revisionService.removeById(revision.getIdRevision());
+                    if (idURev != null) {
+                        revision = revisionService.find(idURev);
+                        revision.setActivo(true);
+                        revisionService.edit(revision);
+                    }
                 } else {
-                    local = SinLocal;
-                    estado = SinEstado;
-                    responsable = SinResponsable;
-                    tipoActivo = SinTipoActivo;
+                    JOptionPane.showMessageDialog(null, cantAG + "  Activos fijos insertados de  " + listaInfoRe.size() / 2);
                 }
 
-                ActivoFijo activoFijo = new ActivoFijo(listaInfoRe.get(i)[1], listaInfoRe.get(i)[2], Float.parseFloat(listaInfoRe.get(i)[3]),
-                        Float.parseFloat(listaInfoRe.get(i)[4]), Float.parseFloat(listaInfoRe.get(i + 1)[3]), Float.parseFloat(listaInfoRe.get(i + 1)[3]),
-                        Float.parseFloat(listaInfoRe.get(i)[5]), Float.parseFloat(listaInfoRe.get(i + 1)[4]), Float.parseFloat(listaInfoRe.get(i)[6]),
-                        listaInfoRe.get(i)[7], listaInfoRe.get(i)[8], fechaA, fechaEA, estado, local, responsable, revision, tipoActivo);
-
-                //activoFijo.setRotulo(i/*Long.parseLong(listaInfoRe.get(i)[1])*/);
-                // activoFijo.setDescripcion(listaInfoRe.get(i)[2]);
-                //activoFijo.setValorMn(Float.parseFloat(listaInfoRe.get(i)[3]));
-                //activoFijo.setTasa(Float.parseFloat(listaInfoRe.get(i)[4]));
-                //activoFijo.setDepAcuMn(Float.parseFloat(listaInfoRe.get(i)[5]));
-                //activoFijo.setValorActualMn(Float.parseFloat(listaInfoRe.get(i)[6]));
-                //activoFijo.setResponsableText(listaInfoRe.get(i)[7]);
-                //activoFijo.setEstadoText(listaInfoRe.get(i)[8]);
-                //activoFijo.setValorCuc(Float.parseFloat(listaInfoRe.get(i + 1)[2]));
-                //activoFijo.setDepAcuCuc(Float.parseFloat(listaInfoRe.get(i + 1)[3]));
-                //activoFijo.setValorActualCuc(Float.parseFloat(listaInfoRe.get(i + 1)[4]));
-                activoFijoService.create(activoFijo);
+            } else {
+                JOptionPane.showMessageDialog(null, "Los datos no están completos. Verifique el filtro o el documento", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+        } else {
+            JOptionPane.showMessageDialog(null, "¡Debe cargar el excel primero!", "Información ", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
