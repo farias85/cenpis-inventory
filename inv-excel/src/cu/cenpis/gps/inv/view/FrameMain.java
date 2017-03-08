@@ -5,7 +5,6 @@
  */
 package cu.cenpis.gps.inv.view;
 
-
 import cu.cenpis.gps.inv.read.ControllerExcel;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -309,10 +309,11 @@ public class FrameMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -339,58 +340,81 @@ public class FrameMain extends javax.swing.JFrame {
         if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String excelFilePath = selectedFile.getAbsolutePath();
+            Limpiar();
             try {
                 objExcel.readExcel(excelFilePath);
             } catch (IOException ex) {
                 Logger.getLogger(FrameMain.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            llenarTabla(objExcel.getListaInfo());           
+            if (objExcel.getListaInfo().size() > 0) {
+                llenarTabla(objExcel.getListaInfo());
 
-            jSpinner1.setEnabled(true);
-            jSpinner2.setEnabled(true);
-            jSpinner3.setEnabled(true);
-            jSpinner4.setEnabled(true);
+                jSpinner1.setEnabled(true);
+                jSpinner2.setEnabled(true);
+                jSpinner3.setEnabled(true);
+                jSpinner4.setEnabled(true);
 
-            SpinnerNumberModel nmFI = new SpinnerNumberModel();
-            SpinnerNumberModel nmFF = new SpinnerNumberModel();
-            SpinnerNumberModel nmCI = new SpinnerNumberModel();
-            SpinnerNumberModel nmCF = new SpinnerNumberModel();
+                SpinnerNumberModel nmFI = new SpinnerNumberModel();
+                SpinnerNumberModel nmFF = new SpinnerNumberModel();
+                SpinnerNumberModel nmCI = new SpinnerNumberModel();
+                SpinnerNumberModel nmCF = new SpinnerNumberModel();
 
-            nmFI.setMinimum(1);
-            nmFI.setMaximum(objExcel.getListaInfo().size());
-            nmFI.setStepSize(1);
-            nmFI.setValue(1);
-            jSpinner1.setModel(nmFI);
+                nmFI.setMinimum(1);
+                nmFI.setMaximum(objExcel.getListaInfo().size());
+                nmFI.setStepSize(1);
+                nmFI.setValue(1);
+                jSpinner1.setModel(nmFI);
 
-            nmFF.setMinimum(1);
-            nmFF.setMaximum(objExcel.getListaInfo().size());
-            nmFF.setStepSize(1);
-            nmFF.setValue(objExcel.getListaInfo().size());
-            jSpinner2.setModel(nmFF);
+                nmFF.setMinimum(1);
+                nmFF.setMaximum(objExcel.getListaInfo().size());
+                nmFF.setStepSize(1);
+                nmFF.setValue(objExcel.getListaInfo().size());
+                jSpinner2.setModel(nmFF);
 
-            nmCI.setMinimum(1);
-            nmCI.setMaximum(objExcel.getCantidadC() - 1);
-            nmCI.setStepSize(1);
-            nmCI.setValue(1);
-            jSpinner3.setModel(nmCI);
+                nmCI.setMinimum(1);
+                nmCI.setMaximum(objExcel.getCantidadC() - 1);
+                nmCI.setStepSize(1);
+                nmCI.setValue(1);
+                jSpinner3.setModel(nmCI);
 
-            nmCF.setMinimum(1);
-            nmCF.setMaximum(objExcel.getCantidadC() - 1);
-            nmCF.setStepSize(1);
-            nmCF.setValue(objExcel.getCantidadC() - 1);
-            jSpinner4.setModel(nmCF);
-            
-            
-            objExcel.readData();
-            jTextField1.setText(String.valueOf(objExcel.getTotalActivos()));
-            jTextField2.setText(String.valueOf(objExcel.getValorTotal()));
-            jTextField3.setText(String.valueOf(objExcel.getValorTotalMC()));
-            jTextField4.setText(String.valueOf(objExcel.getDepTotalAcu()));
-            jTextField5.setText(String.valueOf(objExcel.getDepTotalAcuMC()));
+                nmCF.setMinimum(1);
+                nmCF.setMaximum(objExcel.getCantidadC() - 1);
+                nmCF.setStepSize(1);
+                nmCF.setValue(objExcel.getCantidadC() - 1);
+                jSpinner4.setModel(nmCF);
 
+                objExcel.readData();
+                jTextField1.setText(String.valueOf(objExcel.getTotalActivos()));
+                jTextField2.setText(String.valueOf(objExcel.getValorTotal()));
+                jTextField3.setText(String.valueOf(objExcel.getValorTotalMC()));
+                jTextField4.setText(String.valueOf(objExcel.getDepTotalAcu()));
+                jTextField5.setText(String.valueOf(objExcel.getDepTotalAcuMC()));
+
+            }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void Limpiar() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+
+        jSpinner1.setValue(0);
+        jSpinner1.setEnabled(false);
+        jSpinner2.setValue(0);
+        jSpinner2.setEnabled(false);
+        jSpinner3.setValue(0);
+        jSpinner3.setEnabled(false);
+        jSpinner4.setValue(0);
+        jSpinner4.setEnabled(false);
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        jTable1.setModel(modelo);
+
+    }
 
     private void llenarTabla(List<String[]> listaInfo) {
         jTable1.removeAll();
@@ -409,53 +433,62 @@ public class FrameMain extends javax.swing.JFrame {
 
         jTable1.setModel(modelo);
     }
-    
+
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
         // TODO add your handling code here:
-        int s2 = (int) jSpinner2.getValue();
-        int s1 = (int) jSpinner1.getValue();
-        if (s2 < s1) {
-            jSpinner2.setValue(s1);
-        }
-        objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
-        llenarTabla(objExcel.getListaInfoRe());
-        
-        if (objExcel.getListaInfoRe().size() % 2 == 0) {
-           jLabel13.setText(objExcel.getListaInfoRe().size() / 2 + " Activos Fijos Cargados de  " + objExcel.getTotalActivos()); 
-        }
-        else{
-            jLabel13.setText("Activo Fijo Imcompleto");
+
+        if (objExcel.getListaInfoRe().size() > 0) {
+            int s2 = (int) jSpinner2.getValue();
+
+            int s1 = (int) jSpinner1.getValue();
+            if (s2 < s1) {
+                jSpinner2.setValue(s1);
+            }
+            objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
+            llenarTabla(objExcel.getListaInfoRe());
+
+            if (objExcel.getListaInfoRe().size() % 2 == 0) {
+                jLabel13.setText(objExcel.getListaInfoRe().size() / 2 + " Activos Fijos Cargados de  " + objExcel.getTotalActivos());
+            } else {
+                jLabel13.setText("Activo Fijo Imcompleto");
+            }
         }
     }//GEN-LAST:event_jSpinner2StateChanged
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         // TODO add your handling code here:
         objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
-        llenarTabla(objExcel.getListaInfoRe());
-        
-        if (objExcel.getListaInfoRe().size() % 2 == 0) {
-           jLabel13.setText(objExcel.getListaInfoRe().size() / 2 + " Activos Fijos Cargados de  " + objExcel.getTotalActivos()); 
-        }
-        else{
-            jLabel13.setText("Activo Fijo Imcompleto");
+        if (objExcel.getListaInfoRe().size() > 0) {
+            llenarTabla(objExcel.getListaInfoRe());
+
+            if (objExcel.getListaInfoRe().size() % 2 == 0) {
+                jLabel13.setText(objExcel.getListaInfoRe().size() / 2 + " Activos Fijos Cargados de  " + objExcel.getTotalActivos());
+            } else {
+                jLabel13.setText("Activo Fijo Imcompleto");
+            }
         }
     }//GEN-LAST:event_jSpinner1StateChanged
 
     private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner3StateChanged
         // TODO add your handling code here:
-        objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
-        llenarTabla(objExcel.getListaInfoRe());
+        if (objExcel.getListaInfoRe().size() > 0) {
+            objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
+            llenarTabla(objExcel.getListaInfoRe());
+        }
+
     }//GEN-LAST:event_jSpinner3StateChanged
 
     private void jSpinner4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner4StateChanged
         // TODO add your handling code here:
-        int s4 = (int) jSpinner4.getValue();
-        int s3 = (int) jSpinner3.getValue();
-        if (s4 < s3) {
-            jSpinner4.setValue(s3);
+        if (objExcel.getListaInfoRe().size() > 0) {
+            int s4 = (int) jSpinner4.getValue();
+            int s3 = (int) jSpinner3.getValue();
+            if (s4 < s3) {
+                jSpinner4.setValue(s3);
+            }
+            objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
+            llenarTabla(objExcel.getListaInfoRe());
         }
-        objExcel.recortarEcxel((int) jSpinner1.getValue(), (int) jSpinner2.getValue(), (int) jSpinner3.getValue(), (int) jSpinner4.getValue());
-        llenarTabla(objExcel.getListaInfoRe());
     }//GEN-LAST:event_jSpinner4StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -470,7 +503,7 @@ public class FrameMain extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        objExcel.crearRevision();        
+        objExcel.crearRevision();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**

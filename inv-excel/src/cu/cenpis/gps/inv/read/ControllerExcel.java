@@ -148,68 +148,82 @@ public class ControllerExcel {
     public void readExcel(String dir) throws IOException {
 
         //excelFilePath = dir;
+        
+        this.listaInfo = new ArrayList<>();
+        this.listaInfoRe = new ArrayList<>();
+        
         FileInputStream inputStream = null;
         inputStream = new FileInputStream(new File(dir));
         Workbook workbook = null;
-        if (dir.endsWith("xlsx")) {
-            workbook = new XSSFWorkbook(inputStream);
-        } else {
-            workbook = new HSSFWorkbook(inputStream);
-        }
 
-        List<String> fila = new ArrayList<>();
-
-        Sheet firstSheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = firstSheet.iterator();
-        int i = 1;
-        while (iterator.hasNext()) {
-            Row nextRow = iterator.next();
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
-
-            while (cellIterator.hasNext()) {
-                Cell nextCell = cellIterator.next();
-                fila.add(getValueCell(nextCell).toString().trim());
+        try {
+            if (dir.endsWith("xlsx")) {
+                workbook = new XSSFWorkbook(inputStream);
+            } else {
+                workbook = new HSSFWorkbook(inputStream);
             }
 
-            fila.add(0, Integer.toString(i));
-            cantidadC = Math.max(cantidadC, fila.size());
-            String[] miarray = new String[fila.size()];
-            miarray = fila.toArray(miarray);
-            listaInfo.add(miarray);
-            fila = new ArrayList<>();
-            i++;
+            List<String> fila = new ArrayList<>();
+
+            Sheet firstSheet = workbook.getSheetAt(0);
+            Iterator<Row> iterator = firstSheet.iterator();
+            int i = 1;
+            while (iterator.hasNext()) {
+                Row nextRow = iterator.next();
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+                while (cellIterator.hasNext()) {
+                    Cell nextCell = cellIterator.next();
+                    fila.add(getValueCell(nextCell).toString().trim());
+                }
+
+                fila.add(0, Integer.toString(i));
+                cantidadC = Math.max(cantidadC, fila.size());
+                String[] miarray = new String[fila.size()];
+                miarray = fila.toArray(miarray);
+                listaInfo.add(miarray);
+                fila = new ArrayList<>();
+                i++;
+            }
+
+            inputStream.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Formato del Excel 5.0/7.0 (BIFF5) no soportado. Cambiar por BIFF8", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        inputStream.close();
+
     }
 
     public void recortarEcxel(int iF, int fF, int iC, int fC) {
 
-        listaInfoRe = new ArrayList<>(listaInfo);
-        listaInfoRe = listaInfoRe.subList(0, fF);
-        listaInfoRe = listaInfoRe.subList(iF - 1, listaInfoRe.size());
+        if (iF > 0 && fF > 0 && iC > 0 && fC > 0) {
+            listaInfoRe = new ArrayList<>(listaInfo);
+            listaInfoRe = listaInfoRe.subList(0, fF);
+            listaInfoRe = listaInfoRe.subList(iF - 1, listaInfoRe.size());
 
-        for (int i = 0; i < listaInfoRe.size(); i++) {
-            String[] get = listaInfoRe.get(i);
-            String[] nuevo = null;
-            if ((fC + 1) > get.length && (iC) <= get.length) {
-                nuevo = new String[get.length - iC + 1];
-                System.arraycopy(get, iC, nuevo, 1, get.length - iC);
-                nuevo[0] = get[0];
-                listaInfoRe.set(i, nuevo);
-            } else {
-                if (((fC + 1) <= get.length) && (iC) <= get.length) {
-                    nuevo = new String[fC - iC + 2];
-                    System.arraycopy(get, iC, nuevo, 1, fC - iC + 1);
+            for (int i = 0; i < listaInfoRe.size(); i++) {
+                String[] get = listaInfoRe.get(i);
+                String[] nuevo = null;
+                if ((fC + 1) > get.length && (iC) <= get.length) {
+                    nuevo = new String[get.length - iC + 1];
+                    System.arraycopy(get, iC, nuevo, 1, get.length - iC);
                     nuevo[0] = get[0];
                     listaInfoRe.set(i, nuevo);
                 } else {
-                    nuevo = new String[1];
-                    nuevo[0] = get[0];
-                    listaInfoRe.set(i, nuevo);
+                    if (((fC + 1) <= get.length) && (iC) <= get.length) {
+                        nuevo = new String[fC - iC + 2];
+                        System.arraycopy(get, iC, nuevo, 1, fC - iC + 1);
+                        nuevo[0] = get[0];
+                        listaInfoRe.set(i, nuevo);
+                    } else {
+                        nuevo = new String[1];
+                        nuevo[0] = get[0];
+                        listaInfoRe.set(i, nuevo);
+                    }
                 }
             }
         }
+
     }
 
     private Object getValueCell(Cell cell) {
@@ -231,45 +245,47 @@ public class ControllerExcel {
 
     public void readData() {
 
-        if (listaInfoRe.isEmpty()) {
-            listaInfoRe = new ArrayList<>(listaInfo);
-        }
+        if (listaInfo.size() > 0) {
+            if (listaInfoRe.isEmpty()) {
+                listaInfoRe = new ArrayList<>(listaInfo);
+            }
 
-        String str = listaInfoRe.get(listaInfoRe.size() - 1)[1];
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            fecha = formatter.parse(str);
-        } catch (ParseException ex) {
-            Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            String str = listaInfoRe.get(listaInfoRe.size() - 1)[1];
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                fecha = formatter.parse(str);
+            } catch (ParseException ex) {
+                Logger.getLogger(ControllerExcel.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        for (int j = 10; j < listaInfoRe.size(); j++) {
-            String[] listaInfoRe1 = listaInfoRe.get(j);
-            for (int i = 0; i < listaInfoRe1.length; i++) {
-                //if (j > 10) {
-                if (listaInfoRe1[i].contains("Total de Activos")) {
-                    totalActivos = (int) Float.parseFloat(listaInfoRe1[i + 1]);
-                } else {
-                    if (listaInfoRe1[i].contains("Valor Total") && !listaInfoRe1[i].contains("M.C")) {
-                        valorTotal = Float.parseFloat(listaInfoRe1[i + 1]);
+            for (int j = 20; j < listaInfoRe.size(); j++) {
+                String[] listaInfoRe1 = listaInfoRe.get(j);
+                for (int i = 0; i < listaInfoRe1.length; i++) {
+                    //if (j > 10) {
+                    if (listaInfoRe1[i].contains("Total de Activos")) {
+                        totalActivos = (int) Float.parseFloat(listaInfoRe1[i + 1]);
                     } else {
-                        if (listaInfoRe1[i].contains("Valor Total M.C")) {
-                            valorTotalMC = Float.parseFloat(listaInfoRe1[i + 1]);
+                        if (listaInfoRe1[i].contains("Valor Total") && !listaInfoRe1[i].contains("M.C")) {
+                            valorTotal = Float.parseFloat(listaInfoRe1[i + 1]);
                         } else {
-                            if (listaInfoRe1[i].contains("Depreciación Acumulada Total") && !listaInfoRe1[i].contains("M.C")) {
-                                depTotalAcu = Float.parseFloat(listaInfoRe1[i + 1]);
+                            if (listaInfoRe1[i].contains("Valor Total M.C")) {
+                                valorTotalMC = Float.parseFloat(listaInfoRe1[i + 1]);
                             } else {
-                                if (listaInfoRe1[i].contains("Depreciación Acumulada Total M.C")) {
-                                    depTotalAcuMC = Float.parseFloat(listaInfoRe1[i + 1]);
+                                if (listaInfoRe1[i].contains("Depreciación Acumulada Total") && !listaInfoRe1[i].contains("M.C")) {
+                                    depTotalAcu = Float.parseFloat(listaInfoRe1[i + 1]);
                                 } else {
-                                    if (listaInfoRe1[i].contains("Elaborado") && !listaInfoRe1[i + 1].contains("Responsable")) {
-                                        elaborado = listaInfoRe1[i + 1].trim();
+                                    if (listaInfoRe1[i].contains("Depreciación Acumulada Total M.C")) {
+                                        depTotalAcuMC = Float.parseFloat(listaInfoRe1[i + 1]);
                                     } else {
-                                        if (listaInfoRe1[i].contains("Responsable") && !listaInfoRe1[i + 1].contains("Revisado")) {
-                                            responsableText = listaInfoRe1[i + 1].trim();
+                                        if (listaInfoRe1[i].contains("Elaborado") && !listaInfoRe1[i + 1].contains("Responsable")) {
+                                            elaborado = listaInfoRe1[i + 1].trim();
                                         } else {
-                                            if (listaInfoRe1[i].contains("Revisado") && listaInfoRe1.length > i + 1) {
-                                                revisado = listaInfoRe1[i + 1].trim();
+                                            if (listaInfoRe1[i].contains("Responsable") && !listaInfoRe1[i + 1].contains("Revisado")) {
+                                                responsableText = listaInfoRe1[i + 1].trim();
+                                            } else {
+                                                if (listaInfoRe1[i].contains("Revisado") && listaInfoRe1.length > i + 1) {
+                                                    revisado = listaInfoRe1[i + 1].trim();
+                                                }
                                             }
                                         }
                                     }
@@ -277,11 +293,12 @@ public class ControllerExcel {
                             }
                         }
                     }
-                }
-                //}
+                    //}
 
+                }
             }
         }
+
     }
 
     public void ModificarData(int tA, Float vT, Float vTMC, Float dT, Float dTMC) {
@@ -293,10 +310,9 @@ public class ControllerExcel {
     }
 
     public void crearRevision() {
-
-        /*for (int i = 20; i < 28; i++) {            
-         revisionService.removeById(Long.parseLong(String.valueOf(i)));
-         }*/
+        
+        //Eliminar revision 43 
+        //revisionService.removeById(43L);
         if (!listaInfoRe.isEmpty()) {
 
             if (listaInfoRe.size() % 2 == 0) {
@@ -317,26 +333,20 @@ public class ControllerExcel {
                 revision = new Revision(true, new Date(), fecha, "Todavia");
                 revisionService.create(revision);
 
-                //MetadataService metadataService = (MetadataService) Context.getBean("metadataServiceImpl");
                 Metadata metadata = new Metadata(totalActivos, valorTotal, valorTotalMC, depTotalAcu, depTotalAcuMC, revision);
                 metadata.setElaborado(elaborado);
                 metadata.setResponsable(responsableText);
                 metadata.setRevisado(revisado);
                 metadataService.create(metadata);
 
-                //LocalService localService = (LocalService) Context.getBean("localServiceImpl");
                 Local SinLocal = localService.find(0L);
 
-                //EstadoService estadoService = (EstadoService) Context.getBean("estadoServiceImpl");
                 Estado SinEstado = estadoService.find(0L);
 
-                //ResponsableService responsableService = (ResponsableService) Context.getBean("responsableServiceImpl");
                 Responsable SinResponsable = responsableService.find(0L);
 
-                //TipoActivoService tipoActivoService = (TipoActivoService) Context.getBean("tipoActivoServiceImpl");
                 TipoActivo SinTipoActivo = tipoActivoService.find(0);
 
-                //ActivoFijoService activoFijoService = (ActivoFijoService) Context.getBean("activoFijoServiceImpl");
                 Date fechaA = null;
                 Date fechaEA = null;
 
@@ -347,7 +357,7 @@ public class ControllerExcel {
                     for (int i = 0; i < listaInfoRe.size(); i += 2) {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-                        if (listaInfoRe.get(i).length == 11 && listaInfoRe.get(i + 1).length == 5) {
+                       // if (listaInfoRe.get(i).length == 11 && listaInfoRe.get(i + 1).length == 5) {
                             fechaA = formatter.parse(listaInfoRe.get(i)[9]);
                             fechaEA = formatter.parse(listaInfoRe.get(i)[10]);
 
@@ -394,8 +404,12 @@ public class ControllerExcel {
                             activoFijoService.create(activoFijo);
 
                             cantAG++;
+                            
+                            /*if (cantAG == 394) {
+                                int r = 4;
+                            }*/
 
-                        }
+                        //}
                         /*else{
                          JOptionPane.showMessageDialog(null, "Error en el formato del documento." + "\n" +   cantAG + " Activos fijos insertados de" + totalActivos +  "\n"
                          + "Debe eliminar la última revisión y el último metadata ", "Error", JOptionPane.ERROR_MESSAGE);
@@ -403,25 +417,12 @@ public class ControllerExcel {
                          }*/
                     }
                 } catch (ArrayIndexOutOfBoundsException excepcion) {
-                    JOptionPane.showMessageDialog(null, "Error en el formato del documento." + "\n" + "Ulilice la opción del filtro" + "\n"
-                            + "Debe eliminar la última revisión y el último metadata ", "Error", JOptionPane.ERROR_MESSAGE);
-
-                    /*revisionService.remove(revision);
-                     revision = revisionService.find(idURev);
-                     if (revision != null) {
-                     revision.setActivo(true);
-                     revisionService.edit(revision);
-                     }*/
+                    JOptionPane.showMessageDialog(null, "Error en el formato del documento." + "\n" + "Activo número: " + (cantAG + 1) + "\n"
+                            + "Fila: " + listaInfoRe.get(cantAG*2)[0], "Error", JOptionPane.ERROR_MESSAGE);
+                  
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Error en el formato de fecha." + "\n" + "Veifique las fechas del documento" + "\n"
-                            + 0 + "  Activos fijos insertados de  " + listaInfoRe.size() / 2, "Error", JOptionPane.ERROR_MESSAGE);
-
-                    /*revisionService.remove(revision);
-                     revision = revisionService.find(idURev);
-                     if (revision != null) {
-                     revision.setActivo(true);
-                     revisionService.edit(revision);
-                     }*/
+                    JOptionPane.showMessageDialog(null, "Error en el formato de fecha." + "\n" + "Activo número: " + (cantAG + 1) + " --- " + "Rotulo: " + listaInfoRe.get(cantAG*2)[1] + "\n"
+                           + "Fila: " + listaInfoRe.get(cantAG*2)[0] + "\n" + 0 + "  Activos fijos insertados de  " + listaInfoRe.size() / 2, "Error", JOptionPane.ERROR_MESSAGE);                   
                 }
 
                 if (cantAG != listaInfoRe.size() / 2) {
