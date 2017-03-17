@@ -22,4 +22,24 @@
         </navigation-case>        
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/start-page-1.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>short</from-outcome>
+            <to-view-id>/protected1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page1</from-outcome>
+            <to-view-id>/protected3.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page2</from-outcome>
+            <to-view-id>/protected3.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page3</from-outcome>
+            <to-view-id>/protected3.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
