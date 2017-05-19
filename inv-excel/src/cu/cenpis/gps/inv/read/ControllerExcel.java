@@ -312,7 +312,7 @@ public class ControllerExcel {
     public void crearRevision() {
         
         //Eliminar revision 43 
-        //revisionService.removeById(43L);
+        revisionService.removeById(50L);
         if (!listaInfoRe.isEmpty()) {
 
             if (listaInfoRe.size() % 2 == 0) {
