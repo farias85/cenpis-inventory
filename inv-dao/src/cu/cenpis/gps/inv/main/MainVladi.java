@@ -6,8 +6,12 @@
 package cu.cenpis.gps.inv.main;
 
 import cu.cenpis.gps.inv.data.entity.ActivoFijo;
+import cu.cenpis.gps.inv.data.entity.Chequeo;
+
 import cu.cenpis.gps.inv.data.service.ActivoFijoService;
 import cu.cenpis.gps.inv.data.service.RevisionService;
+import cu.cenpis.gps.inv.data.util.HibernateUtil;
+
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -28,6 +32,9 @@ public class MainVladi {
         RevisionService revisionService = (RevisionService) context.getBean("revisionServiceImpl");
         ActivoFijoService activoFijoService = (ActivoFijoService) context.getBean("activoFijoServiceImpl");
 
+        
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        List<Chequeo> list  = hibernateUtil.fetchAll("SELECT c FROM Chequeo c where informe=:9");
 //        HashMap<String, Object> params = new HashMap<>();
 //        params.put("mRotulo", "011621");
 //        params.put("idRevision", 5L);
