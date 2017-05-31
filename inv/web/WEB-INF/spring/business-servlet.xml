@@ -43,6 +43,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="chequeoService">
             <ref bean="chequeoService" />
         </property>
+         <property name="apunteService">
+            <ref bean="apunteService" />
+        </property>
     </bean>
 
 
@@ -61,6 +64,18 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="informeService">
             <ref bean="informeService" />
         </property>
+        <property name="chequeoService">
+            <ref bean="chequeoService" />
+        </property>
+        <property name="apunteService">
+            <ref bean="apunteService" />
+        </property>
+        <property name="usuarioService">
+            <ref bean="usuarioService" />
+        </property>
+        <property name="tipoResultadoService">
+            <ref bean="tipoResultadoService" />
+        </property>        
     </bean>
 
 

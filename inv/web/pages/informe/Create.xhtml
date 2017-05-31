@@ -24,23 +24,56 @@
                         <p:outputLabel value="#{bundle.CreateInformeLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{informeController.selected.fecha}" title="#{bundle.EditInformeTitle_fecha}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_fecha}" showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreateInformeLabel_completado}" for="completado" />
-                        <p:selectBooleanCheckbox id="completado" value="#{informeController.selected.completado}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_completado}"/>
+                        <!--<p:outputLabel value="#{bundle.CreateInformeLabel_completado}" for="completado" />-->
+                        <!--<p:selectBooleanCheckbox id="completado" value="#{informeController.selected.completado}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_completado}"/>-->
 
                         <p:row>
                             <p:commandButton action="#{informeController.actionCreate}" value="#{bundle.Save}" ajax="false"/>
                             <p:commandButton immediate="true" action="#{informeController.actionCancel}" value="#{bundle.Cancel}" />
                         </p:row>
                     </p:panelGrid>
-                    
+
                     <p:panelGrid columns="1" rendered="#{activoFijoController.selectionSize == 0}">
-                    Seleccione al menos un activo fijo para generar el informe
+                        Seleccione al menos un activo fijo para generar el informe
                     </p:panelGrid>
-                    
+
                     <p:panelGrid columns="1" rendered="#{informeController.selected == null}">
-                    No ha pasado por prepareCreate + selected == null
+                        No ha pasado por prepareCreate + selected == null
                     </p:panelGrid>
-                    
+
+                    <p:panel header="#{bundle.ListActivoFijoTitle}">
+                        <p:dataTable id="datalist" value="#{activoFijoController.selection}" var="item"
+                                     selectionMode="single" selection="#{activoFijoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idActivoFijo}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     widgetVar="dtable"
+                                     emptyMessage="#{bundle.TableQueryNotFound}" 
+                                     filteredValue="#{activoFijoController.filtered}">
+
+                            <!--<p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :PersonaListForm:ContextMenu:context-menu"/>-->
+                            <!--<p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :PersonaListForm:ContextMenu:context-menu"/>-->
+                           
+<!--                            <p:column filterBy="#{item.rotulo}" sortBy="#{item.rotulo}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListActivoFijoTitle_rotulo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rotulo}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{item.descripcion}" sortBy="#{item.descripcion}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListActivoFijoTitle_descripcion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>-->
+                             <ui:include src="../activoFijo/List.Content.xhtml"/>
+
+                        </p:dataTable>
+                    </p:panel>
+
                 </h:panelGroup>
             </h:form>    
 

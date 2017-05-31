@@ -2,6 +2,7 @@ package cu.cenpis.gps.inv.controller;
 
 import cu.cenpis.gps.inv.data.service.ChequeoService;
 import cu.cenpis.gps.inv.data.entity.Chequeo;
+import cu.cenpis.gps.inv.data.service.ApunteService;
 import cu.cenpis.gps.inv.util.Bundle;
 import javax.annotation.PostConstruct;
 
@@ -17,6 +18,16 @@ public class ChequeoController extends BaseController<Chequeo, java.lang.Integer
         this.chequeoService = chequeoService;
     }
 
+    private ApunteService apunteService;
+
+    public ApunteService getApunteService() {
+        return apunteService;
+    }
+
+    public void setApunteService(ApunteService apunteService) {
+        this.apunteService = apunteService;
+    }
+    
     public ChequeoController() {
         super(Chequeo.class);
     }
@@ -40,6 +51,11 @@ public class ChequeoController extends BaseController<Chequeo, java.lang.Integer
     @Override
     public void destroy() {
         super.destroy(Bundle.getString("ChequeoDeleted"));
+    }    
+    
+    @Override
+    public void setEmbeddableKeys(){
+        apunteService.edit(selected.getApunte());
     }
 }
 

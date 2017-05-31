@@ -8,25 +8,32 @@
 
     <ui:composition>
 
-        <p:dialog id="InformeEditDlg" widgetVar="InformeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditInformeTitle}">
+        <p:dialog id="InformeEditDlg" widgetVar="InformeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditApuntesInforme}">
             <h:form id="InformeEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{informeController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.EditInformeLabel_idInforme}" for="idInforme" />
-                        <p:inputText id="idInforme" value="#{informeController.selected.idInforme}" title="#{bundle.EditInformeTitle_idInforme}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_idInforme}"/>
-                        
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{informeController.selected.nombre}" title="#{bundle.EditEstadoTitle_nombre}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_nombre}"/>
-                        
-                        <p:outputLabel value="#{bundle.EditInformeLabel_fecha}" for="fecha" />
-                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{informeController.selected.fecha}" title="#{bundle.EditInformeTitle_fecha}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_fecha}" showOn="button"/>
-                        
-                        <p:outputLabel value="#{bundle.EditInformeLabel_completado}" for="completado" />
-                        <p:selectBooleanCheckbox id="completado" value="#{informeController.selected.completado}" required="true" requiredMessage="#{bundle.EditInformeRequiredMessage_completado}"/>
-                        
+                    <p:panelGrid columns="2" >                        
+                        <p:outputLabel value="#{bundle.EditApunteLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{chequeoController.selected.apunte.rotulo}" title="#{bundle.EditApunteTitle_rotulo}" disabled="#{not empty chequeoController.selected.idChequeo}"/>                       
+                        <p:outputLabel value="#{bundle.EditApunteLabel_fecha}" for="fecha" />
+                        <p:inputText id="fecha" value="#{chequeoController.selected.apunte.fecha}" title="#{bundle.EditApunteTitle_fecha}" disabled="#{not empty chequeoController.selected.idChequeo}"/>                       
+                        <p:outputLabel value="#{bundle.EditApunteLabel_asunto}" for="asunto" />
+                        <p:inputText id="asunto" value="#{chequeoController.selected.apunte.asunto}" title="#{bundle.EditApunteTitle_asunto}" disabled="#{not empty chequeoController.selected.idChequeo}"/>                       
+
+                        <p:outputLabel value="#{bundle.EditApunteLabel_observacion}" for="observacion" />
+                        <p:inputTextarea rows="4" cols="60" id="observacion" value="#{chequeoController.selected.apunte.observacion}" 
+                                         title="#{bundle.EditApunteTitle_observacion}"/>
+
+
+                        <p:outputLabel value="#{bundle.EditChequeoLabel_tipoResultado}" for="tipoResultado" />
+                        <p:selectOneMenu id="tipoResultado" value="#{chequeoController.selected.tipoResultado}" title="#{bundle.EditChequeoTitle_tipoResultado}"
+                                         required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_tipoResultado}">
+                            <f:selectItems value="#{tipoResultadoController.itemsAvailableSelectOne}"
+                                           var="tipoResultadoItem"
+                                           itemValue="#{tipoResultadoItem}"
+                                           itemLabel="#{tipoResultadoItem.nombre}"/>
+                        </p:selectOneMenu>                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{informeController.update}" value="#{bundle.Save}" update="display,:InformeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'InformeEditDialog');"/>
+                    <p:commandButton actionListener="#{chequeoController.update}" value="#{bundle.Save}" update="display,:InformeViewForm:datalist,:growl" oncomplete="handleSubmit(args, 'InformeEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InformeEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
