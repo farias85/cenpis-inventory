@@ -11,7 +11,7 @@
         <p:dialog id="InformeEditDlg" widgetVar="InformeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditApuntesInforme}">
             <h:form id="InformeEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" >                        
+                    <p:panelGrid columns="2"  rendered="#{chequeoController.selected != null}" >                        
                         <p:outputLabel value="#{bundle.EditApunteLabel_rotulo}" for="rotulo" />
                         <p:inputText id="rotulo" value="#{chequeoController.selected.apunte.rotulo}" title="#{bundle.EditApunteTitle_rotulo}" disabled="#{not empty chequeoController.selected.idChequeo}"/>                       
                         <p:outputLabel value="#{bundle.EditApunteLabel_fecha}" for="fecha" />
@@ -23,7 +23,6 @@
                         <p:inputTextarea rows="4" cols="60" id="observacion" value="#{chequeoController.selected.apunte.observacion}" 
                                          title="#{bundle.EditApunteTitle_observacion}"/>
 
-
                         <p:outputLabel value="#{bundle.EditChequeoLabel_tipoResultado}" for="tipoResultado" />
                         <p:selectOneMenu id="tipoResultado" value="#{chequeoController.selected.tipoResultado}" title="#{bundle.EditChequeoTitle_tipoResultado}"
                                          required="true" requiredMessage="#{bundle.EditChequeoRequiredMessage_tipoResultado}">
@@ -31,7 +30,8 @@
                                            var="tipoResultadoItem"
                                            itemValue="#{tipoResultadoItem}"
                                            itemLabel="#{tipoResultadoItem.nombre}"/>
-                        </p:selectOneMenu>                        
+                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{chequeoController.update}" value="#{bundle.Save}" update="display,:InformeViewForm:datalist,:growl" oncomplete="handleSubmit(args, 'InformeEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InformeEditDialog.hide()"/>
