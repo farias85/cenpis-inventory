@@ -95,7 +95,7 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
             ActivoFijoController activoFijoController = JsfUtil.getController(ActivoFijoController.class);
             
             for (ActivoFijo selection : activoFijoController.getSelection()) {
-                Apunte apunte =  new Apunte(selection.getRotulo(), new Date() , " Apunte del Informe " + selected.getNombre() , " ", usuario/*usuarioController.getActiveUser()*/);
+                Apunte apunte =  new Apunte(selection.getRotulo(), new Date() , selection.getDescripcion(), " ", usuario/*usuarioController.getActiveUser()*/);
                 apunteService.create(apunte);
                 Chequeo chequeo = new Chequeo(selected, apunte, tipoResultado);
                 chequeoService.create(chequeo);
