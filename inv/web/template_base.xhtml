@@ -36,13 +36,12 @@
                         <div class="subheader">
                             <div id="phone" class="pull-left">
                                 <h:graphicImage library="images" name="phone.png" id="mphone" />
-                                <!--<img src="images/phone.png" alt="phone"/>-->
                                 22-60-8081
                             </div>
                             <div id="email" class="pull-right">
-                                <h:graphicImage library="images" name="email.png" id="memail" />
-                                <!--<img src="images/email.png" alt="email"/>-->
-                                directorcenpis@uo.edu.cu
+                                <h:form prependId="false">                                            
+                                    <h:commandLink action="#{loginManager.doLogout()}" class="external-link" value="CERRAR SESIÓN"></h:commandLink>                                         
+                                </h:form> 
                             </div>
                         </div>
                     </div>
@@ -62,23 +61,15 @@
                                     </button>
                                     <a href="#" class="navbar-brand">
                                         <h:graphicImage library="images" name="templatemo_logo2.png" id="mtemplatemo_logo" />
-                                        <!--<img src="images/templatemo_logo.png" alt="Urbanic Template" title="Urbanic Template" />-->
                                     </a>
                                 </div>
                                 <div class="navbar-collapse collapse" id="templatemo-nav-bar">
                                     <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                        <li>
-                                            <h:link value="PRINCIPAL" outcome="/index.xhtml" class="external-link"/>
-                                        </li>
-                                        <li><p:link outcome="/pages/activoFijo/List" value="ACTIVOS FIJOS" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/auditoria/List" value="AUDITORIA" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/estado/List" value="ESTADO" class="external-link"/></li>  
-                                        <li><p:link outcome="/pages/local/List" value="LOCAL" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/metadata/List" value="METADATA" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/responsable/List" value="RESPONSABLE" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/revision/List" value="REVISIÓN" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/rol/List" value="ROL" class="external-link"/></li>
-                                        <li><p:link outcome="/pages/usuario/List" value="USUARIO" class="external-link"/></li>
+                                        <li><h:link value="PRINCIPAL" outcome="/index.xhtml" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/activoFijo/List" value="ACTIVOS FIJO" class="external-link"/></li>                                        
+                                        <li><p:link outcome="/pages/apunte/List" value="APUNTE" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/informe/List" value="INFORME" class="external-link"/></li>
+                                        <li><p:link outcome="/pages/sobrante/List" value="SOBRANTE" class="external-link"/></li>
                                     </ul>
                                 </div><!--/.nav-collapse -->
                             </div><!--/.container-fluid -->
@@ -94,16 +85,21 @@
                             <ol class="carousel-indicators">
                                 <li data-target="#templatemo-carousel" data-slide-to="0" class="active"></li>
                                 <li data-target="#templatemo-carousel" data-slide-to="1"></li>
-                                <li data-target="#templatemo-carousel" data-slide-to="2"></li>
                             </ol>
-                            <div class="carousel-inner">
+                            <div class="carousel-inner">                                
                                 <div class="item active">
                                     <div class="container">
                                         <div class="carousel-caption">
-                                            <h1>WELCOME TO URBANIC</h1>
-                                            <p>CHOOSE THE ONE SUITABLE FOR YOU</p>
-                                            <p><a class="btn btn-lg btn-green" href="#" role="button" style="margin: 20px;">View Demo</a> 
-                                                <a class="btn btn-lg btn-orange" href="#" role="button">Free Download</a></p>
+                                            <div class="col-lg-4">
+                                                <h1>CHEQUEA</h1>
+                                                <p>Revise diariamente cada uno de los activos fijos que son de su responsabilidad.</p>
+                                            </div>
+                                            <div class="col-lg-4">                                                
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <h1>INFORMA</h1>
+                                                <p>En caso de detectar rotura, o cambio de alguno de los medios en su local de trabajo, por favor informe al director del centro.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,29 +107,23 @@
                                 <div class="item">
                                     <div class="container">
                                         <div class="carousel-caption">
-                                            <div class="col-sm-6 col-md-6">
-                                                <h1>FLUID</h1>
-                                                <p>Suspendisse pellentesque, odio vel ultricies interdum, mauris nulla ullamcorper magna, non aliquet odio velit aliquam augue.</p>
+                                            <div class="col-lg-4">
+                                                <h1>COMPRUEBA</h1>
+                                                <p>Mire además que los puestos de trabajo de sus compañeros estén organizados.</p>
                                             </div>
-                                            <div class="col-sm-6 col-md-6">
-                                                <h1>ENERGY</h1>
-                                                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam mattis fringilla urna.</p>
+                                            <div class="col-lg-4">                                                
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <h1>TRABAJA</h1>
+                                                <p>Si los pasos anteriores se cumplieron sin eventos extraordinarios, dedique su tiempo a ser útil a la sociedad.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="container">
-                                        <div class="carousel-caption">
-                                            <h1>RESPONSIVE LAYOUT</h1>
-                                            <p>This website theme is free to download and use for everyone. This layout is based on Bootstrap framework.</p>
-                                            <p><a class="btn btn-lg btn-orange" href="#" role="button">Read More</a></p>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
-                            <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                            <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span></span></a>
+                            <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span></span></a>
                         </div><!-- /#templatemo-carousel -->
                     </div>
                 </ui:insert>
@@ -152,76 +142,133 @@
                     <div class="templatemo-service">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-lg-3">
                                     <div class="templatemo-service-item">
                                         <div>
-                                            <h:graphicImage library="images" name="leaf.png" id="mleaf"/>
-                                            <!--<img src="images/leaf.png" alt="icon" />-->
-                                            <span class="templatemo-service-item-header">AWESOME ICONS</span>
-                                        </div>                                        
-                                        <br class="clearfix"/>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="templatemo-service-item">
-                                        <div>
-                                            <p:link outcome="/protected3.jsf" class="external-link">
-                                                <h:graphicImage library="images" name="mobile.png" id="mmobile"/>
+                                            <p:link outcome="/pages/estado/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mestado"/>
                                             </p:link>
-                                            
-                                            <!--<img src="images/mobile.png" alt="icon"/>-->
-                                            <span class="templatemo-service-item-header">TO PRETECTED3.JSF</span>
+                                            <span class="templatemo-service-item-header">ESTADO</span>
                                         </div>                                        
-                                        <br class="clearfix"/>
                                     </div>
-
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-lg-3">
                                     <div class="templatemo-service-item">
                                         <div>
-                                            <h:form prependId="false">
-                                                <h:commandLink action="#{loginManager.doLogout()}">
-                                                    <h:graphicImage library="images" name="battery.png" id="mbattery"></h:graphicImage>
-                                                </h:commandLink>                                         
-                                                <span class="templatemo-service-item-header">CERRAR SESIÓN</span>
-                                            </h:form>  
+                                            <p:link outcome="/pages/local/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mlocal"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">LOCAL</span>
                                         </div>                                        
-                                        <br class="clearfix"/>
                                     </div>
-                                    <br class="clearfix"/>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/metadata/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mmetadata"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">METADATA</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/auditoria/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mauditoria"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">AUDITORÍA</span>
+                                        </div>                                        
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/responsable/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mresponsable"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">RESPONSABLE</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/usuario/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="musuario"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">USUARIO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/rol/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrol"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">ROL</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/revision/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrevision"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">REVISIÓN</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/tipoActivo/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtipoactivo"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">TIPO ACTIVO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+
+                                <div class="col-lg-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/tipoResultado/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtiporesultado"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">TIPO RESULTADO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+
                         </div>
                     </div>
                 </ui:insert>
 
-                <div id="templatemo-contact">
-                    <div class="container">
-                        <div class="row">
-                            <div class="templatemo-line-header head_contact">
-                                <div class="text-center">
-                                    <hr class="team_hr team_hr_left hr_gray"/><span class="txt_darkgrey">CONTACT US</span>
-                                    <hr class="team_hr team_hr_right hr_gray"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-8">                        
-                                <div class="clearfix"></div>
-                                <i>You can find us on 80 Dagon Studio, Yankin Street, <span class="txt_orange">Digital Estate</span> in Yangon.</i>
-                            </div>                    
-                        </div><!-- /.row -->
-                    </div><!-- /.container -->
-                </div>
+                <div id="templatemo-contact" style="margin: 50px"></div>
 
                 <div class="templatemo-footer" >
                     <div class="container">
                         <div class="row">
                             <div class="text-center">
                                 <div class="footer_bottom_content">
-                                    <span id="footer-line">Copyright © 2017 <a href="#">Centro de Estudios del Zapote</a></span>
+                                    <span id="footer-line">Copyright © 2017 <a href="#">Centro de Estudios de Neurociencias, Procesamiento de Imágenes y Señales (CENPIS).</a></span>
                                 </div>
 
                             </div>
