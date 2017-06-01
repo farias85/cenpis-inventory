@@ -30,7 +30,7 @@
 
                         <h:outputText value="#{bundle.ViewInformeLabel_completado}"/>
                         <p:selectBooleanCheckbox value="#{informeController.selected.completado}" disabled="false"/>
-
+                        <p:commandButton actionListener="#{informeController.update}" value="#{bundle.Save}" update="growl"/>
                     </p:panelGrid>
                 </h:panelGroup>
 
@@ -41,41 +41,46 @@
                                  paginator="true"
                                  rowKey="#{item.idChequeo}"
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 rowsPerPageTemplate="10,20,30,40,50" 
+                                 >                        
 
                         <p:ajax event="rowSelect"   update="editButton "/>
-                        <p:ajax event="rowUnselect" update="editButton "/>
+                        <p:ajax event="rowUnselect" update="editButton "/>                     
 
-                        <p:column>
+                        <p:column filterBy="#{item.apunte.rotulo}" sortBy="#{item.apunte.rotulo}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListApunteTitle_rotulo}"/>
                             </f:facet>
                             <h:outputText value="#{item.apunte.rotulo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInformeTitle_fecha}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apunte.fecha}"/>
-                        </p:column>
-                        <p:column>
+                        </p:column>                        
+                        <p:column filterBy="#{item.apunte.asunto}" sortBy="#{item.apunte.asunto}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListApunteTitle_asunto}"/>
                             </f:facet>
                             <h:outputText value="#{item.apunte.asunto}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.tipoResultado.nombre}" filterMatchMode="in" >
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.ListChequeoTitle_tipoResultado}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{tipoResultadoController.itemsAvailableSelectOne}"
+                                                   var="tipoResultadoItem"
+                                                   itemValue="#{tipoResultadoItem.nombre}"
+                                                   itemLabel="#{tipoResultadoItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoResultado.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListApunteTitle_observacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.apunte.observacion}"/>
-                        </p:column>
+                        </p:column>                        
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListChequeoTitle_tipoResultado}"/>
+                                <h:outputText value="#{bundle.ListInformeTitle_fecha}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoResultado.nombre}"/>
+                            <h:outputText value="#{item.apunte.fecha}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="InformeEditForm" oncomplete="PF('InformeEditDialog').show()" disabled="#{empty chequeoController.selected.idChequeo}" />
