@@ -16,6 +16,7 @@ import cu.cenpis.gps.inv.data.service.EstadoService;
 import cu.cenpis.gps.inv.data.service.LocalService;
 import cu.cenpis.gps.inv.data.service.ResponsableService;
 import cu.cenpis.gps.inv.data.service.RevisionService;
+import cu.cenpis.gps.inv.data.service.SobranteService;
 import cu.cenpis.gps.inv.data.service.UsuarioService;
 import cu.cenpis.gps.inv.security.SecuredPassword;
 import java.security.NoSuchAlgorithmException;
@@ -44,12 +45,14 @@ public class Main1 {
         LocalService localService = (LocalService) context.getBean("localServiceImpl");
         ResponsableService responsableService = (ResponsableService) context.getBean("responsableServiceImpl");
         RevisionService revisionService = (RevisionService) context.getBean("revisionServiceImpl");
+        SobranteService sobranteService = (SobranteService) context.getBean("sobranteServiceImpl");
 
-        Estado estado = estadoService.find(0L);
-        Local local = localService.find(0L);
-        Responsable responsable = responsableService.find(0L);
-        Revision revision = revisionService.find(0L);
+        sobranteService.findAll();
 
+//        Estado estado = estadoService.find(0L);
+//        Local local = localService.find(0L);
+//        Responsable responsable = responsableService.find(0L);
+//        Revision revision = revisionService.find(0L);
 //        ActivoFijo activoFijo = new ActivoFijo("inv-rotulo", "des", 1.5f, 1.0f, 2f, 2f, 2f, 2f, 2f, "resp", "estado", new Date(), new Date(), estado, local, responsable, revision);
 //        activoFijoService.create(activoFijo);
 //        List<Usuario> lu = usuarioService.findAll();
@@ -65,10 +68,10 @@ public class Main1 {
 //        pList.add("011621");
 //        pList.add("011630");
 //        List<ActivoFijo> aList = activoFijoService.findYaNoEstan();
-        List<ActivoFijo> aList = activoFijoService.findNuevos();
-        for (int i = 0; i < aList.size(); i++) {
-            System.out.println(aList.get(i).getIdActivoFijo());
-            System.out.println(aList.get(i).getRotulo());
-        }
+//        List<ActivoFijo> aList = activoFijoService.findNuevos();
+//        for (int i = 0; i < aList.size(); i++) {
+//            System.out.println(aList.get(i).getIdActivoFijo());
+//            System.out.println(aList.get(i).getRotulo());
+//        }
     }
 }

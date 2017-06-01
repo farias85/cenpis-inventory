@@ -43,7 +43,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="chequeoService">
             <ref bean="chequeoService" />
         </property>
-         <property name="apunteService">
+        <property name="apunteService">
             <ref bean="apunteService" />
         </property>
     </bean>
@@ -146,6 +146,18 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="usuarioController" class="cu.cenpis.gps.inv.controller.UsuarioController" scope="session">
         <property name="usuarioService">
             <ref bean="usuarioService" />
+        </property>
+    </bean>
+    
+    
+    <bean id="sobranteService" class="cu.cenpis.gps.inv.data.service.impl.SobranteServiceImpl" />
+
+    <bean id="sobranteController" class="cu.cenpis.gps.inv.controller.SobranteController" scope="session">
+        <property name="sobranteService">
+            <ref bean="sobranteService" />
+        </property>
+        <property name="apunteService">
+            <ref bean="apunteService" />
         </property>
     </bean>
     
