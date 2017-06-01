@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SobranteEditDlg" widgetVar="SobranteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSobranteTitle}">
+            <h:form id="SobranteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sobranteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_idSobrante}" for="idSobrante" />
+                        <p:inputText id="idSobrante" value="#{sobranteController.selected.idSobrante}" title="#{bundle.EditSobranteTitle_idSobrante}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_idSobrante}"/>
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{sobranteController.selected.rotulo}" title="#{bundle.EditSobranteTitle_rotulo}" />
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{sobranteController.selected.descripcion}" title="#{bundle.EditSobranteTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{sobranteController.selected.estado}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_estado}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="estadoItem"
+                                           itemValue="#{estadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_local}" for="local" />
+                        <p:selectOneMenu id="local" value="#{sobranteController.selected.local}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_local}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                           var="localItem"
+                                           itemValue="#{localItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSobranteLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{sobranteController.selected.responsable}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_responsable}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sobranteController.update}" value="#{bundle.Save}" update="display,:SobranteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SobranteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SobranteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

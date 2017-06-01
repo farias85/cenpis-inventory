@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SobranteCreateDlg" widgetVar="SobranteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSobranteTitle}">
+            <h:form id="SobranteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sobranteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_idSobrante}" for="idSobrante" />
+                        <p:inputText id="idSobrante" value="#{sobranteController.selected.idSobrante}" title="#{bundle.CreateSobranteTitle_idSobrante}" required="true" requiredMessage="#{bundle.CreateSobranteRequiredMessage_idSobrante}"/>
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{sobranteController.selected.rotulo}" title="#{bundle.CreateSobranteTitle_rotulo}" />
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{sobranteController.selected.descripcion}" title="#{bundle.CreateSobranteTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateSobranteRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{sobranteController.selected.estado}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_estado}">
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="estadoItem"
+                                           itemValue="#{estadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_local}" for="local" />
+                        <p:selectOneMenu id="local" value="#{sobranteController.selected.local}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_local}">
+                            <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                           var="localItem"
+                                           itemValue="#{localItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSobranteLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{sobranteController.selected.responsable}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_responsable}">
+                            <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sobranteController.create}" value="#{bundle.Save}" update="display,:SobranteListForm:datalist,:growl" oncomplete="handleSubmit(args,'SobranteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SobranteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
