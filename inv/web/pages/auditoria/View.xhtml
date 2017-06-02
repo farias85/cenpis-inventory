@@ -12,8 +12,6 @@
             <h:form id="AuditoriaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{auditoriaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAuditoriaLabel_idAuditoria}"/>
-                        <h:outputText value="#{auditoriaController.selected.idAuditoria}" title="#{bundle.ViewAuditoriaTitle_idAuditoria}"/>
                         <h:outputText value="#{bundle.ViewAuditoriaLabel_fecha}"/>
                         <h:outputText value="#{auditoriaController.selected.fecha}" title="#{bundle.ViewAuditoriaTitle_fecha}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

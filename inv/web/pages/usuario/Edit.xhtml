@@ -4,27 +4,49 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
 
     <ui:composition>
 
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario" />
-                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}"/>
+                    <p:panelGrid columns="2" rendered="#{usuarioController.editRendered}">
+
+                        
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.EditUsuarioTitle_nombre}" 
+                                     required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombre}"/>
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_apellidos}" for="apellidos" />
-                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.EditUsuarioTitle_apellidos}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_apellidos}"/>
+                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.EditUsuarioTitle_apellidos}" 
+                                     required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_apellidos}"/>
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" 
+                                     required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_email}"/>
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_contrasenna}" for="contrasenna" />
-                        <p:inputText id="contrasenna" value="#{usuarioController.selected.contrasenna}" title="#{bundle.EditUsuarioTitle_contrasenna}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenna}"/>
+                        <p:inputText id="contrasenna" value="#{usuarioController.selected.contrasenna}" title="#{bundle.EditUsuarioTitle_contrasenna}" 
+                                     required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenna}"/>
+
+                        <p:outputLabel value="Roles:" for="roles" />
+                        <p:autoComplete id="roles" multiple="true" value="#{rolController.filtered}" completeMethod="#{rolController.autoCompleteQueryItems}"
+                                        var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol}" forceSelection="true" required="true"
+                                        requiredMessage="#{bundle.UsuarioRolNotEmpty}">
+                            <o:converter converterId="omnifaces.ListConverter" list="#{rolController.items}" />
+                            <p:column>
+                                <h:outputText value="#{rol.nombre}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{rol.descripcion}" />
+                            </p:column>
+                        </p:autoComplete>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}"  immediate="true" onclick="UsuarioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

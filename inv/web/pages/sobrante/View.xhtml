@@ -12,8 +12,6 @@
             <h:form id="SobranteViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{sobranteController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSobranteLabel_idSobrante}"/>
-                        <h:outputText value="#{sobranteController.selected.idSobrante}" title="#{bundle.ViewSobranteTitle_idSobrante}"/>
                         <h:outputText value="#{bundle.ViewSobranteLabel_rotulo}"/>
                         <h:outputText value="#{sobranteController.selected.rotulo}" title="#{bundle.ViewSobranteTitle_rotulo}"/>
                         <h:outputText value="#{bundle.ViewSobranteLabel_descripcion}"/>

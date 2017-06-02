@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
 
@@ -12,19 +13,44 @@
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idUsuario}" for="idUsuario" />
-                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.CreateUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_idUsuario}"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" 
+                                     required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_apellidos}" for="apellidos" />
-                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.CreateUsuarioTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_apellidos}"/>
+                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.CreateUsuarioTitle_apellidos}" 
+                                     required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_apellidos}"/>                            
+                                              
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}"/>
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" 
+                                     required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}" validatorMessage="Email Incorrecto">
+                            
+                        <f:validateRegex pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/>
+                        </p:inputText> 
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasenna}" for="contrasenna" />
-                        <p:inputText id="contrasenna" value="#{usuarioController.selected.contrasenna}" title="#{bundle.CreateUsuarioTitle_contrasenna}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenna}"/>
+                        <p:inputText id="contrasenna" value="#{usuarioController.selected.contrasenna}" title="#{bundle.CreateUsuarioTitle_contrasenna}" 
+                                     required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenna}"/>
+
+
+                        <p:outputLabel value="Roles:" for="roles" />
+                        <p:autoComplete id="roles" multiple="true" value="#{rolController.filtered}" completeMethod="#{rolController.autoCompleteQueryItems}"
+                                        var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol}" forceSelection="true" required="true"
+                                        requiredMessage="#{bundle.UsuarioRolNotEmpty}">
+                            <o:converter converterId="omnifaces.ListConverter" list="#{rolController.items}" />
+                            <p:column>
+                                <h:outputText value="#{rol.nombre}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{rol.descripcion}" />
+                            </p:column>
+                        </p:autoComplete>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}"  immediate="true" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

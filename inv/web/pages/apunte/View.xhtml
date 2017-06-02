@@ -12,9 +12,7 @@
             <h:form id="ApunteViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{apunteController.selected != null}">
-                        <h:outputText value="#{bundle.ViewApunteLabel_idApunte}"/>
-                        <h:outputText value="#{apunteController.selected.idApunte}" title="#{bundle.ViewApunteTitle_idApunte}"/>
-                        
+                                                
                         <h:outputText value="#{bundle.ViewApunteLabel_rotulo}"/>
                         <h:outputText value="#{apunteController.selected.rotulo}" title="#{bundle.ViewApunteTitle_rotulo}"/>
                         

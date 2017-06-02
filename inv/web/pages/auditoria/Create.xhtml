@@ -12,8 +12,6 @@
             <h:form id="AuditoriaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{auditoriaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAuditoriaLabel_idAuditoria}" for="idAuditoria" />
-                        <p:inputText id="idAuditoria" value="#{auditoriaController.selected.idAuditoria}" title="#{bundle.CreateAuditoriaTitle_idAuditoria}" required="true" requiredMessage="#{bundle.CreateAuditoriaRequiredMessage_idAuditoria}"/>
                         <p:outputLabel value="#{bundle.CreateAuditoriaLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{auditoriaController.selected.fecha}" title="#{bundle.EditAuditoriaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAuditoriaRequiredMessage_fecha}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAuditoriaLabel_hora}" for="hora" />

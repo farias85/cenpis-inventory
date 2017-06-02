@@ -12,8 +12,6 @@
             <h:form id="ResponsableViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{responsableController.selected != null}">
-                        <h:outputText value="#{bundle.ViewResponsableLabel_idResponsable}"/>
-                        <h:outputText value="#{responsableController.selected.idResponsable}" title="#{bundle.ViewResponsableTitle_idResponsable}"/>
                         <h:outputText value="#{bundle.ViewResponsableLabel_nombre}"/>
                         <h:outputText value="#{responsableController.selected.nombre}" title="#{bundle.ViewResponsableTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewResponsableLabel_email}"/>
