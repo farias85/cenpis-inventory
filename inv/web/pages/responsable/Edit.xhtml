@@ -12,8 +12,6 @@
             <h:form id="ResponsableEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{responsableController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditResponsableLabel_idResponsable}" for="idResponsable" />
-                        <p:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="#{bundle.EditResponsableTitle_idResponsable}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_idResponsable}"/>
                         <p:outputLabel value="#{bundle.EditResponsableLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{responsableController.selected.nombre}" title="#{bundle.EditResponsableTitle_nombre}" required="true" requiredMessage="#{bundle.EditResponsableRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditResponsableLabel_email}" for="email" />

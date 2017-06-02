@@ -17,9 +17,7 @@
             <h:form id="EstadoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEstadoLabel_idEstado}"/>
-                        <h:outputText value="#{estadoController.selected.idEstado}" title="#{bundle.ViewEstadoTitle_idEstado}"/>
-                        
+                                               
                         <h:outputText value="#{bundle.ViewEstadoLabel_nombre}"/>
                         <h:outputText value="#{estadoController.selected.nombre}" title="#{bundle.ViewEstadoTitle_nombre}"/>
                         

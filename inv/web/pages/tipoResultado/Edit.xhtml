@@ -12,8 +12,6 @@
             <h:form id="TipoResultadoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoResultadoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTipoResultadoLabel_idTipoResultado}" for="idTipoResultado" />
-                        <p:inputText id="idTipoResultado" value="#{tipoResultadoController.selected.idTipoResultado}" title="#{bundle.EditTipoResultadoTitle_idTipoResultado}" required="true" requiredMessage="#{bundle.EditTipoResultadoRequiredMessage_idTipoResultado}"/>
                         <p:outputLabel value="#{bundle.EditTipoResultadoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{tipoResultadoController.selected.nombre}" title="#{bundle.EditTipoResultadoTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipoResultadoRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditTipoResultadoLabel_descripcion}" for="descripcion" />

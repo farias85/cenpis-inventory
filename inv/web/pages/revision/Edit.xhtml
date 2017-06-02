@@ -12,8 +12,6 @@
             <h:form id="RevisionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{revisionController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRevisionLabel_idRevision}" for="idRevision" />
-                        <p:inputText id="idRevision" value="#{revisionController.selected.idRevision}" title="#{bundle.EditRevisionTitle_idRevision}" required="true" requiredMessage="#{bundle.EditRevisionRequiredMessage_idRevision}"/>
                         <p:outputLabel value="#{bundle.EditRevisionLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{revisionController.selected.activo}" required="true" requiredMessage="#{bundle.EditRevisionRequiredMessage_activo}"/>
                         <p:outputLabel value="#{bundle.EditRevisionLabel_fechaEnSistema}" for="fechaEnSistema" />

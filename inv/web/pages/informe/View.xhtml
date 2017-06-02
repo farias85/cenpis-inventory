@@ -34,15 +34,31 @@
                     </p:panelGrid>
                 </h:panelGroup>
 
-
+                <div class="templatemo-top-menu" style="min-height: 25px;"></div>
+                
                 <p:panel header="Apuntes del Informe">
-                    <p:dataTable id="datalist" value="#{informeController.chequeosInforme}" var="item"
+                    <p:dataTable id="datalist" value="#{informeController.chequeosInforme}" var="item" 
                                  selectionMode="single" selection="#{chequeoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idChequeo}"
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50" 
-                                 >                        
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 reflow="true"
+                                 widgetVar="dtable"
+                                 emptyMessage="#{bundle.TableQueryNotFound}"
+                                 filteredValue="#{chequeoController.filtered}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+
+                        <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage url="#{resource['images/export/pdf-icon.png']}" />                                
+                                <p:dataExporter type="pdf" target="datalist" fileName="aft" />
+                            </h:commandLink>
+                            <h:commandLink>
+                                <p:graphicImage url="#{resource['images/export/excel-icon.png']}" />                                
+                                <p:dataExporter type="xls" target="datalist" fileName="aft" />
+                            </h:commandLink>
+                        </f:facet>
 
                         <p:ajax event="rowSelect"   update="editButton "/>
                         <p:ajax event="rowUnselect" update="editButton "/>                     

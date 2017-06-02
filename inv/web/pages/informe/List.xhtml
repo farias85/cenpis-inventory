@@ -33,16 +33,10 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                        
+
                         <p:ajax event="rowSelect"   update=":MenuCrud:MenuForm, :InformeListForm:ContextMenu:context-menu"/>
                         <p:ajax event="rowUnselect" update=":MenuCrud:MenuForm, :InformeListForm:ContextMenu:context-menu"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInformeTitle_idInforme}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idInforme}"/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_nombre}"/>

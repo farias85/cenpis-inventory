@@ -12,8 +12,6 @@
             <h:form id="LocalEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditLocalLabel_idLocal}" for="idLocal" />
-                        <p:inputText id="idLocal" value="#{localController.selected.idLocal}" title="#{bundle.EditLocalTitle_idLocal}" required="true" requiredMessage="#{bundle.EditLocalRequiredMessage_idLocal}"/>
                         <p:outputLabel value="#{bundle.EditLocalLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{localController.selected.nombre}" title="#{bundle.EditLocalTitle_nombre}" required="true" requiredMessage="#{bundle.EditLocalRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditLocalLabel_descripcion}" for="descripcion" />
