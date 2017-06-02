@@ -12,8 +12,6 @@
             <h:form id="ResponsableCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{responsableController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateResponsableLabel_idResponsable}" for="idResponsable" />
-                        <p:inputText id="idResponsable" value="#{responsableController.selected.idResponsable}" title="#{bundle.CreateResponsableTitle_idResponsable}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_idResponsable}"/>
                         <p:outputLabel value="#{bundle.CreateResponsableLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{responsableController.selected.nombre}" title="#{bundle.CreateResponsableTitle_nombre}" required="true" requiredMessage="#{bundle.CreateResponsableRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.CreateResponsableLabel_email}" for="email" />

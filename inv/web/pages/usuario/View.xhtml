@@ -12,8 +12,6 @@
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
-                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_nombre}"/>
                         <h:outputText value="#{usuarioController.selected.nombre}" title="#{bundle.ViewUsuarioTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_apellidos}"/>

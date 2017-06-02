@@ -12,8 +12,6 @@
             <h:form id="RevisionViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{revisionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRevisionLabel_idRevision}"/>
-                        <h:outputText value="#{revisionController.selected.idRevision}" title="#{bundle.ViewRevisionTitle_idRevision}"/>
                         <h:outputText value="#{bundle.ViewRevisionLabel_activo}"/>
                         <p:selectBooleanCheckbox value="#{revisionController.selected.activo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewRevisionLabel_fechaEnSistema}"/>

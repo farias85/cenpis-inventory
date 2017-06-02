@@ -12,8 +12,6 @@
             <h:form id="LocalViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{localController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLocalLabel_idLocal}"/>
-                        <h:outputText value="#{localController.selected.idLocal}" title="#{bundle.ViewLocalTitle_idLocal}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_nombre}"/>
                         <h:outputText value="#{localController.selected.nombre}" title="#{bundle.ViewLocalTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewLocalLabel_descripcion}"/>

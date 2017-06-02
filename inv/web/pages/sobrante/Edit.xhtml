@@ -12,8 +12,6 @@
             <h:form id="SobranteEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{sobranteController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSobranteLabel_idSobrante}" for="idSobrante" />
-                        <p:inputText id="idSobrante" value="#{sobranteController.selected.idSobrante}" title="#{bundle.EditSobranteTitle_idSobrante}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_idSobrante}"/>
                         <p:outputLabel value="#{bundle.EditSobranteLabel_rotulo}" for="rotulo" />
                         <p:inputText id="rotulo" value="#{sobranteController.selected.rotulo}" title="#{bundle.EditSobranteTitle_rotulo}" />
                         <p:outputLabel value="#{bundle.EditSobranteLabel_descripcion}" for="descripcion" />
@@ -23,21 +21,24 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="estadoItem"
-                                           itemValue="#{estadoItem}"/>
+                                           itemValue="#{estadoItem}"
+                                           itemLabel="#{estadoItem.nombre}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditSobranteLabel_local}" for="local" />
                         <p:selectOneMenu id="local" value="#{sobranteController.selected.local}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_local}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{localController.itemsAvailableSelectOne}"
                                            var="localItem"
-                                           itemValue="#{localItem}"/>
+                                           itemValue="#{localItem}"
+                                           itemLabel="#{localItem.nombre}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditSobranteLabel_responsable}" for="responsable" />
                         <p:selectOneMenu id="responsable" value="#{sobranteController.selected.responsable}" required="true" requiredMessage="#{bundle.EditSobranteRequiredMessage_responsable}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
                                            var="responsableItem"
-                                           itemValue="#{responsableItem}"/>
+                                           itemValue="#{responsableItem}"
+                                           itemLabel="#{responsableItem.nombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{sobranteController.update}" value="#{bundle.Save}" update="display,:SobranteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SobranteEditDialog');"/>
