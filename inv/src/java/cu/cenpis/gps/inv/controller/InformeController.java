@@ -42,7 +42,7 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
     public void setChequeoService(ChequeoService chequeoService) {
         this.chequeoService = chequeoService;
     }
-    
+
     private ApunteService apunteService;
 
     public ApunteService getApunteService() {
@@ -52,17 +52,17 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
     public void setApunteService(ApunteService apunteService) {
         this.apunteService = apunteService;
     }
-    
-    private UsuarioService usuarioService;
 
-    public UsuarioService getUsuarioService() {
-        return usuarioService;
-    }
+//    private UsuarioService usuarioService;
+//
+//    public UsuarioService getUsuarioService() {
+//        return usuarioService;
+//    }
 
-    public void setUsuarioService(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
-     
+//    public void setUsuarioService(UsuarioService usuarioService) {
+//        this.usuarioService = usuarioService;
+//    }
+
     private TipoResultadoService tipoResultadoService;
 
     public TipoResultadoService getTipoResultadoService() {
@@ -72,7 +72,7 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
     public void setTipoResultadoService(TipoResultadoService tipoResultadoService) {
         this.tipoResultadoService = tipoResultadoService;
     }
-     
+
     public InformeController() {
         super(Informe.class);
     }
@@ -88,14 +88,14 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
         super.create(Bundle.getString("InformeCreated"));
         if (Objects.nonNull(selected.getIdInforme())) {
             //crear un apunte y un chequeo por cada rotulo
-
+            UsuarioController usuarioController = JsfUtil.getController(UsuarioController.class);
             //Tipo de resultado EN_REVISION  
-            TipoResultado tipoResultado = tipoResultadoService.find(0);                        
-            Usuario usuario = usuarioService.find(1L);
+            TipoResultado tipoResultado = tipoResultadoService.find(0);
+            Usuario usuario = usuarioController.getActiveUser();
             ActivoFijoController activoFijoController = JsfUtil.getController(ActivoFijoController.class);
-            
+
             for (ActivoFijo selection : activoFijoController.getSelection()) {
-                Apunte apunte =  new Apunte(selection.getRotulo(), new Date() , selection.getDescripcion(), " ", usuario/*usuarioController.getActiveUser()*/);
+                Apunte apunte = new Apunte(selection.getRotulo(), new Date(), selection.getDescripcion(), " ", usuario);
                 apunteService.create(apunte);
                 Chequeo chequeo = new Chequeo(selected, apunte, tipoResultado);
                 chequeoService.create(chequeo);
@@ -119,10 +119,10 @@ public class InformeController extends BaseController<Informe, java.lang.Integer
             selected.setCompletado(Boolean.FALSE);
         }
     }
-    
-    public List<Chequeo> getChequeosInforme() {      
-        
-        List<Chequeo> listaChequeo = chequeoService.findNamedQuery("Chequeo.findByIdInforme", "idInforme", selected.getIdInforme());       
+
+    public List<Chequeo> getChequeosInforme() {
+
+        List<Chequeo> listaChequeo = chequeoService.findNamedQuery("Chequeo.findByIdInforme", "idInforme", selected.getIdInforme());
         return listaChequeo;
     }
 }

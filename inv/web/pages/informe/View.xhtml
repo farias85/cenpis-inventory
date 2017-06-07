@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:composition template="/template.xhtml">
 
@@ -30,12 +31,17 @@
 
                         <h:outputText value="#{bundle.ViewInformeLabel_completado}"/>
                         <p:selectBooleanCheckbox value="#{informeController.selected.completado}" disabled="false"/>
-                        <p:commandButton actionListener="#{informeController.update}" value="#{bundle.Save}" update="growl"/>
+
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+                            <p:commandButton actionListener="#{informeController.update}" value="#{bundle.Save}" update="growl"/>                        
+                        </sec:authorize>
+
+                        <p:commandButton immediate="true" action="#{informeController.actionCancel}" value="#{bundle.Cancel}" />
                     </p:panelGrid>
                 </h:panelGroup>
 
                 <div class="templatemo-top-menu" style="min-height: 25px;"></div>
-                
+
                 <p:panel header="Apuntes del Informe">
                     <p:dataTable id="datalist" value="#{informeController.chequeosInforme}" var="item" 
                                  selectionMode="single" selection="#{chequeoController.selected}"
@@ -60,8 +66,11 @@
                             </h:commandLink>
                         </f:facet>
 
-                        <p:ajax event="rowSelect"   update="editButton "/>
-                        <p:ajax event="rowUnselect" update="editButton "/>                     
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+                            <p:ajax event="rowSelect"   update="editButton "/>
+                            <p:ajax event="rowUnselect" update="editButton "/> 
+                        </sec:authorize>
+
 
                         <p:column filterBy="#{item.apunte.rotulo}" sortBy="#{item.apunte.rotulo}"  filterMatchMode="contains">
                             <f:facet name="header">
@@ -98,9 +107,13 @@
                             </f:facet>
                             <h:outputText value="#{item.apunte.fecha}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="InformeEditForm" oncomplete="PF('InformeEditDialog').show()" disabled="#{empty chequeoController.selected.idChequeo}" />
-                        </f:facet>
+
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+                            <f:facet name="footer">
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="InformeEditForm" oncomplete="PF('InformeEditDialog').show()" disabled="#{empty chequeoController.selected.idChequeo}" />
+                            </f:facet>
+                        </sec:authorize>
+
                     </p:dataTable>
                 </p:panel>
             </h:form>
