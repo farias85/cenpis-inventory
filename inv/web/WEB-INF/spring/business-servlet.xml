@@ -13,6 +13,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="apunteService">
             <ref bean="apunteService" />
         </property>
+        <property name="queryMethod" value="getRotulo"/>
     </bean>
 
 
@@ -25,6 +26,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="usuarioService">
             <ref bean="usuarioService" />
         </property>
+        <property name="queryMethod" value="getAsunto"/>
     </bean>
 
 
@@ -34,6 +36,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="auditoriaService">
             <ref bean="auditoriaService" />
         </property>
+        <property name="queryMethod" value="getRotulo"/>
     </bean>
 
 
@@ -46,6 +49,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="apunteService">
             <ref bean="apunteService" />
         </property>
+        <property name="queryMethod" value="getIdChequeo"/>
     </bean>
 
 
@@ -55,6 +59,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="estadoService">
             <ref bean="estadoService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
 
@@ -72,7 +77,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         </property>       
         <property name="tipoResultadoService">
             <ref bean="tipoResultadoService" />
-        </property>        
+        </property>  
+        <property name="queryMethod" value="getNombre"/>      
     </bean>
 
 
@@ -82,6 +88,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="localService">
             <ref bean="localService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
 
@@ -91,6 +98,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="metadataService">
             <ref bean="metadataService" />
         </property>
+        <property name="queryMethod" value="getIdMetadata"/>
     </bean>
 
 
@@ -100,6 +108,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="responsableService">
             <ref bean="responsableService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
 
@@ -109,6 +118,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="revisionService">
             <ref bean="revisionService" />
         </property>
+        <property name="queryMethod" value="getIdRevision"/>
     </bean>
 
 
@@ -118,6 +128,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="rolService">
             <ref bean="rolService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
     <bean id="tipoActivoService" class="cu.cenpis.gps.inv.data.service.impl.TipoActivoServiceImpl" />
@@ -126,6 +137,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="tipoActivoService">
             <ref bean="tipoActivoService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
 
@@ -135,6 +147,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="tipoResultadoService">
             <ref bean="tipoResultadoService" />
         </property>
+        <property name="queryMethod" value="getNombre"/>
     </bean>
 
 
@@ -144,6 +157,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="usuarioService">
             <ref bean="usuarioService" />
         </property>
+        <property name="queryMethod" value="getEmail"/>
     </bean>
     
     
@@ -156,6 +170,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="apunteService">
             <ref bean="apunteService" />
         </property>
+        <property name="queryMethod" value="getRotulo"/>
     </bean>
     
     <bean id="destroyController" class="cu.cenpis.gps.inv.controller.DestroyController" scope="session"/>
