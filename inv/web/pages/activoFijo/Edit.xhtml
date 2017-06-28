@@ -21,6 +21,12 @@
                             <h:outputText value="#{bundle.EditActivoFijoTitle}"></h:outputText>
                         </f:facet>
 
+                        <p:outputLabel value="#{bundle.EditActivoFijoLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{activoFijoController.selected.rotulo}"  disabled="true" />
+                        
+                        <p:outputLabel value="#{bundle.EditActivoFijoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{activoFijoController.selected.descripcion}" disabled="true" />
+                        
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_estado}" for="estado" />
                         <p:selectOneMenu id="estado" value="#{activoFijoController.selected.estado}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_estado}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
