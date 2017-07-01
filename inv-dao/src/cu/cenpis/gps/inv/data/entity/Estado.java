@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author farias-i5
  */
 @Entity
-@Table(catalog = "inv", schema = "")
+@Table(schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
@@ -50,7 +50,7 @@ public class Estado implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    @OneToMany(mappedBy = "estado")
     private List<ActivoFijo> activoFijoList;
 
     public Estado() {

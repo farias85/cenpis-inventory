@@ -17,11 +17,11 @@
                         <h:outputText value="#{bundle.ViewSobranteLabel_descripcion}"/>
                         <h:outputText value="#{sobranteController.selected.descripcion}" title="#{bundle.ViewSobranteTitle_descripcion}"/>
                         <h:outputText value="#{bundle.ViewSobranteLabel_estado}"/>
-                        <h:outputText value="#{sobranteController.selected.estado}" title="#{bundle.ViewSobranteTitle_estado}"/>
+                        <h:outputText value="#{sobranteController.selected.estado.nombre}" title="#{bundle.ViewSobranteTitle_estado}"/>
                         <h:outputText value="#{bundle.ViewSobranteLabel_local}"/>
-                        <h:outputText value="#{sobranteController.selected.local}" title="#{bundle.ViewSobranteTitle_local}"/>
+                        <h:outputText value="#{sobranteController.selected.local.nombre}" title="#{bundle.ViewSobranteTitle_local}"/>
                         <h:outputText value="#{bundle.ViewSobranteLabel_responsable}"/>
-                        <h:outputText value="#{sobranteController.selected.responsable}" title="#{bundle.ViewSobranteTitle_responsable}"/>
+                        <h:outputText value="#{sobranteController.selected.responsable.nombre}" title="#{bundle.ViewSobranteTitle_responsable}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="SobranteViewDialog.hide()"/>
                 </h:panelGroup>

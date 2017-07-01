@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:composition template="/template.xhtml">
 
@@ -24,44 +25,92 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <sec:authorize ifAnyGranted="ROLE_EDITOR">
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
+                        </sec:authorize>
 
-                        <p:column>
+                        <sec:authorize ifAnyGranted="ROLE_ADMIN">
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        </sec:authorize>
+
+                        <sec:authorize access="isAnonymous()">
+                            <p:ajax event="rowSelect"   update="viewButton"/>
+                            <p:ajax event="rowUnselect" update="viewButton"/> 
+                        </sec:authorize>
+
+                        <p:column filterBy="#{item.rotulo}" sortBy="#{item.rotulo}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSobranteTitle_rotulo}"/>
                             </f:facet>
                             <h:outputText value="#{item.rotulo}"/>
                         </p:column>
-                        <p:column>
+
+                        <p:column filterBy="#{item.descripcion}" sortBy="#{item.descripcion}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSobranteTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSobranteTitle_estado}"/>
+
+
+                        <p:column headerText="#{bundle.ListSobranteTitle_estado}" filterBy="#{item.estado.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                                   var="estadoItem"
+                                                   itemValue="#{estadoItem.nombre}"
+                                                   itemLabel="#{estadoItem.nombre}"/>
+                                </p:selectCheckboxMenu>
                             </f:facet>
-                            <h:outputText value="#{item.estado}"/>
+                            <h:outputText value="#{item.estado.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSobranteTitle_local}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.local}"/>
+
+
+
+                        <p:column headerText="#{bundle.ListActivoFijoTitle_local}" filterBy="#{item.local.nombre}"  filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                                   var="localItem"
+                                                   itemValue="#{localItem.nombre}"
+                                                   itemLabel="#{localItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>                            
+                            <h:outputText value="#{item.local.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSobranteTitle_responsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
+
+
+                        <p:column headerText="#{bundle.ListActivoFijoTitle_responsable}" filterBy="#{item.responsable.nombre}"  filterMatchMode="in"> 
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
+                                    <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
+                                                   var="responsableItem"
+                                                   itemValue="#{responsableItem.nombre}"
+                                                   itemLabel="#{responsableItem.nombre}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet> 
+                            <h:outputText value="#{item.responsable.nombre}"/>
                         </p:column>
+
+
+
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{sobranteController.prepareCreate}" update=":SobranteCreateForm" oncomplete="PF('SobranteCreateDialog').show()"/>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{sobranteController.prepareCreate}" update=":SobranteCreateForm" oncomplete="PF('SobranteCreateDialog').show()"/>
+                            </sec:authorize>
+
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SobranteViewForm" oncomplete="PF('SobranteViewDialog').show()" disabled="#{empty sobranteController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SobranteEditForm" oncomplete="PF('SobranteEditDialog').show()" disabled="#{empty sobranteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{sobranteController.destroy}" update=":growl,datalist" disabled="#{empty sobranteController.selected}"/>
+
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SobranteEditForm" oncomplete="PF('SobranteEditDialog').show()" disabled="#{empty sobranteController.selected}"/>
+                            </sec:authorize>
+
+                            <sec:authorize ifAnyGranted="ROLE_ADMIN">
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{sobranteController.destroy}" update=":growl,datalist" disabled="#{empty sobranteController.selected}"/>
+                            </sec:authorize>
+
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

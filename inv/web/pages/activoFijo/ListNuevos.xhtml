@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:composition template="/template.xhtml">
 
@@ -38,7 +39,12 @@
                                         <p:menuitem value="Listar Informes" outcome="/pages/informe/List" icon="ui-icon-wrench" />                                        
                                         <p:menuitem value="Alerta" process="ActivoFijoListForm:datalist" update=":ActivoFijoListForm:multiCarDetail" 
                                                     icon="ui-icon-search" oncomplete="PF('multiCarDialog').show()" />
-                                        <p:menuitem value="Nuevo Informe" action="#{activoFijoController.actionInformePrepareCreate}"/>
+
+                                        <sec:authorize ifAnyGranted="ROLE_ADMIN">
+                                            <p:menuitem value="Nuevo Informe" action="#{activoFijoController.actionInformePrepareCreate}"/>
+                                        </sec:authorize>
+
+
                                     </p:submenu>
                                 </p:panelMenu>                          
                             </div>                            

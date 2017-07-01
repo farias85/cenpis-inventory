@@ -31,6 +31,19 @@
         <security:intercept-url pattern="/css/**" access="anonymous"/> 
         
         <security:intercept-url pattern="/protected3.jsf" access="hasRole('ROLE_ADMIN')"/>
+       
+        
+        <security:intercept-url pattern="/pages/estado/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/responsable/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/tipoActivo/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/local/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/usuario/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/tipoResultado/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/metadata/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/rol/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/auditoria/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/pages/revision/*" access="hasRole('ROLE_ADMIN')"/>        
+        
 
         <security:access-denied-handler error-page="/static/error403.jsf"/>
 

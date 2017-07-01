@@ -22,11 +22,13 @@ public class UsuarioDAOImpl extends AbstractHibernateDAO<Usuario, java.lang.Long
                 setParameter("email", u.getEmail()).
                 uniqueResult());
 
-        Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, u.getEmail());
-        Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, result.getEmail());
+        if (result != null) {
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, u.getEmail());
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, result.getEmail());
 
-        Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, u.getContrasenna());
-        Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, result.getContrasenna());
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, u.getContrasenna());
+            Logger.getLogger(UsuarioDAOImpl.class.getName()).log(Level.SEVERE, result.getContrasenna());
+        }
 
         return result;
     }

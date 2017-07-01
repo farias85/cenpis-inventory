@@ -5,7 +5,6 @@
  */
 package cu.cenpis.gps.inv.read;
 
-import cu.cenpis.gps.inv.data.service.UsuarioService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

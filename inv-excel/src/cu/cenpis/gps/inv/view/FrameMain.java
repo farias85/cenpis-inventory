@@ -341,6 +341,7 @@ public class FrameMain extends javax.swing.JFrame {
             File selectedFile = fileChooser.getSelectedFile();
             String excelFilePath = selectedFile.getAbsolutePath();
             Limpiar();
+            jLabel13.setText("");
             try {
                 objExcel.readExcel(excelFilePath);
             } catch (IOException ex) {
@@ -401,6 +402,8 @@ public class FrameMain extends javax.swing.JFrame {
         jTextField3.setText("");
         jTextField4.setText("");
         jTextField5.setText("");
+        
+        
 
         jSpinner1.setValue(0);
         jSpinner1.setEnabled(false);

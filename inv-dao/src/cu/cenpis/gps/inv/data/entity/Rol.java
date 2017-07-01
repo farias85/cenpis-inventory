@@ -6,7 +6,6 @@
 package cu.cenpis.gps.inv.data.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -32,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author farias-i5
  */
 @Entity
-@Table(catalog = "inv", schema = "")
+@Table(schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),

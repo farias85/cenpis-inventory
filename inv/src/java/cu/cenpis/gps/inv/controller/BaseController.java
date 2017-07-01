@@ -191,13 +191,22 @@ public abstract class BaseController<T, I>
                     msg = cause.getLocalizedMessage();
                 }
                 if (msg.length() > 0) {
+                    if (persistAction == PersistAction.DELETE) {
+                        msg = "El elemento seleccionado no se puede eliminar.";
+                    }
                     JsfUtil.addErrorMessage(msg);
                 } else {
                     JsfUtil.addErrorMessage(ex, Bundle.getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, Bundle.getString("PersistenceErrorOccured"));
+                String msg = "";
+                if (persistAction == PersistAction.DELETE) {
+                    msg = "El elemento seleccionado no se puede eliminar.";
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, Bundle.getString("PersistenceErrorOccured"));
+                }
             }
         }
     }
