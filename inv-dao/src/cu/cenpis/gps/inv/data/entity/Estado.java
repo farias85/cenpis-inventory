@@ -50,7 +50,7 @@ public class Estado implements Serializable {
     @Lob
     @Size(max = 65535)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    @OneToMany(mappedBy = "estado")
     private List<ActivoFijo> activoFijoList;
 
     public Estado() {

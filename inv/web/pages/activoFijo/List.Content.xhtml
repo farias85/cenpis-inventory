@@ -42,9 +42,9 @@
             </h:outputText>
         </p:column>          
 
-        <p:column filterBy="#{item.estado.nombre}"  filterMatchMode="in">
+        <p:column headerText="#{bundle.ListActivoFijoTitle_estado}" filterBy="#{item.estado.nombre}"  filterMatchMode="in">
             <f:facet name="filter">
-                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_estado}" onchange="PF('dtable').filter()">
+                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
                     <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                    var="estadoItem"
                                    itemValue="#{estadoItem.nombre}"
@@ -54,9 +54,9 @@
             <h:outputText value="#{item.estado.nombre}"/>
         </p:column>
 
-        <p:column filterBy="#{item.local.nombre}"  filterMatchMode="in">
+        <p:column headerText="#{bundle.ListActivoFijoTitle_local}" filterBy="#{item.local.nombre}"  filterMatchMode="in">
             <f:facet name="filter">
-                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_local}" onchange="PF('dtable').filter()">
+                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
                     <f:selectItems value="#{localController.itemsAvailableSelectOne}"
                                    var="localItem"
                                    itemValue="#{localItem.nombre}"
@@ -66,9 +66,9 @@
             <h:outputText value="#{item.local.nombre}"/>
         </p:column>
 
-        <p:column filterBy="#{item.responsable.nombre}"  filterMatchMode="in">
+        <p:column headerText="#{bundle.ListActivoFijoTitle_responsable}" filterBy="#{item.responsable.nombre}"  filterMatchMode="in">
             <f:facet name="filter">
-                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_responsable}" onchange="PF('dtable').filter()">
+                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
                     <f:selectItems value="#{responsableController.itemsAvailableSelectOne}"
                                    var="responsableItem"
                                    itemValue="#{responsableItem.nombre}"
@@ -78,9 +78,9 @@
             <h:outputText value="#{item.responsable.nombre}"/>
         </p:column>
 
-        <p:column filterBy="#{item.tipoActivo.nombre}"  filterMatchMode="in">
+        <p:column headerText="#{bundle.ListActivoFijoTitle_tipoActivo}" filterBy="#{item.tipoActivo.nombre}"  filterMatchMode="in">
             <f:facet name="filter">
-                <p:selectCheckboxMenu label="#{bundle.ListActivoFijoTitle_tipoActivo}" onchange="PF('dtable').filter()">
+                <p:selectCheckboxMenu label="#{bundle.Select}" onchange="PF('dtable').filter()">
                     <f:selectItems value="#{tipoActivoController.itemsAvailableSelectOne}"
                                    var="tipoActivoItem"
                                    itemValue="#{tipoActivoItem.nombre}"
