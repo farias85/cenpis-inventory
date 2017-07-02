@@ -92,9 +92,16 @@
 
         <p:column>
             <f:facet name="header">
-                <h:outputText value="#{bundle.ListActivoFijoTitle_revision}"/>
+                <h:outputText value="#{bundle.ListActivoFijoTitle_prestado}"/>
             </f:facet>
-            <h:outputText value="#{item.revision.idRevision}"/>
+            <p:selectBooleanCheckbox value="#{item.prestado}" disabled="true"/>
+        </p:column>
+        
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{bundle.ListActivoFijoTitle_procesoBaja}"/>
+            </f:facet>
+            <p:selectBooleanCheckbox value="#{item.procesoBaja}" disabled="true"/>
         </p:column>
 
     </ui:composition>

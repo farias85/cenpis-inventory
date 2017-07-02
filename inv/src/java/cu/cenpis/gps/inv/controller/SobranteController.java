@@ -1,15 +1,9 @@
 package cu.cenpis.gps.inv.controller;
 
-import cu.cenpis.gps.inv.data.service.ActivoFijoService;
-import cu.cenpis.gps.inv.data.entity.ActivoFijo;
-import cu.cenpis.gps.inv.data.entity.Apunte;
 import cu.cenpis.gps.inv.data.entity.Sobrante;
 import cu.cenpis.gps.inv.data.service.ApunteService;
 import cu.cenpis.gps.inv.data.service.SobranteService;
 import cu.cenpis.gps.inv.util.Bundle;
-import cu.cenpis.gps.inv.util.JsfUtil;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 
 public class SobranteController extends BaseController<Sobrante, java.lang.Long> {

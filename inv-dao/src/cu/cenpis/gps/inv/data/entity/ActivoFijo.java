@@ -48,7 +48,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivoFijo.findByFechaAlta", query = "SELECT a FROM ActivoFijo a WHERE a.fechaAlta = :fechaAlta"),
     @NamedQuery(name = "ActivoFijo.findByFechaEstadoActual", query = "SELECT a FROM ActivoFijo a WHERE a.fechaEstadoActual = :fechaEstadoActual"),
     @NamedQuery(name = "ActivoFijo.findRevision", query = "SELECT a FROM ActivoFijo a WHERE a.rotulo = :mRotulo AND a.revision.idRevision = :idRevision"),
-    @NamedQuery(name = "ActivoFijo.findByRevisionActiva", query = "SELECT a FROM ActivoFijo a WHERE a.revision.activo = 1")
+    @NamedQuery(name = "ActivoFijo.findByRevisionActiva", query = "SELECT a FROM ActivoFijo a WHERE a.revision.activo = 1"),
+    @NamedQuery(name = "ActivoFijo.findByPrestado", query = "SELECT a FROM ActivoFijo a WHERE a.prestado = :prestado"),
+    @NamedQuery(name = "ActivoFijo.findByProcesoBaja", query = "SELECT a FROM ActivoFijo a WHERE a.procesoBaja = :procesoBaja")
 })
 public class ActivoFijo implements Serializable {
 
@@ -114,6 +116,13 @@ public class ActivoFijo implements Serializable {
     @Column(name = "fecha_estado_actual")
     @Temporal(TemporalType.DATE)
     private Date fechaEstadoActual;
+    @Basic(optional = false)
+    @NotNull
+    private boolean prestado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "proceso_baja")
+    private boolean procesoBaja;
     @JoinColumn(name = "estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
     private Estado estado;
@@ -129,7 +138,7 @@ public class ActivoFijo implements Serializable {
     @JoinColumn(name = "tipo_activo", referencedColumnName = "id_tipo_activo")
     @ManyToOne
     private TipoActivo tipoActivo;
-
+    
     public ActivoFijo() {
     }
 
@@ -156,6 +165,8 @@ public class ActivoFijo implements Serializable {
         this.responsable = responsable;
         this.revision = revision;
         this.tipoActivo = tipoActivo;
+        this.prestado = false;
+        this.procesoBaja = false;
     }
 
     public Long getIdActivoFijo() {
@@ -308,6 +319,22 @@ public class ActivoFijo implements Serializable {
 
     public void setTipoActivo(TipoActivo tipoActivo) {
         this.tipoActivo = tipoActivo;
+    }
+
+    public Boolean getPrestado() {
+        return prestado;
+    }
+
+    public void setPrestado(Boolean prestado) {
+        this.prestado = prestado;
+    }
+
+    public Boolean getProcesoBaja() {
+        return procesoBaja;
+    }
+
+    public void setProcesoBaja(Boolean procesoBaja) {
+        this.procesoBaja = procesoBaja;
     }
 
     @Override
