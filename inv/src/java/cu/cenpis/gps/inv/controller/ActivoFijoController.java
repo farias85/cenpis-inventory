@@ -74,12 +74,15 @@ public class ActivoFijoController extends BaseController<ActivoFijo, java.lang.L
     }
 
     public List<ActivoFijo> getActivosNuevos() {
-        return getItems();
-        //return activoFijoService.findNuevos();        
+        return activoFijoService.findNuevos();
     }
 
     public List<ActivoFijo> getActivosYaNoEstan() {
         return activoFijoService.findYaNoEstan();
+    }
+
+    public List<ActivoFijo> getActivosInforme() {
+        return getItems();
     }
 
     private List<ActivoFijo> selection = new ArrayList<>();

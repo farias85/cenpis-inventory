@@ -15,7 +15,7 @@
     </application>  
     
     <navigation-rule>
-        <from-view-id>/pages/activoFijo/ListNuevos.xhtml</from-view-id>
+        <from-view-id>/pages/activoFijo/ListInforme.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>navInformeCreate</from-outcome>
             <to-view-id>/pages/informe/Create.xhtml</to-view-id>
