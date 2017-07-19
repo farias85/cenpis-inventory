@@ -9,9 +9,16 @@
 
         <h:form id="MenuBarForm">
             <p:menubar>                                    
-                <p:menuitem value="Lista Activos" outcome="/pages/activoFijo/List" icon="ui-icon-document" />
-                <p:menuitem value="Activos Nuevos" outcome="/pages/activoFijo/ListNuevos" icon="ui-icon-signal" />
-                <p:menuitem value="Activos Eliminados" outcome="/pages/activoFijo/ListYaNoEstan" icon="ui-icon-wrench" />
+                <p:menuitem value="Lista Activos" outcome="/pages/activoFijo/List" 
+                            icon="ui-icon-document" title="Lista de Activos de la revisión actual"/>
+                <p:menuitem value="Revisión Nuevos" outcome="/pages/activoFijo/ListNuevos" 
+                            icon="ui-icon-signal" 
+                            title="Lista los Activos que han sido incorporados al listado respecto a la revisión anterior"/>
+                <p:menuitem value="Revisón Eliminados" outcome="/pages/activoFijo/ListYaNoEstan" 
+                            icon="ui-icon-wrench" 
+                            title="Lista los Activos que han sido eliminados. O sea, que ya no se encuentran en esta revisión. y estaban en las anteriores"/>
+                <p:menuitem value="Informe" outcome="/pages/activoFijo/ListInforme" 
+                            icon="ui-icon-signal" title="Listar Activos para crear un Informe de seguimiento"/>
             </p:menubar>
         </h:form>
 

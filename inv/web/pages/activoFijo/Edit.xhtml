@@ -23,13 +23,13 @@
 
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_rotulo}"/>
                         <p:outputLabel value="#{activoFijoController.selected.rotulo}"/>
-                        
+
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_descripcion}" />
                         <p:outputLabel value="#{activoFijoController.selected.descripcion}" />
-                        
+
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_revision}"/>
                         <p:outputLabel value="#{activoFijoController.selected.revision}"/>
-                        
+
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_estado}" for="estado" />
                         <p:selectOneMenu id="estado" value="#{activoFijoController.selected.estado}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_estado}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -56,7 +56,7 @@
                                            itemValue="#{responsableItem}"
                                            itemLabel="#{responsableItem.nombre}"/>
                         </p:selectOneMenu>
-                        
+
 
                         <p:outputLabel value="#{bundle.EditActivoFijoLabel_tipoActivo}" for="tipoActivo" />
                         <p:selectOneMenu id="tipoActivo" value="#{activoFijoController.selected.tipoActivo}" >
@@ -66,12 +66,17 @@
                                            itemValue="#{tipoActivoItem}"
                                            itemLabel="#{tipoActivoItem.nombre}"/>
                         </p:selectOneMenu>
-                        
+
+                        <p:outputLabel value="#{bundle.EditActivoFijoLabel_prestado}" for="prestado" />
+                        <p:selectBooleanCheckbox id="prestado" value="#{activoFijoController.selected.prestado}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_prestado}"/>
+                        <p:outputLabel value="#{bundle.EditActivoFijoLabel_procesoBaja}" for="procesoBaja" />
+                        <p:selectBooleanCheckbox id="procesoBaja" value="#{activoFijoController.selected.procesoBaja}" required="true" requiredMessage="#{bundle.EditActivoFijoRequiredMessage_procesoBaja}"/>
+
                         <p:row>
                             <p:commandButton action="#{activoFijoController.actionEdit}" value="#{bundle.Save}" ajax="false"/>
                             <p:commandButton immediate="true" action="#{estadoController.actionCancel}" value="#{bundle.Cancel}" />
                         </p:row>
-                        
+
                     </p:panelGrid>
 
                 </h:panelGroup>

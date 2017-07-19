@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BajaEditDlg" widgetVar="BajaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBajaTitle}">
+            <h:form id="BajaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bajaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBajaLabel_idBaja}" for="idBaja" />
+                        <p:inputText id="idBaja" value="#{bajaController.selected.idBaja}" title="#{bundle.EditBajaTitle_idBaja}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_idBaja}"/>
+                        <p:outputLabel value="#{bundle.EditBajaLabel_rotulo}" for="rotulo" />
+                        <p:inputText id="rotulo" value="#{bajaController.selected.rotulo}" title="#{bundle.EditBajaTitle_rotulo}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_rotulo}"/>
+                        <p:outputLabel value="#{bundle.EditBajaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{bajaController.selected.descripcion}" title="#{bundle.EditBajaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.EditBajaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{bajaController.selected.fecha}" title="#{bundle.EditBajaTitle_fecha}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBajaLabel_atmResponsable}" for="atmResponsable" />
+                        <p:inputText id="atmResponsable" value="#{bajaController.selected.atmResponsable}" title="#{bundle.EditBajaTitle_atmResponsable}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_atmResponsable}"/>
+                        <p:outputLabel value="#{bundle.EditBajaLabel_entrega}" for="entrega" />
+                        <p:inputText id="entrega" value="#{bajaController.selected.entrega}" title="#{bundle.EditBajaTitle_entrega}" required="true" requiredMessage="#{bundle.EditBajaRequiredMessage_entrega}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bajaController.update}" value="#{bundle.Save}" update="display,:BajaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BajaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BajaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

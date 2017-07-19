@@ -173,6 +173,15 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="queryMethod" value="getRotulo"/>
     </bean>
     
+    <bean id="bajaService" class="cu.cenpis.gps.inv.data.service.impl.BajaServiceImpl" />
+
+    <bean id="bajaController" class="cu.cenpis.gps.inv.controller.BajaController" scope="session">        
+        <property name="bajaService">
+            <ref bean="bajaService" />
+        </property>
+        <property name="queryMethod" value="getRotulo"/>
+    </bean>
+    
     <bean id="destroyController" class="cu.cenpis.gps.inv.controller.DestroyController" scope="session"/>
     
     <bean id="loginManager" class="cu.cenpis.gps.inv.controller.LoginManager" scope="session"/>
