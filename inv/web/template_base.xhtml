@@ -9,11 +9,15 @@
     <h:head>
         <title><ui:insert name="title">Inventario-CENPIS</ui:insert></title>
         <!-- Template CSS -->
+
+
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="templatemo_style.css"/>
         <h:outputStylesheet library="js" name="colorbox/colorbox.css"/>
-        <h:outputStylesheet library="css" name="mycss.css"/>        
+        <h:outputStylesheet library="css" name="mycss.css"/>     
+        <h:outputStylesheet library="materialize" name="css/materialize.css"/>  
+        <h:outputStylesheet library="mdi" name="css/materialdesignicons.css"/>  
 
         <!-- Template JS -->
         <h:outputScript library="js" name="jsfcrud.js"/>
@@ -22,6 +26,7 @@
         <h:outputScript library="js" name="stickUp.min.js"/>
         <h:outputScript library="js" name="colorbox/jquery.colorbox-min.js"/>
         <h:outputScript library="js" name="templatemo_script.js"/>
+        <h:outputScript library="materialize" name="js/materialize.js"/>
 
     </h:head>
 
@@ -48,7 +53,7 @@
                                     </h:form>  
 
                                 </sec:authorize>
-                                
+
                             </div>
                         </div>
                     </div>                   
@@ -157,128 +162,154 @@
 
                 <sec:authorize ifAnyGranted="ROLE_ADMIN">
 
-                    <ui:insert name="service">
-                        <div class="templatemo-service">
-                            <div class="container">
-                                <div class="row">
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/estado/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mestado"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">ESTADO</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>
+                <ui:insert name="service">
+                    <div class="templatemo-service">
+                        <div class="container">
+                            <div class="row">
 
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/local/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mlocal"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">LOCAL</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>
+<!--                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item" style="">
 
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/metadata/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mmetadata"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">METADATA</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>
+                                        <a class="waves-effect waves-light btn">button</a>
+                                        <a class="waves-effect waves-light btn"><i class="mdi mdi-48px mdi-light mdi-account dark-demo"></i>button</a>
+                                        <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
 
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/auditoria/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mauditoria"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">AUDITORÍA</span>
-                                            </div>                                        
-                                        </div>
+                                        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+                                        <p style="padding-bottom:20px;">
+                                            <code>mdi-light</code> <i class="mdi mdi-48px mdi-light mdi-account dark-demo"></i>
+                                            <code>mdi-light mdi-inactive</code> <i class="mdi mdi-48px mdi-light mdi-inactive mdi-account dark-demo"></i>
+                                            <code>mdi-dark</code> <i class="mdi mdi-48px mdi-dark mdi-account"></i>
+                                            <code>mdi-dark mdi-inactive</code> <i class="mdi mdi-48px mdi-dark mdi-inactive mdi-account"></i>
+                                        </p>
+
+                                        <div>
+                                            <p:link outcome="/pages/estado/List" class="waves-effect waves-light btn blue" style="color: white"> 
+                                                Estado
+                                            </p:link>
+                                        </div>   
+
+                                    </div>
+                                </div>-->
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/estado/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mestado"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">ESTADO</span>
+                                        </div>                                        
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/responsable/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mresponsable"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">RESPONSABLE</span>
-                                            </div>                                        
-                                        </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/local/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mlocal"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">LOCAL</span>
+                                        </div>                                        
                                     </div>
-
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/usuario/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="musuario"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">USUARIO</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>
-
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/rol/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrol"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">ROL</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>
-
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/revision/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrevision"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">REVISIÓN</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>                                
                                 </div>
 
-                                <div class="row">
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/tipoActivo/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtipoactivo"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">TIPO ACTIVO</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>                                
-
-                                     <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <div class="templatemo-service-item">
-                                            <div>
-                                                <p:link outcome="/pages/tipoResultado/List" class="external-link">
-                                                    <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtiporesultado"/>
-                                                </p:link>
-                                                <span class="templatemo-service-item-header">TIPO RESULTADO</span>
-                                            </div>                                        
-                                        </div>
-                                    </div>                                
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/metadata/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mmetadata"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">METADATA</span>
+                                        </div>                                        
+                                    </div>
                                 </div>
 
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/auditoria/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mauditoria"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">AUDITORÍA</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/responsable/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mresponsable"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">RESPONSABLE</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/usuario/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="musuario"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">USUARIO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/rol/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrol"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">ROL</span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/revision/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mrevision"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">REVISIÓN</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/tipoActivo/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtipoactivo"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">TIPO ACTIVO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="templatemo-service-item">
+                                        <div>
+                                            <p:link outcome="/pages/tipoResultado/List" class="external-link">
+                                                <h:graphicImage library="images" name="social-icon-dribbble.png" id="mtiporesultado"/>
+                                            </p:link>
+                                            <span class="templatemo-service-item-header">TIPO RESULTADO</span>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+
                         </div>
-                    </ui:insert>
+                    </div>
+                </ui:insert>
 
                 </sec:authorize>
 
